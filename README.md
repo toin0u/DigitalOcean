@@ -1,11 +1,15 @@
-DigitalOcean API
-================
+DigitalOcean
+============
 
 This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.digitalocean.com/)
 [API](https://www.digitalocean.com/api).
 
-> DigitalOcean is ***built for Developers***, helps to ***get things done faster*** and to
-> ***deploy an SSD cloud server*** in less than 55 seconds with a ***dedicated IP*** and ***root access***.
+[![Build Status](https://secure.travis-ci.org/toin0u/DigitalOcean.png)](http://travis-ci.org/toin0u/DigitalOcean)
+[![project status](http://stillmaintained.com/toin0u/DigitalOcean.png)](http://stillmaintained.com/toin0u/DigitalOcean)
+
+> DigitalOcean is **built for Developers**, helps to **get things done faster** and to
+> **deploy an SSD cloud server** in less than 55 seconds with a **dedicated IP** and **root access**.
+> [Read more](https://www.digitalocean.com/features).
 
 
 Installation
@@ -60,8 +64,8 @@ API
 
 * `showAllActive()`: returns all active droplets that are currently running in your account.
 * `show($id)`: returns full information for a specific droplet.
-* `create($argument)`: creates a new droplet. The argument should be an ***array*** with 4 required keys: ***name***,
-***sized_id***, ***image_id*** and ***region_id***. ***ssh_key_ids*** key is optional.
+* `create($argument)`: creates a new droplet. The argument should be an **array** with 4 required keys: **name**,
+**sized_id**, **image_id** and **region_id**. **ssh_key_ids** key is optional.
 * `reboot($id)`: reboots a droplet.
 * `powerCycle($id)`: power cycles a droplet.
 * `shutdown($id)`: shutdowns a running droplet.
@@ -69,17 +73,21 @@ API
 * `powerOff($id)`: poweroffs a running droplet.
 * `resetRootPassword($id)`: resets the root password for a droplet.
 * `resize($id, $argument)`: resizes a specific droplet to a different size. The argument should be an array with
-***size_id*** key.
+**size_id** key.
 * `snapshot($id, $argument)`: takes a snapshot of the running droplet, which can later be restored or used to create
-a new droplet from the same image. The argument can be an empty array or an array with ***name*** key.
+a new droplet from the same image. The argument can be an empty array or an array with **name** key.
 * `restore($id, $argument)`: restores a droplet with a previous image or snapshot. The argument should be an array with
-***image_id*** key.
+**image_id** key.
 * `rebuild($id, $argument)`: reinstalls a droplet with a default image. The argument should be an array with
-***image_id*** key.
+**image_id** key.
 * `enableAutomaticBackups($id)`: enables automatic backups which run in the background daily to backup your droplet's
 data.
 * `disableAutomaticBackups($id)`: disables automatic backups from running to backup your droplet's data.
 * `destroy($id)`: destroys one of your droplets - this is irreversible !
+
+### Regions ###
+
+WIP
 
 ### Images ###
 
