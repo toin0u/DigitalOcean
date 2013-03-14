@@ -15,6 +15,8 @@ use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 use DigitalOcean\Droplet\Droplet;
 
 /**
+ * DigitalOcean class.
+ *
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class DigitalOcean extends AbstractDigitalOcean

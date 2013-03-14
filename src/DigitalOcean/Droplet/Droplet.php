@@ -16,6 +16,8 @@ use DigitalOcean\AbstractDigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 
 /**
+ * Droplet class.
+ *
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class Droplet extends AbstractDigitalOcean

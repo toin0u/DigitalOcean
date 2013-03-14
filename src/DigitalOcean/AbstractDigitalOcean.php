@@ -12,6 +12,8 @@
 namespace DigitalOcean;
 
 /**
+ * DigitalOcean abstract class.
+ *
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class AbstractDigitalOcean

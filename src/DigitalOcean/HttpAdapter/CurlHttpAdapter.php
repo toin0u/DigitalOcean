@@ -13,6 +13,8 @@ namespace DigitalOcean\HttpAdapter;
 
 
 /**
+ * CurlHttpAdapter class.
+ *
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class CurlHttpAdapter implements HttpAdapterInterface

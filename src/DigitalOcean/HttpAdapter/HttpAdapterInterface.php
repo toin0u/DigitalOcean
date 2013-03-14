@@ -12,6 +12,8 @@
 namespace DigitalOcean\HttpAdapter;
 
 /**
+ * HttpAdapter interface.
+ *
  * @author Antoine Corcy <contact@sbin.dk>
  */
 interface HttpAdapterInterface
