@@ -1,5 +1,5 @@
 {
-    "name": "toin0u/DigitalOcean",
+    "name": "toin0u/digitalocean",
     "type": "library",
     "description": "DigitalOcean API PHP 5.3+ library",
     "keywords": ["DigitalOcean", "API"],

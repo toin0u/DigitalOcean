@@ -15,14 +15,14 @@ This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.
 Installation
 ------------
 
-This library can be found on [Packagist](https://packagist.org/packages/toin0u/DigitalOcean).
+This library can be found on [Packagist](https://packagist.org/packages/toin0u/digitalocean).
 The recommended way to install this is through [composer](http://getcomposer.org).
 
 Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/DigitalOcean:@stable
+$ php composer.phar require toin0u/digitalocean:@stable
 ```
 
 Now you can add the autoloader, and you will have access to the library:
