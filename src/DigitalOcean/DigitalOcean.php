@@ -13,6 +13,7 @@ namespace DigitalOcean;
 
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 use DigitalOcean\Droplet\Droplet;
+use DigitalOcean\Region\Region;
 
 /**
  * DigitalOcean class.
@@ -65,5 +66,15 @@ class DigitalOcean
     public function droplet()
     {
         return new Droplet($this->clientId, $this->apiKey, $this->adapter);
+    }
+
+    /**
+     * Alias to region object.
+     *
+     * @return Region instance.
+     */
+    public function region()
+    {
+        return new Region($this->clientId, $this->apiKey, $this->adapter);
     }
 }

@@ -11,7 +11,6 @@
 
 namespace DigitalOcean\Droplet;
 
-use DigitalOcean\DigitalOcean;
 use DigitalOcean\Droplet\DropletActions;
 use DigitalOcean\AbstractDigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;

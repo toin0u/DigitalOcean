@@ -87,7 +87,7 @@ data.
 
 ### Regions ###
 
-WIP
+* `regions()`: returns all the available regions within the Digital Ocean cloud.
 
 ### Images ###
 
