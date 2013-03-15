@@ -14,6 +14,7 @@ namespace DigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 use DigitalOcean\Droplet\Droplet;
 use DigitalOcean\Region\Region;
+use DigitalOcean\Image\Image;
 
 /**
  * DigitalOcean class.
@@ -76,5 +77,15 @@ class DigitalOcean
     public function region()
     {
         return new Region($this->clientId, $this->apiKey, $this->adapter);
+    }
+
+    /**
+     * Alias to image object.
+     *
+     * @return Image instance.
+     */
+    public function image()
+    {
+        return new Image($this->clientId, $this->apiKey, $this->adapter);
     }
 }

@@ -87,11 +87,17 @@ data.
 
 ### Regions ###
 
-* `all()`: returns all the available regions within the Digital Ocean cloud.
+* `getAll()`: returns all the available regions within the Digital Ocean cloud.
 
 ### Images ###
 
-WIP
+* `getAll()`: returns all the available images that can be accessed by your client ID. You will have access to
+all public images by default, and any snapshots or backups that you have created in your own account.
+* `getMyImages()`: returns all your images.
+* `getGlobal()`: returns all global images.
+* `show($id)`: displays the attributes of an image.
+* `destroy($id)`: destroys an image. There is no way to restore a deleted image so be careful and ensure your data
+is properly backed up.
 
 ### SSH Keys ###
 

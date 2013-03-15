@@ -36,11 +36,11 @@ class AbstractDigitalOcean
     protected $credentials;
 
     /**
-     * The droplet Id.
+     * The Id of the element to work with.
      *
      * @var integer
      */
-    protected $dropletId;
+    protected $id;
 
     /**
      * The API url.
@@ -76,17 +76,17 @@ class AbstractDigitalOcean
     /**
      * Builds the API url according to the parameters.
      *
-     * @param integer $dropletId  The droplet Id (optional).
+     * @param integer $id         The Id of the element to work with (optional).
      * @param string  $action     The action to perform (optional).
      * @param array   $parameters An array of parameters (optional).
      *
      * @return string The built API url.
      */
-    protected function buildQuery($dropletId = null, $action = null, array $parameters = array())
+    protected function buildQuery($id = null, $action = null, array $parameters = array())
     {
         $parameters = http_build_query(array_merge($parameters, $this->credentials));
 
-        $query = $dropletId ? sprintf("%s/%s", $this->apiUrl, $dropletId) : $this->apiUrl;
+        $query = $id ? sprintf("%s/%s", $this->apiUrl, $id) : $this->apiUrl;
         $query = $action ? sprintf("%s/%s/?%s", $query, $action, $parameters) : sprintf("%s/?%s", $query, $parameters);
 
         return $query;

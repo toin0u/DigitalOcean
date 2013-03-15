@@ -35,4 +35,13 @@ class DigitalOceanTest extends TestCase
         $this->assertTrue(is_object($region));
         $this->assertInstanceOf('\\DigitalOcean\\Region\\Region', $region);
     }
+
+    public function testReturnsImageInstance()
+    {
+        $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
+        $image = $digitalOcean->image();
+
+        $this->assertTrue(is_object($image));
+        $this->assertInstanceOf('\\DigitalOcean\\Image\\Image', $image);
+    }
 }
