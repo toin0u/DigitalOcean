@@ -54,6 +54,7 @@ Currently, there are the following adapters:
 issuing HTTP requests.
 * `GuzzleHttpAdapter` to use [Guzzle](https://github.com/guzzle/guzzle), PHP 5.3+ HTTP client and framework
 for building RESTful web service clients.
+* `ZendHttpAdapter` to use [Zend Http Client](http://framework.zend.com/manual/2.0/en/modules/zend.http.client.html).
 
 ```php
 require 'vendor/autoload.php';

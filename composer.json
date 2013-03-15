@@ -23,11 +23,13 @@
     },
     "require-dev": {
         "kriswallsmith/buzz": "@stable",
-        "guzzle/guzzle": "@stable"
+        "guzzle/guzzle": "@stable",
+        "zendframework/zendframework": "~2.1"
     },
     "suggest": {
-        "kriswallsmith/buzz": "Enabling Buzz allows you to use the BuzzHttpAdapter.",
-        "guzzle/guzzle": "Enabling Guzzle allows you to use the GuzzleHttpAdapter."
+        "kriswallsmith/buzz": "@stable",
+        "guzzle/guzzle": "@stable",
+        "zendframework/zendframework": "~2.1"
     },
     "autoload": {
         "psr-0": { "DigitalOcean": "src/" }
