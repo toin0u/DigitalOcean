@@ -12,32 +12,36 @@
 namespace DigitalOcean\Tests\HttpAdapter;
 
 use DigitalOcean\Tests\TestCase;
-use DigitalOcean\HttpAdapter\CurlHttpAdapter;
+use DigitalOcean\HttpAdapter\GuzzleHttpAdapter;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class CurlHttpAdapterTest extends TestCase
+class GuzzleHttpAdapterTest extends TestCase
 {
-    protected $curl;
+    protected $guzzle;
 
     protected function setUp()
     {
-        $this->curl = new CurlHttpAdapter();
+        if (!class_exists('Guzzle\Service\Client')) {
+            $this->markTestSkipped('Guzzle library has to be installed');
+        }
+
+        $this->guzzle = new GuzzleHttpAdapter();
     }
 
     public function testGetNullContent()
     {
-        $this->assertNull($this->curl->getContent(null));
+        $this->assertNull($this->guzzle->getContent(null));
     }
 
     public function testGetFalseContent()
     {
-        $this->assertNull($this->curl->getContent(false));
+        $this->assertNull($this->guzzle->getContent(false));
     }
 
     public function testGetName()
     {
-        $this->assertEquals('curl', $this->curl->getName());
+        $this->assertEquals('guzzle', $this->guzzle->getName());
     }
 }
