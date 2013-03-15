@@ -16,6 +16,7 @@ use DigitalOcean\Droplet\Droplet;
 use DigitalOcean\Region\Region;
 use DigitalOcean\Image\Image;
 use DigitalOcean\Size\Size;
+use DigitalOcean\SSHKeys\SSHKeys;
 
 /**
  * DigitalOcean class.
@@ -98,5 +99,15 @@ class DigitalOcean
     public function size()
     {
         return new Size($this->clientId, $this->apiKey, $this->adapter);
+    }
+
+    /**
+     * Alias to sshkeys object.
+     *
+     * @return SSHKeys instance.
+     */
+    public function sshKeys()
+    {
+        return new SSHKeys($this->clientId, $this->apiKey, $this->adapter);
     }
 }

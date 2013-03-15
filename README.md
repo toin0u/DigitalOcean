@@ -101,7 +101,13 @@ is properly backed up.
 
 ### SSH Keys ###
 
-WIP
+* `getAll()`: returns all the available public SSH keys in your account that can be added to a droplet.
+* `show($id)`: shows a specific public SSH key in your account that can be added to a droplet.
+* `add($argument)`: adds a new public SSH key to your account. The argument should be anarray with **name** and
+**ssh_key_pub** keys.
+* `edit($argument)`: edits an existing public SSH key in your account. The argument should be an array with
+**ssh_key_pub** key.
+* `destroy($id)`: deletes the SSH key from your account.
 
 ### Sizes ###
 

@@ -53,4 +53,13 @@ class DigitalOceanTest extends TestCase
         $this->assertTrue(is_object($size));
         $this->assertInstanceOf('\\DigitalOcean\\Size\\Size', $size);
     }
+
+    public function testReturnsSSHKeysInstance()
+    {
+        $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
+        $sshKeys = $digitalOcean->sshKeys();
+
+        $this->assertTrue(is_object($sshKeys));
+        $this->assertInstanceOf('\\DigitalOcean\\SSHKeys\\SSHKeys', $sshKeys);
+    }
 }
