@@ -49,7 +49,7 @@ class Region extends AbstractDigitalOcean
      *
      * @return StdClass
      */
-    public function regions()
+    public function all()
     {
         return $this->processQuery($this->buildQuery());
     }

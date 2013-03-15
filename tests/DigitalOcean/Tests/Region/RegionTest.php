@@ -51,7 +51,7 @@ JSON
         ;
 
         $region  = new Region($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $regions = $region->regions();
+        $regions = $region->all();
 
         $this->assertTrue(is_object($regions));
         $this->assertEquals('OK', $regions->status);
