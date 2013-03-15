@@ -45,7 +45,8 @@ require_once 'src/autoload.php';
 Usage
 -----
 
-`HttpAdapter`s are responsible to get data from DigitalOcean's API.
+You need an `HttpAdapter` which is responsible to get data from DigitalOcean's RESTfull API.
+You can provide your own adapter by implementing `\DigitalOcean\HttpAdapter\HttpAdapterInterface`.
 
 Currently, there are the following adapters:
 
