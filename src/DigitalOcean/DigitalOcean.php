@@ -15,6 +15,7 @@ use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 use DigitalOcean\Droplet\Droplet;
 use DigitalOcean\Region\Region;
 use DigitalOcean\Image\Image;
+use DigitalOcean\Size\Size;
 
 /**
  * DigitalOcean class.
@@ -87,5 +88,15 @@ class DigitalOcean
     public function image()
     {
         return new Image($this->clientId, $this->apiKey, $this->adapter);
+    }
+
+    /**
+     * Alias to size object.
+     *
+     * @return Size instance.
+     */
+    public function size()
+    {
+        return new Size($this->clientId, $this->apiKey, $this->adapter);
     }
 }
