@@ -32,28 +32,6 @@ class Droplet extends AbstractDigitalOcean
 
 
     /**
-     * The credentials.
-     *
-     * @var array
-     */
-    private $credentials;
-
-    /**
-     * The droplet Id.
-     *
-     * @var integer
-     */
-    private $dropletId;
-
-    /**
-     * The API url.
-     *
-     * @var string
-     */
-    protected $apiUrl;
-
-
-    /**
      * Constructor.
      *
      * @param string               $clientId The cliend ID.
@@ -62,56 +40,9 @@ class Droplet extends AbstractDigitalOcean
      */
     public function __construct($clientId, $apiKey, HttpAdapterInterface $adapter)
     {
-        $this->credentials = array(
-            'client_id' => $clientId,
-            'api_key'   => $apiKey,
-        );
+        parent::__construct($clientId, $apiKey, $adapter);
+
         $this->apiUrl  = sprintf("%s/%s", AbstractDigitalOcean::ENDPOINT_URL, self::DROPLETS);
-        $this->adapter = $adapter;
-    }
-
-    /**
-     * Builds the API url according to the parameters.
-     *
-     * @param integer $dropletId  The droplet Id (optional).
-     * @param string  $action     The action to perform (optional).
-     * @param array   $parameters An array of parameters (optional).
-     *
-     * @return string The built API url.
-     */
-    protected function buildQuery($dropletId = null, $action = null, array $parameters = array())
-    {
-        $parameters = http_build_query(array_merge($parameters, $this->credentials));
-
-        $query = $dropletId ? sprintf("%s/%s", $this->apiUrl, $dropletId) : $this->apiUrl;
-        $query = $action ? sprintf("%s/%s/?%s", $query, $action, $parameters) : sprintf("%s/?%s", $query, $parameters);
-
-        return $query;
-    }
-
-    /**
-     * Processes the query.
-     *
-     * @param string $query The query to process.
-     *
-     * @return StdClass
-     *
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    protected function processQuery($query)
-    {
-        $processed = json_decode($this->adapter->getContent($query));
-
-        if ('ERROR' === $processed->status) {
-            if (isset($processed->description)) {
-                throw new \InvalidArgumentException($processed->description);
-            }
-
-            throw new \RuntimeException($processed->error_message);
-        }
-
-        return $processed;
     }
 
     /**

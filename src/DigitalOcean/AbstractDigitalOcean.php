@@ -11,6 +11,8 @@
 
 namespace DigitalOcean;
 
+use DigitalOcean\HttpAdapter\HttpAdapterInterface;
+
 /**
  * DigitalOcean abstract class.
  *
@@ -27,9 +29,91 @@ class AbstractDigitalOcean
 
 
     /**
+     * The credentials.
+     *
+     * @var array
+     */
+    protected $credentials;
+
+    /**
+     * The droplet Id.
+     *
+     * @var integer
+     */
+    protected $dropletId;
+
+    /**
+     * The API url.
+     *
+     * @var string
+     */
+    protected $apiUrl;
+
+    /**
      * The adapter to use.
      *
      * @var HttpAdapterInterface
      */
     protected $adapter;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string               $clientId The cliend ID.
+     * @param string               $apiKey   The API key.
+     * @param HttpAdapterInterface $adapter  The HttpAdapter to use.
+     */
+    public function __construct($clientId, $apiKey, HttpAdapterInterface $adapter)
+    {
+        $this->credentials = array(
+            'client_id' => $clientId,
+            'api_key'   => $apiKey,
+        );
+        $this->adapter = $adapter;
+    }
+
+    /**
+     * Builds the API url according to the parameters.
+     *
+     * @param integer $dropletId  The droplet Id (optional).
+     * @param string  $action     The action to perform (optional).
+     * @param array   $parameters An array of parameters (optional).
+     *
+     * @return string The built API url.
+     */
+    protected function buildQuery($dropletId = null, $action = null, array $parameters = array())
+    {
+        $parameters = http_build_query(array_merge($parameters, $this->credentials));
+
+        $query = $dropletId ? sprintf("%s/%s", $this->apiUrl, $dropletId) : $this->apiUrl;
+        $query = $action ? sprintf("%s/%s/?%s", $query, $action, $parameters) : sprintf("%s/?%s", $query, $parameters);
+
+        return $query;
+    }
+
+    /**
+     * Processes the query.
+     *
+     * @param string $query The query to process.
+     *
+     * @return StdClass
+     *
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    protected function processQuery($query)
+    {
+        $processed = json_decode($this->adapter->getContent($query));
+
+        if ('ERROR' === $processed->status) {
+            if (isset($processed->description)) {
+                throw new \InvalidArgumentException($processed->description);
+            }
+
+            throw new \RuntimeException($processed->error_message);
+        }
+
+        return $processed;
+    }
 }

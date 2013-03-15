@@ -19,7 +19,7 @@ use DigitalOcean\Droplet\Droplet;
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class DigitalOcean extends AbstractDigitalOcean
+class DigitalOcean
 {
     /**
      * Version.
