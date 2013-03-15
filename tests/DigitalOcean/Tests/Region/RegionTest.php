@@ -19,15 +19,6 @@ use DigitalOcean\Region\Region;
  */
 class RegionTest extends TestCase
 {
-    protected $clientId;
-    protected $apiKey;
-
-    protected function setUp()
-    {
-        $this->clientId = 'foo';
-        $this->apiKey   = 'bar';
-    }
-
     public function testGetAllUrl()
     {
         $region = new Region($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));

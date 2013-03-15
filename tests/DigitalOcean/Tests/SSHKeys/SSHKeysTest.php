@@ -20,16 +20,12 @@ use DigitalOcean\SSHKeys\SSHKeysActions;
  */
 class SSHKeysTest extends TestCase
 {
-    protected $clientId;
-    protected $apiKey;
     protected $sshKeyId;
     protected $sshKeys;
     protected $sshKeysBuildQueryMethod;
 
     protected function setUp()
     {
-        $this->clientId = 'foo';
-        $this->apiKey   = 'bar';
         $this->sshKeyId = 123;
 
         $this->sshKeys = new SSHKeys($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));

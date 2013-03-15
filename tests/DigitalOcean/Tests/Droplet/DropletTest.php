@@ -20,16 +20,12 @@ use DigitalOcean\Droplet\DropletActions;
  */
 class DropletTest extends TestCase
 {
-    protected $clientId;
-    protected $apiKey;
     protected $dropletId;
     protected $droplet;
     protected $dropletBuildQueryMethod;
 
     protected function setUp()
     {
-        $this->clientId  = 'foo';
-        $this->apiKey    = 'bar';
         $this->dropletId = 123;
 
         $this->droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));

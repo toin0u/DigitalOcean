@@ -108,7 +108,7 @@ class SSHKeys extends AbstractDigitalOcean
     }
 
     /**
-     * Delete the SSH key from your account.
+     * Deletes the SSH key from your account.
      *
      * @param integer $sshKeyId The id of the SSH key.
      *

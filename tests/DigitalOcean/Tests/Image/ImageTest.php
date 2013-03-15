@@ -20,16 +20,12 @@ use DigitalOcean\Image\ImageActions;
  */
 class ImageTest extends TestCase
 {
-    protected $clientId;
-    protected $apiKey;
     protected $imageId;
     protected $image;
     protected $imageBuildQueryMethod;
 
     protected function setUp()
     {
-        $this->clientId = 'foo';
-        $this->apiKey   = 'bar';
         $this->imageId  = 123;
 
         $this->image = new Image($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));

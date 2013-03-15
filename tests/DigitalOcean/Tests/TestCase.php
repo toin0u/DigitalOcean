@@ -16,6 +16,9 @@ namespace DigitalOcean\Tests;
  */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
+    protected $clientId = 'foo';
+    protected $apiKey   = 'bar';
+
     /**
      * @return HttpAdapterInterface
      */
