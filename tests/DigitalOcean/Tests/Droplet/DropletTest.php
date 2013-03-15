@@ -24,6 +24,7 @@ class DropletTest extends TestCase
     protected $apiKey;
     protected $dropletId;
     protected $droplet;
+    protected $dropletBuildQueryMethod;
 
     protected function setUp()
     {
@@ -31,14 +32,18 @@ class DropletTest extends TestCase
         $this->apiKey    = 'bar';
         $this->dropletId = 123;
 
-        $this->droplet = new TestableDroplet($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $this->droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $this->dropletBuildQueryMethod = new \ReflectionMethod(
+            $this->droplet, 'buildQuery'
+        );
+        $this->dropletBuildQueryMethod->setAccessible(true);
     }
 
     public function testShowAllActiveUrl()
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery()
+            $this->dropletBuildQueryMethod->invoke($this->droplet)
         );
     }
 
@@ -49,7 +54,7 @@ class DropletTest extends TestCase
 JSON
         ;
 
-        $droplet  = new TestableDroplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
         $droplets = $droplet->showAllActive();
 
         $this->assertTrue(is_object($droplets));
@@ -120,7 +125,7 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId)
+            $this->dropletBuildQueryMethod->invoke($this->droplet, $this->dropletId)
         );
     }
 
@@ -171,7 +176,7 @@ JSON
 
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/new/?name=MyNewDroplet&size_id=111&image_id=222&region_id=333&ssh_key_ids=MySshKeyId1%2CMySshKeyId2&client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery(null, DropletActions::ACTION_NEW, $newDroplet)
+            $this->dropletBuildQueryMethod->invoke($this->droplet, null, DropletActions::ACTION_NEW, $newDroplet)
         );
     }
 
@@ -251,7 +256,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/reboot/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_REBOOT)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_REBOOT
+            )
         );
     }
 
@@ -274,7 +281,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/power_cycle/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_POWER_CYCLE)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_POWER_CYCLE
+            )
         );
     }
 
@@ -297,7 +306,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/shutdown/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_SHUTDOWN)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_SHUTDOWN
+            )
         );
     }
 
@@ -320,7 +331,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/power_on/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_POWER_ON)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_POWER_ON
+            )
         );
     }
 
@@ -343,7 +356,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/power_off/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_POWER_OFF)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_POWER_OFF
+            )
         );
     }
 
@@ -366,7 +381,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/password_reset/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_RESET_ROOT_PASSWORD)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_RESET_ROOT_PASSWORD
+            )
         );
     }
 
@@ -393,7 +410,9 @@ JSON
 
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/resize/?size_id=111&client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_RESIZE, $newSize)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_RESIZE, $newSize
+            )
         );
     }
 
@@ -425,7 +444,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/snapshot/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_SNAPSHOT)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_SNAPSHOT
+            )
         );
     }
 
@@ -437,7 +458,9 @@ JSON
 
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/snapshot/?name=MySnapshotName&client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_SNAPSHOT, $newSnapshot)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_SNAPSHOT, $newSnapshot
+            )
         );
     }
 
@@ -464,7 +487,9 @@ JSON
 
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/restore/?image_id=1111&client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_RESTORE, $imageToRestore)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_RESTORE, $imageToRestore
+            )
         );
     }
 
@@ -500,7 +525,9 @@ JSON
 
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/rebuild/?image_id=1111&client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_REBUILD, $imageToRebuild)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_REBUILD, $imageToRebuild
+            )
         );
     }
 
@@ -532,7 +559,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/enable_backups/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_ENABLE_BACKUPS)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_ENABLE_BACKUPS
+            )
         );
     }
 
@@ -555,7 +584,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/disable_backups/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_DISABLE_BACKUPS)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_DISABLE_BACKUPS
+            )
         );
     }
 
@@ -578,7 +609,9 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/destroy/?client_id=foo&api_key=bar',
-            $this->droplet->getBuiltQuery($this->dropletId, DropletActions::ACTION_DESTROY)
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplet, $this->dropletId, DropletActions::ACTION_DESTROY
+            )
         );
     }
 
@@ -595,13 +628,5 @@ JSON
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
         $this->assertSame(7501, $droplet->event_id);
-    }
-}
-
-class TestableDroplet extends Droplet
-{
-    public function getBuiltQuery($dropletId = null, $action = null, array $parameters = array())
-    {
-        return $this->buildQuery($dropletId, $action, $parameters);
     }
 }
