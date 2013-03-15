@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Image;
+namespace DigitalOcean\Images;
 
-use DigitalOcean\Image\ImageActions;
+use DigitalOcean\Images\ImagesActions;
 use DigitalOcean\AbstractDigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 
 /**
- * Image class.
+ * Images class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class Image extends AbstractDigitalOcean
+class Images extends AbstractDigitalOcean
 {
     /**
      * Images API name.
@@ -64,7 +64,7 @@ class Image extends AbstractDigitalOcean
     public function getMyImages()
     {
         return $this->processQuery($this->buildQuery(
-            null, null, array('filter' => ImageActions::ACTION_FILTER_MY_IMAGES))
+            null, null, array('filter' => ImagesActions::ACTION_FILTER_MY_IMAGES))
         );
     }
 
@@ -76,7 +76,7 @@ class Image extends AbstractDigitalOcean
     public function getGlobal()
     {
         return $this->processQuery($this->buildQuery(
-            null, null, array('filter' => ImageActions::ACTION_FILTER_GLOBAL))
+            null, null, array('filter' => ImagesActions::ACTION_FILTER_GLOBAL))
         );
     }
 
@@ -102,6 +102,6 @@ class Image extends AbstractDigitalOcean
      */
     public function destroy($imageId)
     {
-        return $this->processQuery($this->buildQuery($imageId, ImageActions::ACTION_DESTROY_IMAGE));
+        return $this->processQuery($this->buildQuery($imageId, ImagesActions::ACTION_DESTROY_IMAGE));
     }
 }

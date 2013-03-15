@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Tests\Image;
+namespace DigitalOcean\Tests\Images;
 
 use DigitalOcean\Tests\TestCase;
-use DigitalOcean\Image\Image;
-use DigitalOcean\Image\ImageActions;
+use DigitalOcean\Images\Images;
+use DigitalOcean\Images\ImagesActions;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class ImageTest extends TestCase
+class ImagesTest extends TestCase
 {
     protected $imageId;
     protected $image;
@@ -28,9 +28,9 @@ class ImageTest extends TestCase
     {
         $this->imageId  = 123;
 
-        $this->image = new Image($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $this->images = new Images($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
         $this->imageBuildQueryMethod = new \ReflectionMethod(
-            $this->image, 'buildQuery'
+            $this->images, 'buildQuery'
         );
         $this->imageBuildQueryMethod->setAccessible(true);
     }
@@ -39,7 +39,7 @@ class ImageTest extends TestCase
     {
         $this->assertEquals(
             'https://api.digitalocean.com/images/?client_id=foo&api_key=bar',
-            $this->imageBuildQueryMethod->invoke($this->image)
+            $this->imageBuildQueryMethod->invoke($this->images)
         );
     }
 
@@ -50,8 +50,8 @@ class ImageTest extends TestCase
 JSON
         ;
 
-        $image  = new Image($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $images = $image->getAll();
+        $images = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $images = $images->getAll();
 
         $this->assertTrue(is_object($images));
         $this->assertEquals('OK', $images->status);
@@ -78,7 +78,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/images/?filter=my_images&client_id=foo&api_key=bar',
             $this->imageBuildQueryMethod->invoke(
-                $this->image, null, null, array('filter' => ImageActions::ACTION_FILTER_MY_IMAGES)
+                $this->images, null, null, array('filter' => ImagesActions::ACTION_FILTER_MY_IMAGES)
             )
         );
     }
@@ -90,8 +90,8 @@ JSON
 JSON
         ;
 
-        $image    = new Image($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $myImages = $image->getMyImages();
+        $images   = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $myImages = $images->getMyImages();
 
         $this->assertTrue(is_object($myImages));
         $this->assertEquals('OK', $myImages->status);
@@ -103,7 +103,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/images/?filter=global&client_id=foo&api_key=bar',
             $this->imageBuildQueryMethod->invoke(
-                $this->image, null, null, array('filter' => ImageActions::ACTION_FILTER_GLOBAL)
+                $this->images, null, null, array('filter' => ImagesActions::ACTION_FILTER_GLOBAL)
             )
         );
     }
@@ -115,8 +115,8 @@ JSON
 JSON
         ;
 
-        $image        = new Image($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $globalImages = $image->getGlobal();
+        $images       = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $globalImages = $images->getGlobal();
 
         $this->assertTrue(is_object($globalImages));
         $this->assertEquals('OK', $globalImages->status);
@@ -127,7 +127,7 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/images/123/?client_id=foo&api_key=bar',
-            $this->imageBuildQueryMethod->invoke($this->image, $this->imageId)
+            $this->imageBuildQueryMethod->invoke($this->images, $this->imageId)
         );
     }
 
@@ -138,8 +138,8 @@ JSON
 JSON
         ;
 
-        $image = new Image($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $show  = $image->show($this->imageId);
+        $images = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $show   = $images->show($this->imageId);
 
         $this->assertTrue(is_object($show));
         $this->assertEquals('OK', $show->status);
@@ -152,7 +152,7 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/images/123/destroy/?client_id=foo&api_key=bar',
-            $this->imageBuildQueryMethod->invoke($this->image, $this->imageId, ImageActions::ACTION_DESTROY_IMAGE)
+            $this->imageBuildQueryMethod->invoke($this->images, $this->imageId, ImagesActions::ACTION_DESTROY_IMAGE)
         );
     }
 
@@ -163,8 +163,8 @@ JSON
 JSON
         ;
 
-        $image   = new Image($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $destroy = $image->destroy($this->imageId, ImageActions::ACTION_DESTROY_IMAGE);
+        $images  = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $destroy = $images->destroy($this->imageId, ImagesActions::ACTION_DESTROY_IMAGE);
 
         $this->assertTrue(is_object($destroy));
         $this->assertEquals('OK', $destroy->status);

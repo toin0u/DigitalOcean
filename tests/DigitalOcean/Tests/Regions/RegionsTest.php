@@ -9,28 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Tests\Region;
+namespace DigitalOcean\Tests\Regions;
 
 use DigitalOcean\Tests\TestCase;
-use DigitalOcean\Region\Region;
+use DigitalOcean\Regions\Regions;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class RegionTest extends TestCase
+class RegionsTest extends TestCase
 {
     public function testGetAllUrl()
     {
-        $region = new Region($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $regions = new Regions($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
 
         $method = new \ReflectionMethod(
-            $region, 'buildQuery'
+            $regions, 'buildQuery'
         );
         $method->setAccessible(true);
 
         $this->assertEquals(
             'https://api.digitalocean.com/regions/?client_id=foo&api_key=bar',
-            $method->invoke($region)
+            $method->invoke($regions)
         );
     }
 
@@ -41,8 +41,8 @@ class RegionTest extends TestCase
 JSON
         ;
 
-        $region  = new Region($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $regions = $region->getAll();
+        $regions = new Regions($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $regions = $regions->getAll();
 
         $this->assertTrue(is_object($regions));
         $this->assertEquals('OK', $regions->status);

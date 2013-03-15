@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Droplet;
+namespace DigitalOcean\Droplets;
 
 /**
  * DropletActions class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class DropletActions
+class DropletsActions
 {
     /**
      * Available actions.

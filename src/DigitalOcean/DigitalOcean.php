@@ -12,10 +12,10 @@
 namespace DigitalOcean;
 
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
-use DigitalOcean\Droplet\Droplet;
-use DigitalOcean\Region\Region;
-use DigitalOcean\Image\Image;
-use DigitalOcean\Size\Size;
+use DigitalOcean\Droplets\Droplets;
+use DigitalOcean\Regions\Regions;
+use DigitalOcean\Images\Images;
+use DigitalOcean\Sizes\Sizes;
 use DigitalOcean\SSHKeys\SSHKeys;
 
 /**
@@ -62,43 +62,43 @@ class DigitalOcean
     }
 
     /**
-     * Alias to droplet object.
+     * Alias to droplets object.
      *
-     * @return Droplet instance.
+     * @return Droplets instance.
      */
-    public function droplet()
+    public function droplets()
     {
-        return new Droplet($this->clientId, $this->apiKey, $this->adapter);
+        return new Droplets($this->clientId, $this->apiKey, $this->adapter);
     }
 
     /**
-     * Alias to region object.
+     * Alias to regions object.
      *
-     * @return Region instance.
+     * @return Regions instance.
      */
-    public function region()
+    public function regions()
     {
-        return new Region($this->clientId, $this->apiKey, $this->adapter);
+        return new Regions($this->clientId, $this->apiKey, $this->adapter);
     }
 
     /**
-     * Alias to image object.
+     * Alias to images object.
      *
-     * @return Image instance.
+     * @return Images instance.
      */
-    public function image()
+    public function images()
     {
-        return new Image($this->clientId, $this->apiKey, $this->adapter);
+        return new Images($this->clientId, $this->apiKey, $this->adapter);
     }
 
     /**
-     * Alias to size object.
+     * Alias to sizes object.
      *
-     * @return Size instance.
+     * @return Sizes instance.
      */
-    public function size()
+    public function sizes()
     {
-        return new Size($this->clientId, $this->apiKey, $this->adapter);
+        return new Sizes($this->clientId, $this->apiKey, $this->adapter);
     }
 
     /**

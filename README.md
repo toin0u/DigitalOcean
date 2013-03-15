@@ -77,7 +77,7 @@ API
 ```php
 ...
 try {
-    echo $digitalOcean->droplet()->showAllActive()->status; // OK
+    echo $digitalOcean->droplets()->showAllActive()->status; // OK
 } catch (Exception $e) {
     die($e->getMessage());
 }
@@ -111,7 +111,7 @@ data.
 ```php
 ...
 try {
-    echo $digitalOcean->region()->getAll()->status; // OK
+    echo $digitalOcean->regions()->getAll()->status; // OK
 } catch (Exception $e) {
     die($e->getMessage());
 }
@@ -124,7 +124,7 @@ try {
 ```php
 ...
 try {
-    echo $digitalOcean->image()->getAll()->status; // OK
+    echo $digitalOcean->images()->getAll()->status; // OK
 } catch (Exception $e) {
     die($e->getMessage());
 }
@@ -162,7 +162,7 @@ try {
 ```php
 ...
 try {
-    echo $digitalOcean->size()->getAll()->status; // OK
+    echo $digitalOcean->sizes()->getAll()->status; // OK
 } catch (Exception $e) {
     die($e->getMessage());
 }

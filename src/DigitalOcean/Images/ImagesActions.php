@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Image;
+namespace DigitalOcean\Images;
 
 /**
- * ImageActions class.
+ * ImagesActions class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class ImageActions
+class ImagesActions
 {
     /**
      * Available actions.

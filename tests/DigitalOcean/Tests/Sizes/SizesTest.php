@@ -9,28 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Tests\Size;
+namespace DigitalOcean\Tests\Sizes;
 
 use DigitalOcean\Tests\TestCase;
-use DigitalOcean\Size\Size;
+use DigitalOcean\Sizes\Sizes;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class SizeTest extends TestCase
+class SizesTest extends TestCase
 {
     public function testGetAllUrl()
     {
-        $size = new Size($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $sizes = new Sizes($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
 
         $method = new \ReflectionMethod(
-            $size, 'buildQuery'
+            $sizes, 'buildQuery'
         );
         $method->setAccessible(true);
 
         $this->assertEquals(
             'https://api.digitalocean.com/sizes/?client_id=foo&api_key=bar',
-            $method->invoke($size)
+            $method->invoke($sizes)
         );
     }
 
@@ -41,8 +41,8 @@ class SizeTest extends TestCase
 JSON
         ;
 
-        $size  = new Size($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $sizes = $size->getAll();
+        $sizes = new Sizes($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $sizes = $sizes->getAll();
 
         $this->assertTrue(is_object($sizes));
         $this->assertEquals('OK', $sizes->status);

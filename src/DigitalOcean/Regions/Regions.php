@@ -9,18 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Region;
+namespace DigitalOcean\Regions;
 
-use DigitalOcean\Droplet\DropletActions;
 use DigitalOcean\AbstractDigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 
 /**
- * Region class.
+ * Regions class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class Region extends AbstractDigitalOcean
+class Regions extends AbstractDigitalOcean
 {
     /**
      * Regions API name.

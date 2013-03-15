@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Size;
+namespace DigitalOcean\Sizes;
 
 use DigitalOcean\AbstractDigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 
 /**
- * Size class.
+ * Sizes class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class Size extends AbstractDigitalOcean
+class Sizes extends AbstractDigitalOcean
 {
     /**
      * Sizes API name.

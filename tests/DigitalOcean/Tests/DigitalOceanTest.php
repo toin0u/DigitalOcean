@@ -21,37 +21,37 @@ class DigitalOceanTest extends TestCase
     public function testReturnsDropletInstance()
     {
         $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
-        $droplet = $digitalOcean->droplet();
+        $droplets = $digitalOcean->droplets();
 
-        $this->assertTrue(is_object($droplet));
-        $this->assertInstanceOf('\\DigitalOcean\\Droplet\\Droplet', $droplet);
+        $this->assertTrue(is_object($droplets));
+        $this->assertInstanceOf('\\DigitalOcean\\Droplets\\Droplets', $droplets);
     }
 
     public function testReturnsRegionInstance()
     {
         $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
-        $region = $digitalOcean->region();
+        $regions = $digitalOcean->regions();
 
-        $this->assertTrue(is_object($region));
-        $this->assertInstanceOf('\\DigitalOcean\\Region\\Region', $region);
+        $this->assertTrue(is_object($regions));
+        $this->assertInstanceOf('\\DigitalOcean\\Regions\\Regions', $regions);
     }
 
     public function testReturnsImageInstance()
     {
         $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
-        $image = $digitalOcean->image();
+        $images = $digitalOcean->images();
 
-        $this->assertTrue(is_object($image));
-        $this->assertInstanceOf('\\DigitalOcean\\Image\\Image', $image);
+        $this->assertTrue(is_object($images));
+        $this->assertInstanceOf('\\DigitalOcean\\Images\\Images', $images);
     }
 
     public function testReturnsSizeInstance()
     {
         $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
-        $size = $digitalOcean->size();
+        $sizes = $digitalOcean->sizes();
 
-        $this->assertTrue(is_object($size));
-        $this->assertInstanceOf('\\DigitalOcean\\Size\\Size', $size);
+        $this->assertTrue(is_object($sizes));
+        $this->assertInstanceOf('\\DigitalOcean\\Sizes\\Sizes', $sizes);
     }
 
     public function testReturnsSSHKeysInstance()

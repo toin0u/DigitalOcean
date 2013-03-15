@@ -9,28 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOcean\Tests\Droplet;
+namespace DigitalOcean\Tests\Droplets;
 
 use DigitalOcean\Tests\TestCase;
-use DigitalOcean\Droplet\Droplet;
-use DigitalOcean\Droplet\DropletActions;
+use DigitalOcean\Droplets\Droplets;
+use DigitalOcean\Droplets\DropletsActions;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class DropletTest extends TestCase
+class DropletsTest extends TestCase
 {
     protected $dropletId;
-    protected $droplet;
+    protected $droplets;
     protected $dropletBuildQueryMethod;
 
     protected function setUp()
     {
         $this->dropletId = 123;
 
-        $this->droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $this->droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
         $this->dropletBuildQueryMethod = new \ReflectionMethod(
-            $this->droplet, 'buildQuery'
+            $this->droplets, 'buildQuery'
         );
         $this->dropletBuildQueryMethod->setAccessible(true);
     }
@@ -39,7 +39,7 @@ class DropletTest extends TestCase
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/?client_id=foo&api_key=bar',
-            $this->dropletBuildQueryMethod->invoke($this->droplet)
+            $this->dropletBuildQueryMethod->invoke($this->droplets)
         );
     }
 
@@ -50,8 +50,8 @@ class DropletTest extends TestCase
 JSON
         ;
 
-        $droplet  = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplets = $droplet->showAllActive();
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = $droplets->showAllActive();
 
         $this->assertTrue(is_object($droplets));
         $this->assertEquals('OK', $droplets->status);
@@ -89,8 +89,8 @@ JSON
 JSON
         ;
 
-        $droplet  = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet->showAllActive();
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets->showAllActive();
     }
 
     public function testShowAllActiveWithCredentials()
@@ -99,8 +99,8 @@ JSON
             $this->markTestSkipped('You need to configure the CLIENT_ID and API_KEY values in phpunit.xml');
         }
 
-        $droplet  = new Droplet($_SERVER['CLIENT_ID'], $_SERVER['API_KEY'], new \DigitalOcean\HttpAdapter\CurlHttpAdapter());
-        $droplets = $droplet->showAllActive();
+        $droplets = new Droplets($_SERVER['CLIENT_ID'], $_SERVER['API_KEY'], new \DigitalOcean\HttpAdapter\CurlHttpAdapter());
+        $droplets = $droplets->showAllActive();
 
         $this->assertTrue(is_object($droplets));
         $this->assertEquals('OK', $droplets->status);
@@ -121,7 +121,7 @@ JSON
     {
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/?client_id=foo&api_key=bar',
-            $this->dropletBuildQueryMethod->invoke($this->droplet, $this->dropletId)
+            $this->dropletBuildQueryMethod->invoke($this->droplets, $this->dropletId)
         );
     }
 
@@ -132,8 +132,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->show($this->dropletId)->droplets[0];
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->show($this->dropletId)->droplets[0];
 
         $this->assertSame(1, $droplet->backups_active);
         $this->assertSame($this->dropletId, $droplet->id);
@@ -156,8 +156,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet->show($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets->show($this->dropletId);
     }
 
     public function testCreateUrl()
@@ -172,7 +172,7 @@ JSON
 
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/new/?name=MyNewDroplet&size_id=111&image_id=222&region_id=333&ssh_key_ids=MySshKeyId1%2CMySshKeyId2&client_id=foo&api_key=bar',
-            $this->dropletBuildQueryMethod->invoke($this->droplet, null, DropletActions::ACTION_NEW, $newDroplet)
+            $this->dropletBuildQueryMethod->invoke($this->droplets, null, DropletsActions::ACTION_NEW, $newDroplet)
         );
     }
 
@@ -182,7 +182,7 @@ JSON
      */
     public function testCreateThrowsNameInvalidArgumentException()
     {
-        $this->droplet->create(array());
+        $this->droplets->create(array());
     }
 
     /**
@@ -191,7 +191,7 @@ JSON
      */
     public function testCreateThrowsSizeIdInvalidArgumentException()
     {
-        $this->droplet->create(array(
+        $this->droplets->create(array(
             'name' => 'MyNewDroplet',
         ));
     }
@@ -202,7 +202,7 @@ JSON
      */
     public function testCreateThrowsImageIdInvalidArgumentException()
     {
-        $this->droplet->create(array(
+        $this->droplets->create(array(
             'name'    => 'MyNewDroplet',
             'size_id' => 123,
         ));
@@ -214,7 +214,7 @@ JSON
      */
     public function testCreateThrowsRegionIdInvalidArgumentException()
     {
-        $this->droplet->create(array(
+        $this->droplets->create(array(
             'name'     => 'MyNewDroplet',
             'size_id'  => 123,
             'image_id' => 456,
@@ -228,8 +228,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $createdDroplet = $droplet->create(array(
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $createdDroplet = $droplets->create(array(
             'name'        => 'MyNewDroplet',
             'size_id'     => 111,
             'image_id'    => 222,
@@ -253,7 +253,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/reboot/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_REBOOT
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_REBOOT
             )
         );
     }
@@ -265,8 +265,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->reboot($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->reboot($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -278,7 +278,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/power_cycle/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_POWER_CYCLE
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_POWER_CYCLE
             )
         );
     }
@@ -290,8 +290,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->powerCycle($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->powerCycle($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -303,7 +303,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/shutdown/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_SHUTDOWN
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_SHUTDOWN
             )
         );
     }
@@ -315,8 +315,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->shutdown($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->shutdown($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -328,7 +328,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/power_on/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_POWER_ON
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_POWER_ON
             )
         );
     }
@@ -340,8 +340,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->powerOn($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->powerOn($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -353,7 +353,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/power_off/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_POWER_OFF
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_POWER_OFF
             )
         );
     }
@@ -365,8 +365,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->powerOff($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->powerOff($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -378,7 +378,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/password_reset/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_RESET_ROOT_PASSWORD
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_RESET_ROOT_PASSWORD
             )
         );
     }
@@ -390,8 +390,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->resetRootPassword($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->resetRootPassword($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -407,7 +407,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/resize/?size_id=111&client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_RESIZE, $newSize
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_RESIZE, $newSize
             )
         );
     }
@@ -418,7 +418,7 @@ JSON
      */
     public function testResizeThrowsSizeIdInvalidArgumentException()
     {
-        $this->droplet->resize($this->dropletId, array());
+        $this->droplets->resize($this->dropletId, array());
     }
 
     public function testResize()
@@ -428,8 +428,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->resize($this->dropletId, array('size_id' => 123));
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->resize($this->dropletId, array('size_id' => 123));
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -441,7 +441,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/snapshot/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_SNAPSHOT
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_SNAPSHOT
             )
         );
     }
@@ -455,7 +455,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/snapshot/?name=MySnapshotName&client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_SNAPSHOT, $newSnapshot
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_SNAPSHOT, $newSnapshot
             )
         );
     }
@@ -467,8 +467,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->snapshot($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->snapshot($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -484,7 +484,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/restore/?image_id=1111&client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_RESTORE, $imageToRestore
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_RESTORE, $imageToRestore
             )
         );
     }
@@ -495,7 +495,7 @@ JSON
      */
     public function testRestoreUrlThrowsSizeIdInvalidArgumentException()
     {
-        $this->droplet->restore($this->dropletId, array());
+        $this->droplets->restore($this->dropletId, array());
     }
 
     public function testRestore()
@@ -505,8 +505,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->restore($this->dropletId, array('image_id' => 1111));
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->restore($this->dropletId, array('image_id' => 1111));
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -522,7 +522,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/rebuild/?image_id=1111&client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_REBUILD, $imageToRebuild
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_REBUILD, $imageToRebuild
             )
         );
     }
@@ -533,7 +533,7 @@ JSON
      */
     public function testRebuildThrowsSizeIdInvalidArgumentException()
     {
-        $this->droplet->rebuild($this->dropletId, array());
+        $this->droplets->rebuild($this->dropletId, array());
     }
 
     public function testRebuild()
@@ -543,8 +543,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->rebuild($this->dropletId, array('image_id' => 1111));
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->rebuild($this->dropletId, array('image_id' => 1111));
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -556,7 +556,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/enable_backups/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_ENABLE_BACKUPS
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_ENABLE_BACKUPS
             )
         );
     }
@@ -568,8 +568,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->enableAutomaticBackups($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->enableAutomaticBackups($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -581,7 +581,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/disable_backups/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_DISABLE_BACKUPS
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_DISABLE_BACKUPS
             )
         );
     }
@@ -593,8 +593,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->disableAutomaticBackups($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->disableAutomaticBackups($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
@@ -606,7 +606,7 @@ JSON
         $this->assertEquals(
             'https://api.digitalocean.com/droplets/123/destroy/?client_id=foo&api_key=bar',
             $this->dropletBuildQueryMethod->invoke(
-                $this->droplet, $this->dropletId, DropletActions::ACTION_DESTROY
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_DESTROY
             )
         );
     }
@@ -618,8 +618,8 @@ JSON
 JSON
         ;
 
-        $droplet = new Droplet($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $droplet = $droplet->destroy($this->dropletId);
+        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->destroy($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
         $this->assertEquals('OK', $droplet->status);
