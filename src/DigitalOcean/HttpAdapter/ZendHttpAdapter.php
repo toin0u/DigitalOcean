@@ -16,6 +16,7 @@ use Zend\Http\Client;
 /**
  * ZendHttpAdapter class.
  *
+ * @author William Durand <william.durand1@gmail.com>
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class ZendHttpAdapter implements HttpAdapterInterface

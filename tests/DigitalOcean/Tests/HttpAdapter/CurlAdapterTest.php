@@ -15,6 +15,7 @@ use DigitalOcean\Tests\TestCase;
 use DigitalOcean\HttpAdapter\CurlHttpAdapter;
 
 /**
+ * @author William Durand <william.durand1@gmail.com>
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class CurlHttpAdapterTest extends TestCase

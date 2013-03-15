@@ -15,6 +15,7 @@ use DigitalOcean\Tests\TestCase;
 use DigitalOcean\HttpAdapter\GuzzleHttpAdapter;
 
 /**
+ * @author Michael Dowling <michael@guzzlephp.org>
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class GuzzleHttpAdapterTest extends TestCase

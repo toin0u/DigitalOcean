@@ -16,6 +16,7 @@ use DigitalOcean\HttpAdapter\ZendHttpAdapter;
 use Zend\Http\Client;
 
 /**
+ * @author William Durand <william.durand1@gmail.com>
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class ZendHttpAdapterTest extends TestCase
