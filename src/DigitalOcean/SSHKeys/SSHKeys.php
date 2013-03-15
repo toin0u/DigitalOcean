@@ -93,6 +93,8 @@ class SSHKeys extends AbstractDigitalOcean
      * Edits an existing public SSH key in your account.
      * The array requires ssh_key_pub key.
      *
+     * @param array $parameters An array of parameters.
+     *
      * @return StdClass
      *
      * @throws \InvalidArgumentException
