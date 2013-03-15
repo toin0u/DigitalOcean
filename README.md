@@ -105,7 +105,7 @@ WIP
 
 ### Sizes ###
 
-WIP
+* `getAll()`: returns all the available sizes that can be used to create a droplet.
 
 
 Unit Tests
