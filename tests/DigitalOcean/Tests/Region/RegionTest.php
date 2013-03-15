@@ -28,7 +28,7 @@ class RegionTest extends TestCase
         $this->apiKey   = 'bar';
     }
 
-    public function testRegionsUrl()
+    public function testGetAllUrl()
     {
         $region = new Region($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
 
@@ -43,7 +43,7 @@ class RegionTest extends TestCase
         );
     }
 
-    public function testRegions()
+    public function testGetAll()
     {
         $response = <<<JSON
 {"status":"OK","regions":[{"id":1,"name":"New York 1"},{"id":2,"name":"Amsterdam 1"}]}
@@ -51,7 +51,7 @@ JSON
         ;
 
         $region  = new Region($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
-        $regions = $region->all();
+        $regions = $region->getAll();
 
         $this->assertTrue(is_object($regions));
         $this->assertEquals('OK', $regions->status);
