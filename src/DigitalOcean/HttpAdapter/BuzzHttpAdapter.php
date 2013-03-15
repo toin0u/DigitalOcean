@@ -11,25 +11,25 @@
 
 namespace DigitalOcean\HttpAdapter;
 
+use Buzz\Browser;
+
 /**
- * CurlHttpAdapter class.
+ * BuzzHttpAdapter class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class CurlHttpAdapter implements HttpAdapterInterface
+class BuzzHttpAdapter implements HttpAdapterInterface
 {
     /**
      * {@inheritDoc}
      */
     public function getContent($url)
     {
-        $c = curl_init();
-        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($c, CURLOPT_URL, $url);
-        $content = curl_exec($c);
-        curl_close($c);
+        $browser = new Browser();
 
-        if (false === $content) {
+        try {
+            $content = $browser->get($url)->getContent();
+        } catch (\Exception $e) {
             $content = null;
         }
 
@@ -41,6 +41,6 @@ class CurlHttpAdapter implements HttpAdapterInterface
      */
     public function getName()
     {
-        return 'curl';
+        return 'buzz';
     }
 }

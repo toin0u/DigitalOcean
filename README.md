@@ -45,8 +45,15 @@ require_once 'src/autoload.php';
 Usage
 -----
 
-```php
+`HttpAdapter`s are responsible to get data from DigitalOcean's API.
 
+Currently, there are the following adapters:
+
+* `CurlHttpAdapter` to use [cURL](http://php.net/manual/book.curl.php).
+* `BuzzHttpAdapter` to use [Buzz](https://github.com/kriswallsmith/Buzz), a lightweight PHP 5.3 library for
+issuing HTTP requests.
+
+```php
 require 'vendor/autoload.php';
 
 use DigitalOcean\DigitalOcean;
