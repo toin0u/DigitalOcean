@@ -62,6 +62,15 @@ API
 
 ### Droplets ###
 
+```php
+...
+try {
+    echo $digitalOcean->droplet()->showAllActive()->status; // OK
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+```
+
 * `showAllActive()`: returns all active droplets that are currently running in your account.
 * `show($id)`: returns full information for a specific droplet.
 * `create($argument)`: creates a new droplet. The argument should be an **array** with 4 required keys: **name**,
@@ -87,9 +96,27 @@ data.
 
 ### Regions ###
 
+```php
+...
+try {
+    echo $digitalOcean->region()->getAll()->status; // OK
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+```
+
 * `getAll()`: returns all the available regions within the Digital Ocean cloud.
 
 ### Images ###
+
+```php
+...
+try {
+    echo $digitalOcean->image()->getAll()->status; // OK
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+```
 
 * `getAll()`: returns all the available images that can be accessed by your client ID. You will have access to
 all public images by default, and any snapshots or backups that you have created in your own account.
@@ -101,6 +128,15 @@ is properly backed up.
 
 ### SSH Keys ###
 
+```php
+...
+try {
+    echo $digitalOcean->sshKeys()->getAll()->status; // OK
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+```
+
 * `getAll()`: returns all the available public SSH keys in your account that can be added to a droplet.
 * `show($id)`: shows a specific public SSH key in your account that can be added to a droplet.
 * `add($argument)`: adds a new public SSH key to your account. The argument should be anarray with **name** and
@@ -110,6 +146,15 @@ is properly backed up.
 * `destroy($id)`: deletes the SSH key from your account.
 
 ### Sizes ###
+
+```php
+...
+try {
+    echo $digitalOcean->size()->getAll()->status; // OK
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+```
 
 * `getAll()`: returns all the available sizes that can be used to create a droplet.
 
