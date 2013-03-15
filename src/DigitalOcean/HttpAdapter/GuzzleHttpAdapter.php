@@ -19,7 +19,7 @@ use Guzzle\Service\Client;
  * @author Michael Dowling <michael@guzzlephp.org>
  * @author Antoine Corcy <contact@sbin.dk>
  *
- * @link http://www.guzzlephp.org
+ * @link   http://www.guzzlephp.org
  */
 class GuzzleHttpAdapter implements HttpAdapterInterface
 {
