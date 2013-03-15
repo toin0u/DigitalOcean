@@ -41,7 +41,7 @@ class SSHKeys extends AbstractDigitalOcean
     {
         parent::__construct($clientId, $apiKey, $adapter);
 
-        $this->apiUrl  = sprintf("%s/%s", AbstractDigitalOcean::ENDPOINT_URL, self::SSH_KEYS);
+        $this->apiUrl = sprintf("%s/%s", $this->apiUrl, self::SSH_KEYS);
     }
 
     /**

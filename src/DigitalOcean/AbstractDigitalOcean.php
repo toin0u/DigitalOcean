@@ -71,6 +71,7 @@ class AbstractDigitalOcean
             'api_key'   => $apiKey,
         );
         $this->adapter = $adapter;
+        $this->apiUrl  = self::ENDPOINT_URL;
     }
 
     /**

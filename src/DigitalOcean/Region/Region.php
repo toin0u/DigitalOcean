@@ -41,7 +41,7 @@ class Region extends AbstractDigitalOcean
     {
         parent::__construct($clientId, $apiKey, $adapter);
 
-        $this->apiUrl  = sprintf("%s/%s", AbstractDigitalOcean::ENDPOINT_URL, self::REGIONS);
+        $this->apiUrl = sprintf("%s/%s", $this->apiUrl, self::REGIONS);
     }
 
     /**

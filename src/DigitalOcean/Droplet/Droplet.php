@@ -41,7 +41,7 @@ class Droplet extends AbstractDigitalOcean
     {
         parent::__construct($clientId, $apiKey, $adapter);
 
-        $this->apiUrl  = sprintf("%s/%s", AbstractDigitalOcean::ENDPOINT_URL, self::DROPLETS);
+        $this->apiUrl = sprintf("%s/%s", $this->apiUrl, self::DROPLETS);
     }
 
     /**
