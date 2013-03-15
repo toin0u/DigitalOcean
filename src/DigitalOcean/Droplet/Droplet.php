@@ -12,6 +12,7 @@
 namespace DigitalOcean\Droplet;
 
 use DigitalOcean\DigitalOcean;
+use DigitalOcean\Droplet\DropletActions;
 use DigitalOcean\AbstractDigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 
@@ -165,7 +166,7 @@ class Droplet extends AbstractDigitalOcean
             throw new \InvalidArgumentException('A new droplet must have an integer "region_id".');
         }
 
-        return $this->processQuery($this->buildQuery(null, 'new', $parameters));
+        return $this->processQuery($this->buildQuery(null, DropletActions::ACTION_NEW, $parameters));
     }
 
     /**
@@ -178,7 +179,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function reboot($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'reboot');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_REBOOT));
     }
 
     /**
@@ -191,7 +192,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function powerCycle($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'power_cycle');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_POWER_CYCLE));
     }
 
     /**
@@ -204,7 +205,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function shutdown($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'shutdown');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_SHUTDOWN));
     }
 
     /**
@@ -216,7 +217,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function powerOn($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'power_on');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_POWER_ON));
     }
 
     /**
@@ -229,7 +230,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function powerOff($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'power_off');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_POWER_OFF));
     }
 
     /**
@@ -242,7 +243,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function resetRootPassword($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'password_reset');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_RESET_ROOT_PASSWORD));
     }
 
     /**
@@ -263,7 +264,7 @@ class Droplet extends AbstractDigitalOcean
             throw new \InvalidArgumentException('You need to provide an integer "size_id".');
         }
 
-        return $this->processQuery($this->buildQuery($dropletId), 'resize', $parameters);
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_RESIZE, $parameters));
     }
 
     /**
@@ -279,7 +280,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function snapshot($dropletId, array $parameters = array())
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'snapshot', $parameters);
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_SNAPSHOT, $parameters));
     }
 
     /**
@@ -301,7 +302,7 @@ class Droplet extends AbstractDigitalOcean
             throw new \InvalidArgumentException('You need to provide the "image_id" to restore.');
         }
 
-        return $this->processQuery($this->buildQuery($dropletId), 'restore', $parameters);
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_RESTORE, $parameters));
     }
 
     /**
@@ -322,7 +323,7 @@ class Droplet extends AbstractDigitalOcean
             throw new \InvalidArgumentException('You need to provide the "image_id" to rebuild.');
         }
 
-        return $this->processQuery($this->buildQuery($dropletId), 'rebuild', $parameters);
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_REBUILD, $parameters));
     }
 
     /**
@@ -334,7 +335,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function enableAutomaticBackups($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'enable_backups');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_ENABLE_BACKUPS));
     }
 
     /**
@@ -346,7 +347,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function disableAutomaticBackups($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'disable_backup');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_DISABLE_BACKUPS));
     }
 
     /**
@@ -358,7 +359,7 @@ class Droplet extends AbstractDigitalOcean
      */
     public function destroy($dropletId)
     {
-        return $this->processQuery($this->buildQuery($dropletId), 'destroy');
+        return $this->processQuery($this->buildQuery($dropletId, DropletActions::ACTION_DESTROY));
     }
 }
 
