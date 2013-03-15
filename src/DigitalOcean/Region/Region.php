@@ -23,7 +23,7 @@ use DigitalOcean\HttpAdapter\HttpAdapterInterface;
 class Region extends AbstractDigitalOcean
 {
     /**
-     * Resgions API name.
+     * Regions API name.
      *
      * @var string
      */
