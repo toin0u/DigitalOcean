@@ -12,6 +12,8 @@
 namespace DigitalOcean\Droplet;
 
 /**
+ * DropletActions class.
+ *
  * @author Antoine Corcy <contact@sbin.dk>
  */
 class DropletActions
