@@ -1,10 +1,17 @@
 CHANGELOG
 =========
 
-0.1.1 (xxxx-xx-xx)
+0.1.1 (2012-03-15)
 ------------------
 
-n/a
+* Fixed: class names more consistant
+* Fixed: adapter test filenames
+* Fixed: credits
+* Updated: composer.json and doc
+* Added: SocketAdapter + test - fix #9
+* Added: ZendAdapter + test - fix #10
+* Added: GuzzleAdapter + test - fix #7
+* Added: BuzzAdapter + test - fix #8
 
 0.1.0 (2012-03-15)
 ------------------
