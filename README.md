@@ -76,99 +76,199 @@ API
 
 ```php
 ...
+$droplets = $digitalOcean->droplets();
 try {
-    echo $digitalOcean->droplets()->showAllActive()->status; // OK
+    // Returns all active droplets that are currently running in your account.
+    $allActive = $droplets->showAllActive();
+    printf("%s\n", $allActive->status); // OK
+    $firstDroplet = $allActive->droplets[0];
+    printf("%s\n", $firstDroplet->id); // 12345
+    printf("%s\n", $firstDroplet->name); // foobar
+    printf("%s\n", $firstDroplet->image_id); // 56789
+    printf("%s\n", $firstDroplet->size_id); // 66
+    printf("%s\n", $firstDroplet->region_id); // 2
+    printf("%s\n", $firstDroplet->backups_active); // 1
+    printf("%s\n", $firstDroplet->ip_address); // 127.0.0.1
+    printf("%s\n", $firstDroplet->status); // active
+    // Returns full information for a specific droplet.
+    printf("%s\n", $droplets->show(12345)->droplet->name); // foobar
+    // Creates a new droplet. The argument should be an **array** with 4 required keys:
+    // name, sized_id, image_id and region_id. ssh_key_ids key is optional but if any it should be a string.
+    $createDroplet = $droplets->create(array(
+        'name'        => 'my_new_droplet',
+        'sized_id'    => 123,
+        'image_id'    => 456,
+        'region_id'   => 789,
+        'ssh_key_ids' => '12,34,56', // 3 ssh keys
+    ));
+    printf("%s\n", $createDroplet->status); // OK
+    printf("%s\n", $createDroplet->droplet->event_id); // 78908
+    // Reboots a droplet.
+    $rebootDroplet = $droplets->reboot(12345);
+    printf("Status: %s | Event ID: %s\n", $rebootDroplet->status, $rebootDroplet->event_id);
+    // Power cycles a droplet.
+    $powerCycleDroplet = $droplets->powerCycle(12345);
+    printf("Status: %s | Event ID: %s\n", $powerCycleDroplet->status, $powerCycleDroplet->event_id);
+    // Shutdowns a running droplet.
+    $shutdownDroplet = $droplets->shutdown(12345);
+    printf("Status: %s | Event ID: %s\n", $shutdownDroplet->status, $shutdownDroplet->event_id);
+    // Powerons a powered off droplet.
+    $powerOnDroplet = $droplets->powerOn(12345);
+    printf("Status: %s | Event ID: %s\n", $powerOnDroplet->status, $powerOnDroplet->event_id);
+    // Poweroffs a running droplet.
+    $powerOffDroplet = $droplets->powerOff(12345);
+    printf("Status: %s | Event ID: %s\n", $powerOffDroplet->status, $powerOffDroplet->event_id);
+    // Resets the root password for a droplet.
+    $resetRootPasswordDroplet = $droplets->resetRootPassword(12345);
+    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    // Resizes a specific droplet to a different size. The argument should be an array with size_id key.
+    $resetRootPasswordDroplet = $droplets->resize(12345, array('size_id' => 123));
+    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    // Takes a snapshot of the running droplet, which can later be restored or used to create a new droplet
+    // from the same image. The argument can be an empty array or an array with name key.
+    $resetRootPasswordDroplet = $droplets->snapshot(12345, array('name' => 'my_snapshot'));
+    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    // Restores a droplet with a previous image or snapshot. The argument should be an array with image_id key.
+    $resetRootPasswordDroplet = $droplets->restore(12345, array('image_id' => 123));
+    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    // Reinstalls a droplet with a default image. The argument should be an array with image_id key.
+    $resetRootPasswordDroplet = $droplets->rebuild(12345, array('image_id' => 123));
+    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    // Enables automatic backups which run in the background daily to backup your droplet's data.
+    $enableBackupsDroplet = $droplets->enableAutomaticBackups(12345);
+    printf("Status: %s | Event ID: %s\n", $enableBackupsDroplet->status, $enableBackupsDroplet->event_id);
+    // Disables automatic backups from running to backup your droplet's data.
+    $disableBackupsDroplet = $droplets->disableAutomaticBackups(12345);
+    printf("Status: %s | Event ID: %s\n", $disableBackupsDroplet->status, $disableBackupsDroplet->event_id);
+    // Destroys one of your droplets - this is irreversible !
+    $destroyDroplet = $droplets->destroy(12345);
+    printf("Status: %s | Event ID: %s\n", $destroyDroplet->status, $destroyDroplet->event_id);
 } catch (Exception $e) {
     die($e->getMessage());
 }
 ```
-
-* `showAllActive()`: returns all active droplets that are currently running in your account.
-* `show($id)`: returns full information for a specific droplet.
-* `create($argument)`: creates a new droplet. The argument should be an **array** with 4 required keys: **name**,
-**sized_id**, **image_id** and **region_id**. **ssh_key_ids** key is optional.
-* `reboot($id)`: reboots a droplet.
-* `powerCycle($id)`: power cycles a droplet.
-* `shutdown($id)`: shutdowns a running droplet.
-* `powerOn($id)`: powerons a powered off droplet.
-* `powerOff($id)`: poweroffs a running droplet.
-* `resetRootPassword($id)`: resets the root password for a droplet.
-* `resize($id, $argument)`: resizes a specific droplet to a different size. The argument should be an array with
-**size_id** key.
-* `snapshot($id, $argument)`: takes a snapshot of the running droplet, which can later be restored or used to create
-a new droplet from the same image. The argument can be an empty array or an array with **name** key.
-* `restore($id, $argument)`: restores a droplet with a previous image or snapshot. The argument should be an array with
-**image_id** key.
-* `rebuild($id, $argument)`: reinstalls a droplet with a default image. The argument should be an array with
-**image_id** key.
-* `enableAutomaticBackups($id)`: enables automatic backups which run in the background daily to backup your droplet's
-data.
-* `disableAutomaticBackups($id)`: disables automatic backups from running to backup your droplet's data.
-* `destroy($id)`: destroys one of your droplets - this is irreversible !
 
 ### Regions ###
 
 ```php
 ...
+$regions = $digitalOcean->regions();
 try {
-    echo $digitalOcean->regions()->getAll()->status; // OK
+    // Returns all the available regions within the Digital Ocean cloud.
+    $allRegions = $regions->getAll();
+    printf("Status: %s\n", $allRegions->status); // OK
+    $region1 = $allRegions->regions[0];
+    printf("ID: %s | Name: %s\n", $region1->id, $region1->name); // ID: 1 | Name: New York 1
+    $region2 = $allRegions->regions[1];
+    printf("ID: %s | Name: %s\n", $region2->id, $region2->name); // ID: 2 | Name: Amsterdam 1
 } catch (Exception $e) {
     die($e->getMessage());
 }
 ```
-
-* `getAll()`: returns all the available regions within the Digital Ocean cloud.
 
 ### Images ###
 
 ```php
 ...
+$images = $digitalOcean->images();
 try {
-    echo $digitalOcean->images()->getAll()->status; // OK
+    // Returns all the available images that can be accessed by your client ID. You will have access
+    // to all public images by default, and any snapshots or backups that you have created in your own account.
+    $allImages = $images->getAll();
+    printf("%s\n", $allImages->status); // OK
+    $firstImage = $allImages->images[0];
+    printf("%s\n", $firstImage->id); // 12345
+    printf("%s\n", $firstImage->name); // alec snapshot
+    printf("%s\n", $firstImage->distribution); // Ubuntu
+    // ...
+    $otherImage = $allImages->images[36];
+    printf("%s\n", $otherImage->id); // 32399
+    printf("%s\n", $otherImage->name); // Fedora 17 x32 Desktop
+    printf("%s\n", $otherImage->distribution); // Fedora
+    // Returns all your images.
+    $myImages = $images->getMyImages();
+    printf("%s\n", $myImages->status); // OK
+    $firstImage = $myImages->images[0];
+    printf("%s\n", $firstImage->id); // 12345
+    printf("%s\n", $firstImage->name); // my_image 2013-02-01
+    printf("%s\n", $firstImage->distribution); // Ubuntu
+    // Returns all global images.
+    $globalImages = $images->getGlobal();
+    printf("%s\n", $globalImages->status); // OK
+    $anImage = $globalImages->images[9];
+    printf("%s\n", $anImage->id); // 12573
+    printf("%s\n", $anImage->name); // Debian 6.0 x64
+    printf("%s\n", $anImage->distribution); // Debian
+    // Displays the attributes of an image.
+    printf("%s\n", $images->show(12574)->image->distribution); // CentOS
+    // Destroys an image. There is no way to restore a deleted image so be careful and ensure
+    // your data is properly backed up.
+    $destroyImage = $images->destroy(12345);
+    printf("%s\n", $destroyImage->status); // OK
 } catch (Exception $e) {
     die($e->getMessage());
 }
 ```
-
-* `getAll()`: returns all the available images that can be accessed by your client ID. You will have access to
-all public images by default, and any snapshots or backups that you have created in your own account.
-* `getMyImages()`: returns all your images.
-* `getGlobal()`: returns all global images.
-* `show($id)`: displays the attributes of an image.
-* `destroy($id)`: destroys an image. There is no way to restore a deleted image so be careful and ensure your data
-is properly backed up.
 
 ### SSH Keys ###
 
 ```php
 ...
+$sshKeys = $digitalOcean->sshKeys();
 try {
-    echo $digitalOcean->sshKeys()->getAll()->status; // OK
+    // Returns all the available public SSH keys in your account that can be added to a droplet.
+    $allSshKeys = $sshKeys->getAll();
+    printf("%s\n", $allSshKeys->status); // OK
+    $firstSshKey = $allSshKeys->ssh_keys[0];
+    printf("%s\n", $firstSshKey->id); // 10
+    printf("%s\n", $firstSshKey->name); // office-imac
+    $otherSshKey = $allSshKeys->ssh_keys[1];
+    printf("%s\n", $otherSshKey->id); // 11
+    printf("%s\n", $otherSshKey->name); // macbook-air
+    // Shows a specific public SSH key in your account that can be added to a droplet.
+    $sshKey = $sshKeys->show(10);
+    printf("%s\n", $sshKey->status); // OK
+    printf("%s\n", $sshKey->ssh_key->id); // 10
+    printf("%s\n", $sshKey->ssh_kay->name); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@office-imac
+    // Adds a new public SSH key to your account. The argument should be an array with name and ssh_key_pub keys.
+    $addSshKey = $sshKeys->add(array(
+        'name'        => 'macbook_pro',
+        'ssh_key_pub' => 'ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro',
+    ));
+    printf("%s\n", $addSshKey->status); // OK
+    printf("%s\n", $addSshKey->ssh_key->id); // 12
+    printf("%s\n", $addSshKey->ssh_kay->name); // macbook_pro
+    printf("%s\n", $addSshKey->ssh_kay->name); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
+    // Edits an existing public SSH key in your account. The argument should be an array with ssh_key_pub key.
+    $editSshKey = $sshKeys->edit(array(
+        'ssh_key_pub' => '...',
+    )); // not implemented yet.
+    // Deletes the SSH key from your account.
+    $destroySshKey = $sshKeys->destroy(12);
+    printf("%s\n", $destroySshKey->status); // OK
 } catch (Exception $e) {
     die($e->getMessage());
 }
 ```
-
-* `getAll()`: returns all the available public SSH keys in your account that can be added to a droplet.
-* `show($id)`: shows a specific public SSH key in your account that can be added to a droplet.
-* `add($argument)`: adds a new public SSH key to your account. The argument should be anarray with **name** and
-**ssh_key_pub** keys.
-* `edit($argument)`: edits an existing public SSH key in your account. The argument should be an array with
-**ssh_key_pub** key.
-* `destroy($id)`: deletes the SSH key from your account.
 
 ### Sizes ###
 
 ```php
 ...
+$sizes = $digitalOcean->sizes();
 try {
-    echo $digitalOcean->sizes()->getAll()->status; // OK
+    // Returns all the available sizes that can be used to create a droplet.
+    $allSizes = $sizes->getAll();
+    printf("Status: %s\n", $allSizes->status); // OK
+    $size1 = $allSizes->sizes[0];
+    printf("ID: %s | Name: %s\n", $size1->id, $size1->name); // ID: 33 | Name: 512MB
+    // ...
+    $size6 = $allSizes->sizes[5];
+    printf("ID: %s | Name: %s\n", $size1->id, $size1->name); // ID: 38 | Name: 16GB
 } catch (Exception $e) {
     die($e->getMessage());
 }
 ```
-
-* `getAll()`: returns all the available sizes that can be used to create a droplet.
 
 
 Unit Tests
