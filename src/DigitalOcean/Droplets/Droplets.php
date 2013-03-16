@@ -70,7 +70,7 @@ class Droplets extends AbstractDigitalOcean
     /**
      * Creates a new droplet.
      * The parameter should be an array with 4 required keys: name, sized_id, image_id and region_id.
-     * The ssh_key_ids key is optional.
+     * The ssh_key_ids key is optional. If any, it should be a list of numbers comma separated.
      *
      * @param array $parameters An array of parameters.
      *
@@ -94,6 +94,12 @@ class Droplets extends AbstractDigitalOcean
 
         if (!array_key_exists('region_id', $parameters) || !is_int($parameters['region_id'])) {
             throw new \InvalidArgumentException('A new droplet must have an integer "region_id".');
+        }
+
+        if (array_key_exists('ssh_key_ids', $parameters)) {
+            if (!is_string($parameters['ssh_key_ids'])) {
+                throw new \InvalidArgumentException('You need to provide an list of "ssh_key_ids" comma separeted.');
+            }
         }
 
         return $this->processQuery($this->buildQuery(null, DropletsActions::ACTION_NEW, $parameters));

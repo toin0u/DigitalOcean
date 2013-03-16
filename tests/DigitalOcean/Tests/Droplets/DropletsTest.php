@@ -221,6 +221,21 @@ JSON
         ));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage You need to provide an list of "ssh_key_ids" comma separeted.
+     */
+    public function testCreateThrowsSshKeyIdsInvalidArgumentException()
+    {
+        $this->droplets->create(array(
+            'name'        => 'MyNewDroplet',
+            'size_id'     => 123,
+            'image_id'    => 456,
+            'region_id'   => 789,
+            'ssh_key_ids' => array(),
+        ));
+    }
+
     public function testCreate()
     {
         $response = <<<JSON
