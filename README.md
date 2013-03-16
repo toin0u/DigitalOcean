@@ -65,7 +65,7 @@ use DigitalOcean\DigitalOcean;
 use DigitalOcean\HttpAdapter\CurlHttpAdapter;
 
 $digitalOcean = new DigitalOcean('YOUR_CLIENT_ID', 'YOUR_API_KEY', new CurlHttpAdapter());
-...
+// ...
 ```
 
 
@@ -75,7 +75,7 @@ API
 ### Droplets ###
 
 ```php
-...
+// ...
 $droplets = $digitalOcean->droplets();
 try {
     // Returns all active droplets that are currently running in your account.
@@ -105,44 +105,44 @@ try {
     printf("%s\n", $createDroplet->droplet->event_id); // 78908
     // Reboots a droplet.
     $rebootDroplet = $droplets->reboot(12345);
-    printf("Status: %s | Event ID: %s\n", $rebootDroplet->status, $rebootDroplet->event_id);
+    printf("%s, %s\n", $rebootDroplet->status, $rebootDroplet->event_id);
     // Power cycles a droplet.
     $powerCycleDroplet = $droplets->powerCycle(12345);
-    printf("Status: %s | Event ID: %s\n", $powerCycleDroplet->status, $powerCycleDroplet->event_id);
+    printf("%s, %s\n", $powerCycleDroplet->status, $powerCycleDroplet->event_id);
     // Shutdowns a running droplet.
     $shutdownDroplet = $droplets->shutdown(12345);
-    printf("Status: %s | Event ID: %s\n", $shutdownDroplet->status, $shutdownDroplet->event_id);
+    printf("%s, %s\n", $shutdownDroplet->status, $shutdownDroplet->event_id);
     // Powerons a powered off droplet.
     $powerOnDroplet = $droplets->powerOn(12345);
-    printf("Status: %s | Event ID: %s\n", $powerOnDroplet->status, $powerOnDroplet->event_id);
+    printf("%s, %s\n", $powerOnDroplet->status, $powerOnDroplet->event_id);
     // Poweroffs a running droplet.
     $powerOffDroplet = $droplets->powerOff(12345);
-    printf("Status: %s | Event ID: %s\n", $powerOffDroplet->status, $powerOffDroplet->event_id);
+    printf("%s, %s\n", $powerOffDroplet->status, $powerOffDroplet->event_id);
     // Resets the root password for a droplet.
     $resetRootPasswordDroplet = $droplets->resetRootPassword(12345);
-    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
     // Resizes a specific droplet to a different size. The argument should be an array with size_id key.
     $resetRootPasswordDroplet = $droplets->resize(12345, array('size_id' => 123));
-    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
     // Takes a snapshot of the running droplet, which can later be restored or used to create a new droplet
     // from the same image. The argument can be an empty array or an array with name key.
     $resetRootPasswordDroplet = $droplets->snapshot(12345, array('name' => 'my_snapshot'));
-    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
     // Restores a droplet with a previous image or snapshot. The argument should be an array with image_id key.
     $resetRootPasswordDroplet = $droplets->restore(12345, array('image_id' => 123));
-    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
     // Reinstalls a droplet with a default image. The argument should be an array with image_id key.
     $resetRootPasswordDroplet = $droplets->rebuild(12345, array('image_id' => 123));
-    printf("Status: %s | Event ID: %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
     // Enables automatic backups which run in the background daily to backup your droplet's data.
     $enableBackupsDroplet = $droplets->enableAutomaticBackups(12345);
-    printf("Status: %s | Event ID: %s\n", $enableBackupsDroplet->status, $enableBackupsDroplet->event_id);
+    printf("%s, %s\n", $enableBackupsDroplet->status, $enableBackupsDroplet->event_id);
     // Disables automatic backups from running to backup your droplet's data.
     $disableBackupsDroplet = $droplets->disableAutomaticBackups(12345);
-    printf("Status: %s | Event ID: %s\n", $disableBackupsDroplet->status, $disableBackupsDroplet->event_id);
+    printf("%s, %s\n", $disableBackupsDroplet->status, $disableBackupsDroplet->event_id);
     // Destroys one of your droplets - this is irreversible !
     $destroyDroplet = $droplets->destroy(12345);
-    printf("Status: %s | Event ID: %s\n", $destroyDroplet->status, $destroyDroplet->event_id);
+    printf("%s, %s\n", $destroyDroplet->status, $destroyDroplet->event_id);
 } catch (Exception $e) {
     die($e->getMessage());
 }
@@ -151,16 +151,16 @@ try {
 ### Regions ###
 
 ```php
-...
+// ...
 $regions = $digitalOcean->regions();
 try {
     // Returns all the available regions within the Digital Ocean cloud.
     $allRegions = $regions->getAll();
-    printf("Status: %s\n", $allRegions->status); // OK
+    printf("%s\n", $allRegions->status); // OK
     $region1 = $allRegions->regions[0];
-    printf("ID: %s | Name: %s\n", $region1->id, $region1->name); // ID: 1 | Name: New York 1
+    printf("%s, %s\n", $region1->id, $region1->name); // 1, New York 1
     $region2 = $allRegions->regions[1];
-    printf("ID: %s | Name: %s\n", $region2->id, $region2->name); // ID: 2 | Name: Amsterdam 1
+    printf("%s, %s\n", $region2->id, $region2->name); // 2, Amsterdam 1
 } catch (Exception $e) {
     die($e->getMessage());
 }
@@ -169,7 +169,7 @@ try {
 ### Images ###
 
 ```php
-...
+// ...
 $images = $digitalOcean->images();
 try {
     // Returns all the available images that can be accessed by your client ID. You will have access
@@ -213,7 +213,7 @@ try {
 ### SSH Keys ###
 
 ```php
-...
+// ...
 $sshKeys = $digitalOcean->sshKeys();
 try {
     // Returns all the available public SSH keys in your account that can be added to a droplet.
@@ -254,17 +254,17 @@ try {
 ### Sizes ###
 
 ```php
-...
+// ...
 $sizes = $digitalOcean->sizes();
 try {
     // Returns all the available sizes that can be used to create a droplet.
     $allSizes = $sizes->getAll();
-    printf("Status: %s\n", $allSizes->status); // OK
+    printf("%s\n", $allSizes->status); // OK
     $size1 = $allSizes->sizes[0];
-    printf("ID: %s | Name: %s\n", $size1->id, $size1->name); // ID: 33 | Name: 512MB
+    printf("%s, %s\n", $size1->id, $size1->name); // 33, 512MB
     // ...
     $size6 = $allSizes->sizes[5];
-    printf("ID: %s | Name: %s\n", $size1->id, $size1->name); // ID: 38 | Name: 16GB
+    printf("%s, %s\n", $size1->id, $size1->name); // 38, 16GB
 } catch (Exception $e) {
     die($e->getMessage());
 }

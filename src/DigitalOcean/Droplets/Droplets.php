@@ -96,10 +96,8 @@ class Droplets extends AbstractDigitalOcean
             throw new \InvalidArgumentException('A new droplet must have an integer "region_id".');
         }
 
-        if (array_key_exists('ssh_key_ids', $parameters)) {
-            if (!is_string($parameters['ssh_key_ids'])) {
-                throw new \InvalidArgumentException('You need to provide an list of "ssh_key_ids" comma separeted.');
-            }
+        if (array_key_exists('ssh_key_ids', $parameters) && !is_string($parameters['ssh_key_ids'])) {
+            throw new \InvalidArgumentException('You need to provide an list of "ssh_key_ids" comma separeted.');
         }
 
         return $this->processQuery($this->buildQuery(null, DropletsActions::ACTION_NEW, $parameters));
