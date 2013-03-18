@@ -90,8 +90,10 @@ try {
     printf("%s\n", $firstDroplet->backups_active); // 1
     printf("%s\n", $firstDroplet->ip_address); // 127.0.0.1
     printf("%s\n", $firstDroplet->status); // active
+
     // Returns full information for a specific droplet.
     printf("%s\n", $droplets->show(12345)->droplet->name); // foobar
+
     // Creates a new droplet. The argument should be an **array** with 4 required keys:
     // name, sized_id, image_id and region_id. ssh_key_ids key is optional but if any it should be a string.
     $createDroplet = $droplets->create(array(
@@ -103,43 +105,56 @@ try {
     ));
     printf("%s\n", $createDroplet->status); // OK
     printf("%s\n", $createDroplet->droplet->event_id); // 78908
+
     // Reboots a droplet.
     $rebootDroplet = $droplets->reboot(12345);
     printf("%s, %s\n", $rebootDroplet->status, $rebootDroplet->event_id);
+
     // Power cycles a droplet.
     $powerCycleDroplet = $droplets->powerCycle(12345);
     printf("%s, %s\n", $powerCycleDroplet->status, $powerCycleDroplet->event_id);
+
     // Shutdowns a running droplet.
     $shutdownDroplet = $droplets->shutdown(12345);
     printf("%s, %s\n", $shutdownDroplet->status, $shutdownDroplet->event_id);
+
     // Powerons a powered off droplet.
     $powerOnDroplet = $droplets->powerOn(12345);
     printf("%s, %s\n", $powerOnDroplet->status, $powerOnDroplet->event_id);
+
     // Poweroffs a running droplet.
     $powerOffDroplet = $droplets->powerOff(12345);
     printf("%s, %s\n", $powerOffDroplet->status, $powerOffDroplet->event_id);
+
     // Resets the root password for a droplet.
     $resetRootPasswordDroplet = $droplets->resetRootPassword(12345);
     printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+
     // Resizes a specific droplet to a different size. The argument should be an array with size_id key.
     $resetRootPasswordDroplet = $droplets->resize(12345, array('size_id' => 123));
     printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+
     // Takes a snapshot of the running droplet, which can later be restored or used to create a new droplet
     // from the same image. The argument can be an empty array or an array with name key.
     $resetRootPasswordDroplet = $droplets->snapshot(12345, array('name' => 'my_snapshot'));
     printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+
     // Restores a droplet with a previous image or snapshot. The argument should be an array with image_id key.
     $resetRootPasswordDroplet = $droplets->restore(12345, array('image_id' => 123));
     printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+
     // Reinstalls a droplet with a default image. The argument should be an array with image_id key.
     $resetRootPasswordDroplet = $droplets->rebuild(12345, array('image_id' => 123));
     printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+
     // Enables automatic backups which run in the background daily to backup your droplet's data.
     $enableBackupsDroplet = $droplets->enableAutomaticBackups(12345);
     printf("%s, %s\n", $enableBackupsDroplet->status, $enableBackupsDroplet->event_id);
+
     // Disables automatic backups from running to backup your droplet's data.
     $disableBackupsDroplet = $droplets->disableAutomaticBackups(12345);
     printf("%s, %s\n", $disableBackupsDroplet->status, $disableBackupsDroplet->event_id);
+
     // Destroys one of your droplets - this is irreversible !
     $destroyDroplet = $droplets->destroy(12345);
     printf("%s, %s\n", $destroyDroplet->status, $destroyDroplet->event_id);
@@ -185,6 +200,7 @@ try {
     printf("%s\n", $otherImage->id); // 32399
     printf("%s\n", $otherImage->name); // Fedora 17 x32 Desktop
     printf("%s\n", $otherImage->distribution); // Fedora
+
     // Returns all your images.
     $myImages = $images->getMyImages();
     printf("%s\n", $myImages->status); // OK
@@ -192,6 +208,7 @@ try {
     printf("%s\n", $firstImage->id); // 12345
     printf("%s\n", $firstImage->name); // my_image 2013-02-01
     printf("%s\n", $firstImage->distribution); // Ubuntu
+
     // Returns all global images.
     $globalImages = $images->getGlobal();
     printf("%s\n", $globalImages->status); // OK
@@ -199,8 +216,10 @@ try {
     printf("%s\n", $anImage->id); // 12573
     printf("%s\n", $anImage->name); // Debian 6.0 x64
     printf("%s\n", $anImage->distribution); // Debian
+
     // Displays the attributes of an image.
     printf("%s\n", $images->show(12574)->image->distribution); // CentOS
+
     // Destroys an image. There is no way to restore a deleted image so be careful and ensure
     // your data is properly backed up.
     $destroyImage = $images->destroy(12345);
@@ -225,11 +244,13 @@ try {
     $otherSshKey = $allSshKeys->ssh_keys[1];
     printf("%s\n", $otherSshKey->id); // 11
     printf("%s\n", $otherSshKey->name); // macbook-air
+
     // Shows a specific public SSH key in your account that can be added to a droplet.
     $sshKey = $sshKeys->show(10);
     printf("%s\n", $sshKey->status); // OK
     printf("%s\n", $sshKey->ssh_key->id); // 10
     printf("%s\n", $sshKey->ssh_kay->name); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@office-imac
+
     // Adds a new public SSH key to your account. The argument should be an array with name and ssh_key_pub keys.
     $addSshKey = $sshKeys->add(array(
         'name'        => 'macbook_pro',
@@ -239,10 +260,12 @@ try {
     printf("%s\n", $addSshKey->ssh_key->id); // 12
     printf("%s\n", $addSshKey->ssh_kay->name); // macbook_pro
     printf("%s\n", $addSshKey->ssh_kay->name); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
+
     // Edits an existing public SSH key in your account. The argument should be an array with ssh_key_pub key.
     $editSshKey = $sshKeys->edit(array(
         'ssh_key_pub' => '...',
     )); // not implemented yet.
+
     // Deletes the SSH key from your account.
     $destroySshKey = $sshKeys->destroy(12);
     printf("%s\n", $destroySshKey->status); // OK
@@ -288,7 +311,8 @@ $ phpunit --coverage-text
 
 You'll obtain some skipped unit tests due to the need of API keys.
 
-Rename the `phpunit.xml.dist` file to `phpunit.xml`, then uncomment the following lines and add your own API keys:
+Rename the `phpunit.xml.dist` file to `phpunit.xml`, then uncomment the following lines and add your own Client ID and
+API key:
 
 ```xml
 <php>
