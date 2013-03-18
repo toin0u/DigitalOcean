@@ -16,9 +16,6 @@ namespace DigitalOcean\Tests;
  */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
-    protected $clientId = 'foo';
-    protected $apiKey   = 'bar';
-
     /**
      * @return HttpAdapterInterface
      */
@@ -47,6 +44,31 @@ class TestCase extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getContent')
             ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
+
+    /**
+     * @return Crendentials
+     */
+    protected function getMockCredentials($expects = null)
+    {
+        if (null === $expects) {
+            $expects = $this->atLeastOnce();
+        }
+
+        $mock = $this
+            ->getMockBuilder('\DigitalOcean\Credentials')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($expects)
+            ->method('getClientId')
+            ->will($this->returnValue('foo'));
+        $mock
+            ->expects($expects)
+            ->method('getApiKey')
+            ->will($this->returnValue('bar'));
 
         return $mock;
     }

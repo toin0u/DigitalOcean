@@ -21,7 +21,7 @@ class RegionsTest extends TestCase
 {
     public function testGetAllUrl()
     {
-        $regions = new Regions($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $regions = new Regions($this->getMockCredentials(), $this->getMockAdapter($this->never()));
 
         $method = new \ReflectionMethod(
             $regions, 'buildQuery'
@@ -41,7 +41,7 @@ class RegionsTest extends TestCase
 JSON
         ;
 
-        $regions = new Regions($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $regions = new Regions($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $regions = $regions->getAll();
 
         $this->assertTrue(is_object($regions));

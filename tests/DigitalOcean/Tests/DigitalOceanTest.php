@@ -18,9 +18,17 @@ use DigitalOcean\DigitalOcean;
  */
 class DigitalOceanTest extends TestCase
 {
+    public function testConstructorWithoutAdapterShouldUseCurlHttpAdapter()
+    {
+        $digitalOcean = new MockDigitalOcean($this->getMockCredentials($this->never()));
+
+        $this->assertTrue(is_object($digitalOcean->getAdapter()));
+        $this->assertInstanceOf('\\DigitalOcean\\HttpAdapter\\CurlHttpAdapter', $digitalOcean->getAdapter());
+    }
+
     public function testReturnsDropletInstance()
     {
-        $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
+        $digitalOcean = new DigitalOcean($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $droplets = $digitalOcean->droplets();
 
         $this->assertTrue(is_object($droplets));
@@ -29,7 +37,7 @@ class DigitalOceanTest extends TestCase
 
     public function testReturnsRegionInstance()
     {
-        $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
+        $digitalOcean = new DigitalOcean($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $regions = $digitalOcean->regions();
 
         $this->assertTrue(is_object($regions));
@@ -38,7 +46,7 @@ class DigitalOceanTest extends TestCase
 
     public function testReturnsImageInstance()
     {
-        $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
+        $digitalOcean = new DigitalOcean($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $images = $digitalOcean->images();
 
         $this->assertTrue(is_object($images));
@@ -47,7 +55,7 @@ class DigitalOceanTest extends TestCase
 
     public function testReturnsSizeInstance()
     {
-        $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
+        $digitalOcean = new DigitalOcean($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $sizes = $digitalOcean->sizes();
 
         $this->assertTrue(is_object($sizes));
@@ -56,10 +64,18 @@ class DigitalOceanTest extends TestCase
 
     public function testReturnsSSHKeysInstance()
     {
-        $digitalOcean = new DigitalOcean('clientId', 'apiKey', $this->getMockAdapter($this->never()));
+        $digitalOcean = new DigitalOcean($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $sshKeys = $digitalOcean->sshKeys();
 
         $this->assertTrue(is_object($sshKeys));
         $this->assertInstanceOf('\\DigitalOcean\\SSHKeys\\SSHKeys', $sshKeys);
+    }
+}
+
+class MockDigitalOcean extends DigitalOcean
+{
+    public function getAdapter()
+    {
+        return $this->adapter;
     }
 }

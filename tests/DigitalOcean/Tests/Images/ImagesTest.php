@@ -28,7 +28,7 @@ class ImagesTest extends TestCase
     {
         $this->imageId  = 123;
 
-        $this->images = new Images($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $this->images = new Images($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $this->imageBuildQueryMethod = new \ReflectionMethod(
             $this->images, 'buildQuery'
         );
@@ -50,7 +50,7 @@ class ImagesTest extends TestCase
 JSON
         ;
 
-        $images = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $images = new Images($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $images = $images->getAll();
 
         $this->assertTrue(is_object($images));
@@ -90,7 +90,7 @@ JSON
 JSON
         ;
 
-        $images   = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $images   = new Images($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $myImages = $images->getMyImages();
 
         $this->assertTrue(is_object($myImages));
@@ -115,7 +115,7 @@ JSON
 JSON
         ;
 
-        $images       = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $images       = new Images($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $globalImages = $images->getGlobal();
 
         $this->assertTrue(is_object($globalImages));
@@ -138,7 +138,7 @@ JSON
 JSON
         ;
 
-        $images = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $images = new Images($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $show   = $images->show($this->imageId);
 
         $this->assertTrue(is_object($show));
@@ -163,7 +163,7 @@ JSON
 JSON
         ;
 
-        $images  = new Images($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $images  = new Images($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $destroy = $images->destroy($this->imageId, ImagesActions::ACTION_DESTROY_IMAGE);
 
         $this->assertTrue(is_object($destroy));

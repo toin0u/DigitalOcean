@@ -28,7 +28,7 @@ class DropletsTest extends TestCase
     {
         $this->dropletId = 123;
 
-        $this->droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $this->droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $this->dropletBuildQueryMethod = new \ReflectionMethod(
             $this->droplets, 'buildQuery'
         );
@@ -50,7 +50,7 @@ class DropletsTest extends TestCase
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplets = $droplets->showAllActive();
 
         $this->assertTrue(is_object($droplets));
@@ -89,7 +89,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplets->showAllActive();
     }
 
@@ -99,7 +99,10 @@ JSON
             $this->markTestSkipped('You need to configure the CLIENT_ID and API_KEY values in phpunit.xml');
         }
 
-        $droplets = new Droplets($_SERVER['CLIENT_ID'], $_SERVER['API_KEY'], new \DigitalOcean\HttpAdapter\CurlHttpAdapter());
+        $droplets = new Droplets(
+            new \DigitalOcean\Credentials($_SERVER['CLIENT_ID'], $_SERVER['API_KEY']),
+            new \DigitalOcean\HttpAdapter\CurlHttpAdapter()
+        );
         $droplets = $droplets->showAllActive();
 
         $this->assertTrue(is_object($droplets));
@@ -132,7 +135,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->show($this->dropletId)->droplets[0];
 
         $this->assertSame(1, $droplet->backups_active);
@@ -156,7 +159,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplets->show($this->dropletId);
     }
 
@@ -243,7 +246,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $createdDroplet = $droplets->create(array(
             'name'        => 'MyNewDroplet',
             'size_id'     => 111,
@@ -280,7 +283,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->reboot($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -305,7 +308,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->powerCycle($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -330,7 +333,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->shutdown($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -355,7 +358,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->powerOn($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -380,7 +383,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->powerOff($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -405,7 +408,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->resetRootPassword($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -443,7 +446,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->resize($this->dropletId, array('size_id' => 123));
 
         $this->assertTrue(is_object($droplet));
@@ -482,7 +485,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->snapshot($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -520,7 +523,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->restore($this->dropletId, array('image_id' => 1111));
 
         $this->assertTrue(is_object($droplet));
@@ -558,7 +561,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->rebuild($this->dropletId, array('image_id' => 1111));
 
         $this->assertTrue(is_object($droplet));
@@ -583,7 +586,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->enableAutomaticBackups($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -608,7 +611,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->disableAutomaticBackups($this->dropletId);
 
         $this->assertTrue(is_object($droplet));
@@ -633,7 +636,7 @@ JSON
 JSON
         ;
 
-        $droplets = new Droplets($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $droplet  = $droplets->destroy($this->dropletId);
 
         $this->assertTrue(is_object($droplet));

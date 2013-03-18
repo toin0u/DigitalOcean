@@ -60,15 +60,14 @@ class AbstractDigitalOcean
     /**
      * Constructor.
      *
-     * @param string               $clientId The cliend ID.
-     * @param string               $apiKey   The API key.
-     * @param HttpAdapterInterface $adapter  The HttpAdapter to use.
+     * @param Credentials          $credentials The credentials to use.
+     * @param HttpAdapterInterface $adapter     The HttpAdapter to use.
      */
-    public function __construct($clientId, $apiKey, HttpAdapterInterface $adapter)
+    public function __construct(Credentials $credentials, HttpAdapterInterface $adapter)
     {
         $this->credentials = array(
-            'client_id' => $clientId,
-            'api_key'   => $apiKey,
+            'client_id' => $credentials->getClientId(),
+            'api_key'   => $credentials->getApiKey(),
         );
         $this->adapter = $adapter;
         $this->apiUrl  = self::ENDPOINT_URL;

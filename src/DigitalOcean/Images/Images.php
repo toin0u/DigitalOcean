@@ -11,6 +11,7 @@
 
 namespace DigitalOcean\Images;
 
+use DigitalOcean\Credentials;
 use DigitalOcean\Images\ImagesActions;
 use DigitalOcean\AbstractDigitalOcean;
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
@@ -33,13 +34,12 @@ class Images extends AbstractDigitalOcean
     /**
      * Constructor.
      *
-     * @param string               $clientId The cliend ID.
-     * @param string               $apiKey   The API key.
-     * @param HttpAdapterInterface $adapter  The HttpAdapter to use.
+     * @param Credentials          $credentials The credentials to use.
+     * @param HttpAdapterInterface $adapter     The HttpAdapter to use.
      */
-    public function __construct($clientId, $apiKey, HttpAdapterInterface $adapter)
+    public function __construct(Credentials $credentials, HttpAdapterInterface $adapter)
     {
-        parent::__construct($clientId, $apiKey, $adapter);
+        parent::__construct($credentials, $adapter);
 
         $this->apiUrl = sprintf("%s/%s", $this->apiUrl, self::IMAGES);
     }

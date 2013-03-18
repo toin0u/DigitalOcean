@@ -34,32 +34,23 @@ class DigitalOcean
 
 
     /**
-     * The client ID.
+     * The credentials instance to use.
      *
-     * @var string
+     * @var Credentials
      */
-    private $clientId;
-
-    /**
-     * The API key.
-     *
-     * @var string
-     */
-    private $apiKey;
+    protected $credentials;
 
 
     /**
      * Constructor.
      *
-     * @param string               $clientId The cliend ID.
-     * @param string               $apiKey   The API key.
-     * @param HttpAdapterInterface $adapter  The HttpAdapter to use (optional).
+     * @param Credentials          $credentials The credentials to use.
+     * @param HttpAdapterInterface $adapter     The HttpAdapter to use (optional).
      */
-    public function __construct($clientId, $apiKey, HttpAdapterInterface $adapter = null)
+    public function __construct(Credentials $credentials, HttpAdapterInterface $adapter = null)
     {
-        $this->clientId = $clientId;
-        $this->apiKey   = $apiKey;
-        $this->adapter  = $adapter ?: new CurlHttpAdapter();
+        $this->credentials = $credentials;
+        $this->adapter     = $adapter ?: new CurlHttpAdapter();
     }
 
     /**
@@ -69,7 +60,7 @@ class DigitalOcean
      */
     public function droplets()
     {
-        return new Droplets($this->clientId, $this->apiKey, $this->adapter);
+        return new Droplets($this->credentials, $this->adapter);
     }
 
     /**
@@ -79,7 +70,7 @@ class DigitalOcean
      */
     public function regions()
     {
-        return new Regions($this->clientId, $this->apiKey, $this->adapter);
+        return new Regions($this->credentials, $this->adapter);
     }
 
     /**
@@ -89,7 +80,7 @@ class DigitalOcean
      */
     public function images()
     {
-        return new Images($this->clientId, $this->apiKey, $this->adapter);
+        return new Images($this->credentials, $this->adapter);
     }
 
     /**
@@ -99,7 +90,7 @@ class DigitalOcean
      */
     public function sizes()
     {
-        return new Sizes($this->clientId, $this->apiKey, $this->adapter);
+        return new Sizes($this->credentials, $this->adapter);
     }
 
     /**
@@ -109,6 +100,6 @@ class DigitalOcean
      */
     public function sshKeys()
     {
-        return new SSHKeys($this->clientId, $this->apiKey, $this->adapter);
+        return new SSHKeys($this->credentials, $this->adapter);
     }
 }

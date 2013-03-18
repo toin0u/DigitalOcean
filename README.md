@@ -62,11 +62,14 @@ for building RESTful web service clients.
 require 'vendor/autoload.php';
 
 use DigitalOcean\DigitalOcean;
+use DigitalOcean\Credentials;
 
+// Set up your credentials.
+$credentials = new Credentials('YOUR_CLIENT_ID', 'YOUR_API_KEY')
 // Use the default adapter, CurlHttpAdapter.
-$digitalOcean = new DigitalOcean('YOUR_CLIENT_ID', 'YOUR_API_KEY');
+$digitalOcean = new DigitalOcean($credentials);
 // Or use BuzzHttpAdatpter.
-$digitalOcean = new DigitalOcean('YOUR_CLIENT_ID', 'YOUR_API_KEY', new DigitalOcean\HttpAdapter\BuzzHttpAdapter());
+$digitalOcean = new DigitalOcean($credentials, new DigitalOcean\HttpAdapter\BuzzHttpAdapter());
 // ...
 ```
 

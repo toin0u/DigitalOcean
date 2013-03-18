@@ -28,7 +28,7 @@ class SSHKeysTest extends TestCase
     {
         $this->sshKeyId = 123;
 
-        $this->sshKeys = new SSHKeys($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $this->sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapter($this->never()));
         $this->sshKeysBuildQueryMethod = new \ReflectionMethod(
             $this->sshKeys, 'buildQuery'
         );
@@ -50,7 +50,7 @@ class SSHKeysTest extends TestCase
 JSON
         ;
 
-        $sshKeys = new SSHKeys($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $sshKeys = $sshKeys->getAll();
 
         $this->assertTrue(is_object($sshKeys));
@@ -81,7 +81,7 @@ JSON
 JSON
         ;
 
-        $sshKeys = new SSHKeys($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $sshKey  = $sshKeys->show($this->sshKeyId);
 
         $this->assertTrue(is_object($sshKey));
@@ -112,7 +112,7 @@ JSON
 JSON
         ;
 
-        $sshKeys = new SSHKeys($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $sshKey  = $sshKeys->add(array('name' => 'foo', 'ssh_key_pub' => 'bar'));
 
         $this->assertTrue(is_object($sshKey));
@@ -182,7 +182,7 @@ JSON
 JSON
         ;
 
-        $sshKeys = new SSHKeys($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $destroy = $sshKeys->destroy($this->sshKeyId, SSHKeysActions::ACTION_DESTROY);
 
         $this->assertTrue(is_object($destroy));

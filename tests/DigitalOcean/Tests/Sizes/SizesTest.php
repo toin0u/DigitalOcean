@@ -21,7 +21,7 @@ class SizesTest extends TestCase
 {
     public function testGetAllUrl()
     {
-        $sizes = new Sizes($this->clientId, $this->apiKey, $this->getMockAdapter($this->never()));
+        $sizes = new Sizes($this->getMockCredentials(), $this->getMockAdapter($this->never()));
 
         $method = new \ReflectionMethod(
             $sizes, 'buildQuery'
@@ -41,7 +41,7 @@ class SizesTest extends TestCase
 JSON
         ;
 
-        $sizes = new Sizes($this->clientId, $this->apiKey, $this->getMockAdapterReturns($response));
+        $sizes = new Sizes($this->getMockCredentials(), $this->getMockAdapterReturns($response));
         $sizes = $sizes->getAll();
 
         $this->assertTrue(is_object($sizes));
