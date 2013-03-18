@@ -81,7 +81,7 @@ API
 
 ```php
 // ...
-$droplets = $digitalOcean->droplets();
+$droplets = $digitalOcean->droplets(); // alias to Droplets class.
 try {
     // Returns all active droplets that are currently running in your account.
     $allActive = $droplets->showAllActive();
@@ -172,7 +172,7 @@ try {
 
 ```php
 // ...
-$regions = $digitalOcean->regions();
+$regions = $digitalOcean->regions(); // alias to Regions class.
 try {
     // Returns all the available regions within the Digital Ocean cloud.
     $allRegions = $regions->getAll();
@@ -190,7 +190,7 @@ try {
 
 ```php
 // ...
-$images = $digitalOcean->images();
+$images = $digitalOcean->images(); // alias to Images class.
 try {
     // Returns all the available images that can be accessed by your client ID. You will have access
     // to all public images by default, and any snapshots or backups that you have created in your own account.
@@ -238,7 +238,7 @@ try {
 
 ```php
 // ...
-$sshKeys = $digitalOcean->sshKeys();
+$sshKeys = $digitalOcean->sshKeys(); // alias to SSHKeys class.
 try {
     // Returns all the available public SSH keys in your account that can be added to a droplet.
     $allSshKeys = $sshKeys->getAll();
@@ -283,7 +283,7 @@ try {
 
 ```php
 // ...
-$sizes = $digitalOcean->sizes();
+$sizes = $digitalOcean->sizes(); // alias to Sizes class.
 try {
     // Returns all the available sizes that can be used to create a droplet.
     $allSizes = $sizes->getAll();
