@@ -12,6 +12,7 @@
 namespace DigitalOcean;
 
 use DigitalOcean\HttpAdapter\HttpAdapterInterface;
+use DigitalOcean\HttpAdapter\CurlHttpAdapter;
 use DigitalOcean\Droplets\Droplets;
 use DigitalOcean\Regions\Regions;
 use DigitalOcean\Images\Images;
@@ -52,13 +53,13 @@ class DigitalOcean
      *
      * @param string               $clientId The cliend ID.
      * @param string               $apiKey   The API key.
-     * @param HttpAdapterInterface $adapter  The HttpAdapter to use.
+     * @param HttpAdapterInterface $adapter  The HttpAdapter to use (optional).
      */
-    public function __construct($clientId, $apiKey, HttpAdapterInterface $adapter)
+    public function __construct($clientId, $apiKey, HttpAdapterInterface $adapter = null)
     {
         $this->clientId = $clientId;
         $this->apiKey   = $apiKey;
-        $this->adapter  = $adapter;
+        $this->adapter  = $adapter ?: new CurlHttpAdapter();
     }
 
     /**

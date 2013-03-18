@@ -50,7 +50,7 @@ You can provide your own adapter by implementing `\DigitalOcean\HttpAdapter\Http
 
 Currently, there are the following adapters:
 
-* `CurlHttpAdapter` to use [cURL](http://php.net/manual/book.curl.php).
+* `CurlHttpAdapter` to use [cURL](http://php.net/manual/book.curl.php) - it's the default one.
 * `BuzzHttpAdapter` to use [Buzz](https://github.com/kriswallsmith/Buzz), a lightweight PHP 5.3 library for
 issuing HTTP requests.
 * `GuzzleHttpAdapter` to use [Guzzle](https://github.com/guzzle/guzzle), PHP 5.3+ HTTP client and framework
@@ -62,9 +62,11 @@ for building RESTful web service clients.
 require 'vendor/autoload.php';
 
 use DigitalOcean\DigitalOcean;
-use DigitalOcean\HttpAdapter\CurlHttpAdapter;
 
-$digitalOcean = new DigitalOcean('YOUR_CLIENT_ID', 'YOUR_API_KEY', new CurlHttpAdapter());
+// Use the default adapter, CurlHttpAdapter.
+$digitalOcean = new DigitalOcean('YOUR_CLIENT_ID', 'YOUR_API_KEY');
+// Or use BuzzHttpAdatpter.
+$digitalOcean = new DigitalOcean('YOUR_CLIENT_ID', 'YOUR_API_KEY', new DigitalOcean\HttpAdapter\BuzzHttpAdapter());
 // ...
 ```
 
