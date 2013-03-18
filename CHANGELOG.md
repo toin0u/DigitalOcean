@@ -1,15 +1,19 @@
 CHANGELOG
 =========
 
-0.1.2 (xxxx-xx-xx)
+0.2.0 (2013-03-18)
 ------------------
 
-n/a
+* Fixed: tests
+* Added: Credential class + test [BC break]
+* Added: cURL adapter is the default one
+* Updated: doc with exemples - fix #11
+* Added: check when adding ssh keys to new droplets
 
-0.1.1 (2012-03-15)
+0.1.1 (2013-03-15)
 ------------------
 
-* Fixed: class names more consistant
+* Fixed: class names more consistant [BC break]
 * Fixed: adapter test filenames
 * Fixed: credits
 * Updated: composer.json and doc
@@ -18,7 +22,7 @@ n/a
 * Added: GuzzleAdapter + test - fix #7
 * Added: BuzzAdapter + test - fix #8
 
-0.1.0 (2012-03-15)
+0.1.0 (2013-03-15)
 ------------------
 
 * Updated: doc with exemples
