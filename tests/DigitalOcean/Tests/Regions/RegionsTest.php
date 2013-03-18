@@ -19,6 +19,16 @@ use DigitalOcean\Regions\Regions;
  */
 class RegionsTest extends TestCase
 {
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMEssage Impossible to process this query: https://api.digitalocean.com/droplets/?client_id=foo&api_key=bar
+     */
+    public function testProcessQuery()
+    {
+        $regions = new Regions($this->getMockCredentials(), $this->getMockAdapterReturns(null));
+        $regions->getAll();
+    }
+
     public function testGetAllUrl()
     {
         $regions = new Regions($this->getMockCredentials(), $this->getMockAdapter($this->never()));

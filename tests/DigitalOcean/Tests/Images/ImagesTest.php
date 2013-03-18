@@ -35,6 +35,16 @@ class ImagesTest extends TestCase
         $this->imageBuildQueryMethod->setAccessible(true);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMEssage Impossible to process this query: https://api.digitalocean.com/droplets/?client_id=foo&api_key=bar
+     */
+    public function testProcessQuery()
+    {
+        $images = new Images($this->getMockCredentials(), $this->getMockAdapterReturns(null));
+        $images = $images->getAll();
+    }
+
     public function testGetAllUrl()
     {
         $this->assertEquals(

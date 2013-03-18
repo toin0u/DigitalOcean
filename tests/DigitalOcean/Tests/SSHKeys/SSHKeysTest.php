@@ -35,6 +35,16 @@ class SSHKeysTest extends TestCase
         $this->sshKeysBuildQueryMethod->setAccessible(true);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMEssage Impossible to process this query: https://api.digitalocean.com/droplets/?client_id=foo&api_key=bar
+     */
+    public function testProcessQuery()
+    {
+        $sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapterReturns(null));
+        $sshKeys->getAll();
+    }
+
     public function testGetAllUrl()
     {
         $this->assertEquals(

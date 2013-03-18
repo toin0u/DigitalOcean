@@ -19,6 +19,16 @@ use DigitalOcean\Sizes\Sizes;
  */
 class SizesTest extends TestCase
 {
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMEssage Impossible to process this query: https://api.digitalocean.com/droplets/?client_id=foo&api_key=bar
+     */
+    public function testProcessQuery()
+    {
+        $sizes = new Sizes($this->getMockCredentials(), $this->getMockAdapterReturns(null));
+        $sizes->getAll();
+    }
+
     public function testGetAllUrl()
     {
         $sizes = new Sizes($this->getMockCredentials(), $this->getMockAdapter($this->never()));

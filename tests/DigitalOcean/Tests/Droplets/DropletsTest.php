@@ -35,6 +35,16 @@ class DropletsTest extends TestCase
         $this->dropletBuildQueryMethod->setAccessible(true);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMEssage Impossible to process this query: https://api.digitalocean.com/droplets/?client_id=foo&api_key=bar
+     */
+    public function testProcessQuery()
+    {
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns(null));
+        $droplets->showAllActive();
+    }
+
     public function testShowAllActiveUrl()
     {
         $this->assertEquals(

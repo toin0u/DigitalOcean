@@ -106,6 +106,10 @@ class AbstractDigitalOcean
     {
         $processed = json_decode($this->adapter->getContent($query));
 
+        if (null === $processed) {
+            throw new \RuntimeException(sprintf("Impossible to process this query: %s", $query));
+        }
+
         if ('ERROR' === $processed->status) {
             if (isset($processed->description)) {
                 throw new \InvalidArgumentException($processed->description);

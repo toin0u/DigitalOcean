@@ -99,11 +99,11 @@ try {
     // Returns full information for a specific droplet.
     printf("%s\n", $droplets->show(12345)->droplet->name); // foobar
 
-    // Creates a new droplet. The argument should be an **array** with 4 required keys:
+    // Creates a new droplet. The argument should be an array with 4 required keys:
     // name, sized_id, image_id and region_id. ssh_key_ids key is optional but if any it should be a string.
     $createDroplet = $droplets->create(array(
         'name'        => 'my_new_droplet',
-        'sized_id'    => 123,
+        'size_id'     => 123,
         'image_id'    => 456,
         'region_id'   => 789,
         'ssh_key_ids' => '12,34,56', // 3 ssh keys
@@ -136,21 +136,21 @@ try {
     printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
 
     // Resizes a specific droplet to a different size. The argument should be an array with size_id key.
-    $resetRootPasswordDroplet = $droplets->resize(12345, array('size_id' => 123));
-    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    $resizeDroplet = $droplets->resize(12345, array('size_id' => 123));
+    printf("%s, %s\n", $resizeDroplet->status, $resizeDroplet->event_id);
 
     // Takes a snapshot of the running droplet, which can later be restored or used to create a new droplet
     // from the same image. The argument can be an empty array or an array with name key.
-    $resetRootPasswordDroplet = $droplets->snapshot(12345, array('name' => 'my_snapshot'));
-    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    $snapshotDroplet = $droplets->snapshot(12345, array('name' => 'my_snapshot'));
+    printf("%s, %s\n", $snapshotDroplet->status, $snapshotDroplet->event_id);
 
     // Restores a droplet with a previous image or snapshot. The argument should be an array with image_id key.
-    $resetRootPasswordDroplet = $droplets->restore(12345, array('image_id' => 123));
-    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    $restoreDroplet = $droplets->restore(12345, array('image_id' => 123));
+    printf("%s, %s\n", $restoreDroplet->status, $restoreDroplet->event_id);
 
     // Reinstalls a droplet with a default image. The argument should be an array with image_id key.
-    $resetRootPasswordDroplet = $droplets->rebuild(12345, array('image_id' => 123));
-    printf("%s, %s\n", $resetRootPasswordDroplet->status, $resetRootPasswordDroplet->event_id);
+    $rebuildDroplet = $droplets->rebuild(12345, array('image_id' => 123));
+    printf("%s, %s\n", $rebuildDroplet->status, $rebuildDroplet->event_id);
 
     // Enables automatic backups which run in the background daily to backup your droplet's data.
     $enableBackupsDroplet = $droplets->enableAutomaticBackups(12345);
@@ -254,7 +254,8 @@ try {
     $sshKey = $sshKeys->show(10);
     printf("%s\n", $sshKey->status); // OK
     printf("%s\n", $sshKey->ssh_key->id); // 10
-    printf("%s\n", $sshKey->ssh_kay->name); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@office-imac
+    printf("%s\n", $sshKey->ssh_kay->name); // office-imac
+    printf("%s\n", $sshKey->ssh_kay->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@office-imac
 
     // Adds a new public SSH key to your account. The argument should be an array with name and ssh_key_pub keys.
     $addSshKey = $sshKeys->add(array(
@@ -264,7 +265,7 @@ try {
     printf("%s\n", $addSshKey->status); // OK
     printf("%s\n", $addSshKey->ssh_key->id); // 12
     printf("%s\n", $addSshKey->ssh_kay->name); // macbook_pro
-    printf("%s\n", $addSshKey->ssh_kay->name); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
+    printf("%s\n", $addSshKey->ssh_kay->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
 
     // Edits an existing public SSH key in your account. The argument should be an array with ssh_key_pub key.
     $editSshKey = $sshKeys->edit(array(
@@ -296,6 +297,26 @@ try {
 } catch (Exception $e) {
     die($e->getMessage());
 }
+```
+
+### CLI ###
+
+To use the Command-Line Interface, you need to rename the `credentials.yml.dist` file to `credentials.yml`, then
+add your own Client ID and API key:
+
+```yml
+CLIENT_ID:  <YOUR_CLIENT_ID>
+API_KEY:    <YOUR_API_KEY>
+```
+
+List available commands:
+
+```bash
+$ php digitalocean list droplets
+$ php digitalocean list images
+$ php digitalocean list regions
+$ php digitalocean list sizes
+$ php digitalocean list ssh-keys
 ```
 
 
@@ -338,6 +359,12 @@ Credits
 
 * [Antoine Corcy](https://twitter.com/toin0u) - Owner
 * [All contributors](https://github.com/toin0u/DigitalOcean/contributors)
+
+
+Acknowledgments
+---------------
+* [Symfony Console Component](https://packagist.org/packages/symfony/console)
+* [Symfony Yaml Component](https://packagist.org/packages/symfony/yaml)
 
 
 Changelog
