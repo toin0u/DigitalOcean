@@ -72,4 +72,53 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         return $mock;
     }
+
+    /**
+     * @return DigitalOcean
+     */
+    protected function getMockDigitalOcean($method, $returnValue)
+    {
+        $mock = $this->getMockBuilder('\DigitalOcean\DigitalOcean')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($this->atLeastOnce())
+            ->method($method)
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
+
+
+    /**
+     * @return Regions
+     */
+    protected function getMockRegions($returnValue)
+    {
+        $mock = $this->getMockBuilder('\DigitalOcean\Regions\Regions')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($this->once())
+            ->method('getAll')
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
+
+    /**
+     * @return Sizes
+     */
+    protected function getMockSizes($returnValue)
+    {
+        $mock = $this->getMockBuilder('\DigitalOcean\Sizes\Sizes')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($this->once())
+            ->method('getAll')
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
 }
