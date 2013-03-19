@@ -16,7 +16,7 @@ use DigitalOcean\Credentials;
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class CrendentialsTest
+class CrendentialsTest extends TestCase
 {
     protected $clientId;
     protected $apiKey;
