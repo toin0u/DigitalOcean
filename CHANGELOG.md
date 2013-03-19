@@ -1,10 +1,16 @@
 CHANGELOG
 =========
 
-0.2.1 (xxxx-xx-xx)
+1.0.0 (2013-03-19)
 ------------------
 
-n/a
+* Added: tests to ssh keys and command CLI
+* Added: tests to images CLI
+* Added: tests to droplets CLI
+* Added: tests to regions and sizes CLI
+* Updated: doc with credentials option
+* Updated: doc about CLI
+* Added: CLI
 
 0.2.0 (2013-03-18)
 ------------------
