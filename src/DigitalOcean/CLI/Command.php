@@ -34,6 +34,8 @@ class Command extends BaseCommand
     /**
      * Returns an instance of DigitalOcean
      *
+     * @param string $file The file with credentials.
+     *
      * @return DigitalOcean An instance of DigitalOcean
      */
     public function getDigitalOcean($file = self::DEFAULT_CREDENTIALS_FILE)
