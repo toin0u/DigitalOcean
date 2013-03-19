@@ -2,7 +2,7 @@ DigitalOcean
 ============
 
 This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.digitalocean.com/)
-[API](https://www.digitalocean.com/api).
+[API](https://www.digitalocean.com/api) via PHP or [CLI](#cli).
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOcean.png)](http://travis-ci.org/toin0u/DigitalOcean)
 [![project status](http://stillmaintained.com/toin0u/DigitalOcean.png)](http://stillmaintained.com/toin0u/DigitalOcean)
@@ -309,14 +309,139 @@ CLIENT_ID:  <YOUR_CLIENT_ID>
 API_KEY:    <YOUR_API_KEY>
 ```
 
-List available commands:
+Commands for `Droplets`:
 
 ```bash
 $ php digitalocean list droplets
+$ php digitalocean droplets:show-all-active
+// 1 | id:12345 | name:my_drop | image_id:54321 | size_id:66 | region_id:2 | backups_active:1 | ip_address:127.0.0.1 | status:active
+// ...
+$ php digitalocean droplets:show 12345
+// id:             12345
+// name:           my_drop
+// image_id:       54321
+// size_id:        66
+// region_id:      2
+// backups_active: 1
+// ip_address:     127.0.0.1
+// status:         active
+$ php digitalocean droplets:create my_new_droplet 66 1601 2
+// Creates a new droplet named 'my_new_droplet' with 512MB and CentOS 5.8 x64 in Amsterdam without any SSH keys.
+$ php digitalocean droplets:create test_droplet 65 43462 1 '5555,5556'
+// Creates a new droplet named 'test_droplet' with 8BG and Ubuntu 11.04x32 Desktop in New York with 2 SSH keys.
+// status:   OK
+// event_id: 6895
+$ php digitalocean droplets:reboot 12345
+// status:   OK
+// event_id: 6895
+$ php digitalocean droplets:power-cycle 12345
+// status:   OK
+// event_id: 6895
+$ php digitalocean droplets:shutdown 12345
+// status:   OK
+// event_id: 6895
+$ php digitalocean droplets:power-on 12345
+// status:   OK
+// event_id: 6892
+$ php digitalocean droplets:power-off 12345
+// status:   OK
+// event_id: 6893
+$ php digitalocean droplets:reset-root-password 12345
+// status:   OK
+// event_id: 6894
+$ php digitalocean droplets:resize 12345 62 // resizes to 2GB
+// status:   OK
+// event_id: 6895
+$ php digitalocean droplets:snapshot 12345 my_new_snapshot // the name is optional
+// status:   OK
+// event_id: 6896
+$ php digitalocean droplets:restore 12345 46964 // restores to 'LAMP on Ubuntu 12.04' image
+// status:   OK
+// event_id: 6897
+$ php digitalocean droplets:rebuild 12345 1601 // rebuilds to 'CentOS 5.8 x64' image
+// status:   OK
+// event_id: 6898
+$ php digitalocean droplets:enable-automatic-backups 12345
+// status:   OK
+// event_id: 6899
+$ php digitalocean droplets:disable-automatic-backups 12345
+// status:   OK
+// event_id: 6901
+$ php digitalocean droplets:destroy 12345
+// id:       12345
+// event_id: 6902
+```
+
+Commands for `Images`:
+
+```bash
 $ php digitalocean list images
+$ php digitalocean images:all
+// 1 | id:13245 | name:my_image 2013-02-17 | distribution:Ubuntu
+// 2 | id:21345 | name:my_image 2013-02-24 | distribution:Ubuntu
+// ...
+// 45 | id:46964 | name:LAMP on Ubuntu 12.04 | distribution:Ubuntu
+$ php digitalocean images:mines
+// 1 | id:13245 | name:my_image 2013-02-17 | distribution:Ubuntu
+// ...
+$ php digitalocean images:global
+// 1 | id:1601 | name:CentOS 5.8 x64 | distribution:CentOS
+// 2 | id:1602 | name:CentOS 5.8 x32 | distribution:CentOS
+// ...
+// 27 | id:43462 | name:Ubuntu 11.04x32 Desktop | distribution:Ubuntu
+// 28 | id:46964 | name:LAMP on Ubuntu 12.04 | distribution:Ubuntu
+$ php digitalocean images:show 46964
+// id:           46964
+// name:         LAMP on Ubuntu 12.04
+// distribution: Ubuntu
+$ php digitalocean images:destroy 12345
+// id:       12345
+// event_id: 7901
+```
+
+Commands for `Regions`:
+
+```bash
 $ php digitalocean list regions
+$ php digitalocean regions:all
+// 1 | id:1 | name:New York 1
+// 2 | id:2 | name:Amsterdam 1
+```
+
+Commands for `Sizes`:
+
+```bash
 $ php digitalocean list sizes
+$ php digitalocean sizes:all
+// 1 | id:66 | name:512MB
+// 2 | id:63 | name:1GB
+// 3 | id:62 | name:2GB
+// 4 | id:64 | name:4GB
+// 5 | id:65 | name:8GB
+// 6 | id:61 | name:16GB
+// 7 | id:60 | name:32GB
+// 8 | id:70 | name:48GB
+// 9 | id:69 | name:64GB
+// 10 | id:68 | name:96GB
+```
+
+Commands for `SSH Keys`:
+
+```bash
 $ php digitalocean list ssh-keys
+$ php digitalocean ssh-keys:all
+// 1 | id:5555 | name:my_pub_ssh_key
+$ php digitalocean ssh-keys:show 5555
+// id:   5555
+// name: my_pub_ssh_key
+// key:  ssh-dss AAAAB3NzaC1.......UcviwfZspUcoDbnwk= dev@my_pub_ssh_key
+$ php digitalocean ssh-keys:add my_new_ssh_key 'ssh-dss DFDSFSDFC1.......FDSFewf987fdsf= dev@my_new_ssh_key'
+// id:   5556
+// name: my_new_ssh_key
+// key:  ssh-dss ssh-dss DFDSFSDFC1.......FDSFewf987fdsf= dev@my_new_ssh_key
+$ php digitalocean ssh-keys:destroy 5556
+// id:       5556
+// event_id: 7902
 ```
 
 

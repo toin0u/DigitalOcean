@@ -39,7 +39,7 @@ class GetAllCommand extends Command
         $sizes        = $digitalOcean->sizes()->getAll()->sizes;
 
         foreach ($sizes as $i => $size) {
-            $result[] = sprintf('%s | id: <value>%s</value> | name: <value>%s</value>', ++$i, $size->id, $size->name);
+            $result[] = sprintf('%s | id:<value>%s</value> | name:<value>%s</value>', ++$i, $size->id, $size->name);
         }
 
         $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));

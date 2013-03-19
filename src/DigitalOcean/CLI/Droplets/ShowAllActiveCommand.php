@@ -40,7 +40,7 @@ class ShowAllActiveCommand extends Command
 
         foreach ($droplets as $i => $droplet) {
             $result[] = sprintf(
-                '%s | id: <value>%s</value> | name: <value>%s</value> | image_id: <value>%s</value> | size_id: <value>%s</value> | region_id: <value>%s</value> | backups_active: <value>%s</value> | ip_address: <value>%s</value> | status: <value>%s</value>',
+                '%s | id:<value>%s</value> | name:<value>%s</value> | image_id:<value>%s</value> | size_id:<value>%s</value> | region_id:<value>%s</value> | backups_active:<value>%s</value> | ip_address:<value>%s</value> | status:<value>%s</value>',
                 ++$i, $droplet->id, $droplet->name, $droplet->image_id, $droplet->size_id, $droplet->region_id, $droplet->backups_active, $droplet->ip_address, $droplet->status
             );
         }

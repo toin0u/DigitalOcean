@@ -40,7 +40,7 @@ class GetAllCommand extends Command
 
         foreach ($images as $i => $image) {
             $result[] = sprintf(
-                '%s | id: <value>%s</value> | name: <value>%s</value> | distribution: <value>%s<value>',
+                '%s | id:<value>%s</value> | name:<value>%s</value> | distribution:<value>%s</value>',
                 ++$i, $image->id, $image->name, $image->distribution
             );
         }

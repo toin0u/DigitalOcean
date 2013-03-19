@@ -39,7 +39,7 @@ class GetAllCommand extends Command
         $sshKeys      = $digitalOcean->sshKeys()->getAll()->ssh_keys;
 
         foreach ($sshKeys as $i => $sshKey) {
-            $result[] = sprintf('%s | id: <value>%s</value> | name: <value>%s</value>', ++$i, $sshKey->id, $sshKey->name);
+            $result[] = sprintf('%s | id:<value>%s</value> | name:<value>%s</value>', ++$i, $sshKey->id, $sshKey->name);
         }
 
         $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
