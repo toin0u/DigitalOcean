@@ -107,6 +107,22 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return Images
+     */
+    protected function getMockImages($method, $returnValue)
+    {
+        $mock = $this->getMockBuilder('\DigitalOcean\Images\Images')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($this->any())
+            ->method($method)
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
+
+    /**
      * @return Regions
      */
     protected function getMockRegions($returnValue)
