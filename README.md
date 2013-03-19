@@ -301,8 +301,8 @@ try {
 
 ### CLI ###
 
-To use the Command-Line Interface, you need to rename the `credentials.yml.dist` file to `credentials.yml`, then
-add your own Client ID and API key:
+To use the [Command-Line Interface]((http://i.imgur.com/Zhvk5yr.png)), you need to copy and rename the
+`credentials.yml.dist` file to `credentials.yml` in your project directory, then add your own Client ID and API key:
 
 ```yml
 CLIENT_ID:  <YOUR_CLIENT_ID>
@@ -310,8 +310,6 @@ API_KEY:    <YOUR_API_KEY>
 ```
 
 If you want to use another credential file just add the option `--credentials="/path/to/file"` to commands below.
-
-!['DigitalOcean CLI'](http://i.imgur.com/Zhvk5yr.png)
 
 Commands for `Droplets`:
 
