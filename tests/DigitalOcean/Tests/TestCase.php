@@ -82,13 +82,29 @@ class TestCase extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mock
-            ->expects($this->atLeastOnce())
+            ->expects($this->any())
             ->method($method)
             ->will($this->returnValue($returnValue));
 
         return $mock;
     }
 
+
+    /**
+     * @return Droplets
+     */
+    protected function getMockDroplets($method, $returnValue)
+    {
+        $mock = $this->getMockBuilder('\DigitalOcean\Droplets\Droplets')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($this->any())
+            ->method($method)
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
 
     /**
      * @return Regions
@@ -99,7 +115,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mock
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('getAll')
             ->will($this->returnValue($returnValue));
 

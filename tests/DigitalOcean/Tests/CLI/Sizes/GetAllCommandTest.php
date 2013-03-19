@@ -51,9 +51,9 @@ class GetAllCommandTest extends TestCase
 
     public function testExecute()
     {
-        var_dump($this->commandTester->execute(array(
+        $this->commandTester->execute(array(
             'command' => $this->command->getName(),
-        )));
+        ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
         $this->assertRegExp('/2 \| id\:2 \| name\:bar/', $this->commandTester->getDisplay());
