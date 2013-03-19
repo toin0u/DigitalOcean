@@ -30,7 +30,7 @@ class AddCommand extends Command
         $this
             ->setName('ssh-keys:add')
             ->addArgument('name', InputArgument::REQUIRED, 'The SSH key id')
-            ->addArgument('ssh_key_pub', InputArgument::REQUIRED, 'The SSH key id')
+            ->addArgument('ssh_key_pub', InputArgument::REQUIRED, 'The SSH key string')
             ->setDescription('Add a new public SSH key to your account')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
                 'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);

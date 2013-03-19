@@ -470,7 +470,7 @@ $ php digitalocean ssh-keys:add my_new_ssh_key "ssh-dss DFDSFSDFC1.......FDSFewf
 // key:  ssh-dss DFDSFSDFC1.......FDSFewf987fdsf= dev@my_new_ssh_key
 
 $ php digitalocean ssh-keys:destroy 5556
-// id:       5556
+// status:   OK
 // event_id: 7902
 ```
 

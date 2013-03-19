@@ -131,7 +131,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mock
-            ->expects($this->any())
+            ->expects($this->once())
             ->method('getAll')
             ->will($this->returnValue($returnValue));
 
@@ -149,6 +149,22 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $mock
             ->expects($this->once())
             ->method('getAll')
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
+
+    /**
+     * @return SSHKeys
+     */
+    protected function getMockSSHKeys($method, $returnValue)
+    {
+        $mock = $this->getMockBuilder('\DigitalOcean\SSHKeys\SSHKeys')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($this->any())
+            ->method($method)
             ->will($this->returnValue($returnValue));
 
         return $mock;

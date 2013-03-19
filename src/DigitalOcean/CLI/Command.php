@@ -37,9 +37,15 @@ class Command extends BaseCommand
      * @param string $file The file with credentials.
      *
      * @return DigitalOcean An instance of DigitalOcean
+     *
+     * @throws \RuntimeException
      */
     public function getDigitalOcean($file = self::DEFAULT_CREDENTIALS_FILE)
     {
+        if (!file_exists($file)) {
+            throw new \RuntimeException(sprintf('Impossible to get credentials informations in %s', $file));
+        }
+
         $credentials = Yaml::parse($file);
 
         return new DigitalOcean(new Credentials($credentials['CLIENT_ID'], $credentials['API_KEY']));
