@@ -311,6 +311,8 @@ API_KEY:    <YOUR_API_KEY>
 
 If you want to use another credential file just add the option `--credentials="/path/to/file"` to commands below.
 
+![DigitalOcean CLI](http://i.imgur.com/Zhvk5yr.png)
+
 Commands for `Droplets`:
 
 ```bash
