@@ -97,4 +97,5 @@ $console->add(new SSHKeys\GetAllCommand());
 $console->add(new SSHKeys\ShowCommand());
 $console->add(new SSHKeys\AddCommand());
 $console->add(new SSHKeys\DestroyCommand());
+$console->add(new SSHKeys\EditCommand());
 $console->run();
