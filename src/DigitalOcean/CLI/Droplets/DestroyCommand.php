@@ -39,7 +39,7 @@ class DestroyCommand extends Command
     {
         if (!$this->getHelperSet()->get('dialog')->askConfirmation(
                 $output,
-                sprintf('<question>Are you sure to destroy droplet %s ? (y/N) </question>', $input->getArgument('id')),
+                sprintf('<question>Are you sure to destroy this droplet %s ? (y/N) </question>', $input->getArgument('id')),
                 false
             )) {
             $output->writeln('Aborted!');
