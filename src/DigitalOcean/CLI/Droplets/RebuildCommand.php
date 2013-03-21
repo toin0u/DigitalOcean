@@ -38,6 +38,16 @@ class RebuildCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (!$this->getHelperSet()->get('dialog')->askConfirmation(
+                $output,
+                sprintf('<question>Are you sure to rebuild this droplet %s with this image id %s ? (y/N) </question>',
+                    $input->getArgument('id'), $input->getArgument('image_id')),
+                false
+            )) {
+            $output->writeln('Aborted!');
+            return;
+        }
+
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplet      = $digitalOcean->droplets()->rebuild(
             $input->getArgument('id'), array('image_id' => $input->getArgument('image_id'))
