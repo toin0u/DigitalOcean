@@ -60,8 +60,11 @@ class ResetRootPasswordCommandTest extends TestCase
         ));
     }
 
-    public function testExecuteCheckStatus()
+    public function testExecuteCheckStatusConfirmed()
     {
+        $dialog = $this->getDialogAskConfirmation(true);
+        $this->command->getHelperSet()->set($dialog, 'dialog');
+
         $this->commandTester->execute(array(
             'command' => $this->command->getName(),
             'id'      => 123,
@@ -71,8 +74,11 @@ class ResetRootPasswordCommandTest extends TestCase
         $this->assertRegExp('/status:   OK/', $this->commandTester->getDisplay());
     }
 
-    public function testExecuteCheckEventId()
+    public function testExecuteCheckEventIdConfirmed()
     {
+        $dialog = $this->getDialogAskConfirmation(true);
+        $this->command->getHelperSet()->set($dialog, 'dialog');
+
         $this->commandTester->execute(array(
             'command' => $this->command->getName(),
             'id'      => 123,
@@ -80,5 +86,33 @@ class ResetRootPasswordCommandTest extends TestCase
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
         $this->assertRegExp('/event_id: 1234/', $this->commandTester->getDisplay());
+    }
+
+    public function testExecuteCheckStatusNotConfirmed()
+    {
+        $dialog = $this->getDialogAskConfirmation(false);
+        $this->command->getHelperSet()->set($dialog, 'dialog');
+
+        $this->commandTester->execute(array(
+            'command' => $this->command->getName(),
+            'id'      => 123,
+        ));
+
+        $this->assertTrue(is_string($this->commandTester->getDisplay()));
+        $this->assertRegExp('/Aborted!/', $this->commandTester->getDisplay());
+    }
+
+    public function testExecuteCheckEventIdNotConfirmed()
+    {
+        $dialog = $this->getDialogAskConfirmation(false);
+        $this->command->getHelperSet()->set($dialog, 'dialog');
+
+        $this->commandTester->execute(array(
+            'command' => $this->command->getName(),
+            'id'      => 123,
+        ));
+
+        $this->assertTrue(is_string($this->commandTester->getDisplay()));
+        $this->assertRegExp('/Aborted!/', $this->commandTester->getDisplay());
     }
 }
