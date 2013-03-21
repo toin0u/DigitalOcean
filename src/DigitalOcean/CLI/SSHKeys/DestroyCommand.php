@@ -37,6 +37,15 @@ class DestroyCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (!$this->getHelperSet()->get('dialog')->askConfirmation(
+                $output,
+                sprintf('<question>Are you sure to destroy this SSH key %s ? (y/N) </question>', $input->getArgument('id')),
+                false
+            )) {
+            $output->writeln('Aborted!');
+            return;
+        }
+
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $sshKey       = $digitalOcean->sshKeys()->destroy($input->getArgument('id'));
 
