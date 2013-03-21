@@ -1,10 +1,21 @@
 CHANGELOG
 =========
 
-1.0.1 (xxxx-xx-xx)
+1.1.0 (2013-03-21)
 ------------------
 
-n/a
+* Added: distribution credential file as a constant
+* Added: edit command to CLI - fix #13
+* Added: ask confirmation on droplet reboot command - fix #21
+* Added: ask confirmation on droplet rebuild command - fix #20
+* Added: ask confirmation on droplet reset root password command - fix #19
+* Added: ask confirmation on droplet resize command - fix #18
+* Added: ask confirmation on droplet restore command - fix #17
+* Added: ask confirmation on droplet shutdown command - fix #16
+* Added: ask confirmation on ssh key destroy command - fix #14
+* Added: ask confirmation on image destroy command - fix #14
+* Added: ask confirmation on droplet destroy command - fix #14
+* Fixed: doc about credential file and removed screenshot
 
 1.0.0 (2013-03-19)
 ------------------
