@@ -38,6 +38,16 @@ class ResizeCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (!$this->getHelperSet()->get('dialog')->askConfirmation(
+                $output,
+                sprintf('<question>Are you sure to resize this droplet %s to this size id %s ? (y/N) </question>',
+                    $input->getArgument('id'), $input->getArgument('size_id')),
+                false
+            )) {
+            $output->writeln('Aborted!');
+            return;
+        }
+
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplet      = $digitalOcean->droplets()->resize(
             $input->getArgument('id'), array('size_id' => $input->getArgument('size_id'))
