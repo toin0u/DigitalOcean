@@ -32,7 +32,7 @@ class EditCommand extends Command
             ->addArgument('ssh_key_pub', InputArgument::REQUIRED, 'The new public SSH key')
             ->setDescription('Edit an existing public SSH key in your accoun')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', COMMAND::DIST_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

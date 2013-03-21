@@ -24,6 +24,13 @@ use DigitalOcean\DigitalOcean;
 class Command extends BaseCommand
 {
     /**
+     * The distribution file with fake credentials.
+     *
+     * @var string
+     */
+    const DIST_CREDENTIALS_FILE = './credentials.yml.dist';
+
+    /**
      * The default file with credentials.
      *
      * @var string
