@@ -1,10 +1,14 @@
 CHANGELOG
 =========
 
-1.1.1 (xxxx-xx-xx)
+1.1.1 (2013-03-22)
 ------------------
 
-n/a
+* Added: terminal screencast about create-interactively command
+* Fixed: tests
+* Fixed: droplet create command
+* Fixed: images and ssh keys destroy command
+* Added: create interactively a new droplet in CLI
 
 1.1.0 (2013-03-21)
 ------------------
