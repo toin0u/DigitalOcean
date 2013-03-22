@@ -95,11 +95,11 @@ class CreateCommandTest extends TestCase
     public function testExecuteWithSSHKeysCheckStatus()
     {
         $this->commandTester->execute(array(
-            'command'      => $this->command->getName(),
-            'name'         => 'foo',
-            'size_id'      => 123,
-            'image_id'     => 456,
-            'region_id'    => 789,
+            'command'     => $this->command->getName(),
+            'name'        => 'foo',
+            'size_id'     => 123,
+            'image_id'    => 456,
+            'region_id'   => 789,
             'ssh_key_ids' => '1,2,3',
         ));
 
@@ -110,11 +110,11 @@ class CreateCommandTest extends TestCase
     public function testExecuteWithSSHKeysCheckEventId()
     {
         $this->commandTester->execute(array(
-            'command'   => $this->command->getName(),
-            'name'      => 'foo',
-            'size_id'   => 123,
-            'image_id'  => 456,
-            'region_id' => 789,
+            'command'     => $this->command->getName(),
+            'name'        => 'foo',
+            'size_id'     => 123,
+            'image_id'    => 456,
+            'region_id'   => 789,
             'ssh_key_ids' => '1,2,3',
         ));
 
