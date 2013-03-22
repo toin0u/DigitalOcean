@@ -183,4 +183,18 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         return $mock;
     }
+
+    /**
+     * @return DialogHelper
+     */
+    protected function getDialogAsk($returnValue)
+    {
+        $mock = $this->getMock('\Symfony\Component\Console\Helper\DialogHelper', array('ask'));
+        $mock
+            ->expects($this->once())
+            ->method('ask')
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
 }

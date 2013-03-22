@@ -19,7 +19,7 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use DigitalOcean\CLI\Command;
 
 /**
- * Command-line droplets:create class.
+ * Command-line droplets:create-interactively class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
@@ -34,49 +34,26 @@ class CreateInteractiveCommand extends Command
                 'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    private function getSizes($digitalOcean)
     {
-        $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
-
-        $dialog = $this->getHelperSet()->get('dialog');
-
-        // the droplet's name
-        $name = $dialog->ask(
-            $output,
-            '<question>Please enter the name of the new droplet:</question> '
-        );
-        if (null === $name) {
-            $output->writeln('Aborted!');
-            return;
-        }
-
-        // the droplet's size
         foreach ($digitalOcean->sizes()->getAll()->sizes as $size) {
             $sizes[$size->id] = $size->name;
         }
-        $sizeId = (int) $dialog->select(
-            $output,
-            '<question>Please select the size:</question> ',
-            $sizes
-        );
 
-        // the droplet's region
+        return $sizes;
+    }
+
+    private function getRegions($digitalOcean)
+    {
         foreach ($digitalOcean->regions()->getAll()->regions as $region) {
             $regions[$region->id] = $region->name;
         }
-        $regionId = (int) $dialog->select(
-            $output,
-            '<question>Please select the region:</question> ',
-            $regions
-        );
 
-        // available images
-        $typeImageId = $dialog->select(
-            $output,
-            '<question>Please select your image type:</question> ',
-            array('Global images (default)', 'Your images', 'All images'),
-            0
-        );
+        return $regions;
+    }
+
+    private function getImages($digitalOcean, $typeImageId)
+    {
         switch ($typeImageId) {
             case 0:
                 $availableImages = $digitalOcean->images()->getGlobal();
@@ -88,24 +65,67 @@ class CreateInteractiveCommand extends Command
                 $availableImages = $digitalOcean->images()->getAll();
                 break;
         }
+
         foreach ($availableImages->images as $image) {
             $images[$image->id] = sprintf('%s, %s', $image->name, $image->distribution);
         }
-        $imageId = (int) $dialog->select(
-            $output,
-            '<question>Please select the image:</question> ',
-            $images
-        );
 
-        // the droplet's public SSH key to associate
+        return $images;
+    }
+
+    private function getSshKeys($digitalOcean)
+    {
         $sshKeys = array(0 => 'None (default)');
         foreach ($digitalOcean->sshkeys()->getAll()->ssh_keys as $sshKey) {
             $sshKeys[$sshKey->id] = $sshKey->name;
         }
+
+        return $sshKeys;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
+
+        $dialog = $this->getHelperSet()->get('dialog');
+
+        $name = $dialog->ask(
+            $output,
+            '<question>Please enter the name of the new droplet:</question> '
+        );
+        if (null === $name) {
+            $output->writeln('Aborted!');
+            return;
+        }
+
+        $sizeId = (int) $dialog->select(
+            $output,
+            '<question>Please select the size:</question> ',
+            $sizes = $this->getSizes($digitalOcean)
+        );
+
+        $regionId = (int) $dialog->select(
+            $output,
+            '<question>Please select the region:</question> ',
+            $regions = $this->getRegions($digitalOcean)
+        );
+
+        $typeImageId = $dialog->select(
+            $output,
+            '<question>Please select your image type:</question> ',
+            array('Global images (default)', 'Your images', 'All images'),
+            0
+        );
+        $imageId = (int) $dialog->select(
+            $output,
+            '<question>Please select the image:</question> ',
+            $images = $this->getImages($digitalOcean, $typeImageId)
+        );
+
         $sshKeyId = $dialog->select(
             $output,
             '<question>Please select the SSH key to associate with your droplet: </question>',
-            $sshKeys,
+            $sshKeys = $this->getSshKeys($digitalOcean),
             0
         );
         $sshKeyId = '0' !== $sshKeyId ? $sshKeyId : '';
@@ -120,11 +140,7 @@ SSH key: <info>{$sshKeys[$sshKeyId]}</info>
 EOT
         ;
 
-        if (!$dialog->askConfirmation(
-                $output,
-                $confirmation,
-                false
-            )) {
+        if (!$dialog->askConfirmation($output, $confirmation, false )) {
             $output->writeln('Aborted!');
             return;
         }
