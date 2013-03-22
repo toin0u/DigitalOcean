@@ -39,7 +39,7 @@ class ResetRootPasswordCommand extends Command
     {
         if (!$this->getHelperSet()->get('dialog')->askConfirmation(
                 $output,
-                sprintf('<question>Are you sure to reset this droplet %s root password ? (y/N) </question>',
+                sprintf('<question>Are you sure to reset this droplet %s root password ? (y/N)</question> ',
                     $input->getArgument('id')),
                 false
             )) {

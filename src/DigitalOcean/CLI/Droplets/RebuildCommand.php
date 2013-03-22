@@ -40,7 +40,7 @@ class RebuildCommand extends Command
     {
         if (!$this->getHelperSet()->get('dialog')->askConfirmation(
                 $output,
-                sprintf('<question>Are you sure to rebuild this droplet %s with this image id %s ? (y/N) </question>',
+                sprintf('<question>Are you sure to rebuild this droplet %s with this image id %s ? (y/N)</question> ',
                     $input->getArgument('id'), $input->getArgument('image_id')),
                 false
             )) {
