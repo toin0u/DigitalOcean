@@ -44,9 +44,10 @@ class AddCommand extends Command
             'ssh_pub_key' => $input->getArgument('ssh_pub_key'),
         ));
 
-        $result[] = sprintf('id:   <value>%s</value>', $sshKey->id);
-        $result[] = sprintf('name: <value>%s</value>', $sshKey->name);
-        $result[] = sprintf('key:  <value>%s</value>', $sshKey->ssh_pub_key);
+        $result[] = sprintf('status: <value>%s</value>', $sshKey->status);
+        $result[] = sprintf('id:     <value>%s</value>', $sshKey->ssh_key->id);
+        $result[] = sprintf('name:   <value>%s</value>', $sshKey->ssh_key->name);
+        $result[] = sprintf('key:    <value>%s</value>', $sshKey->ssh_key->ssh_pub_key);
 
         $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
         $output->writeln($result);
