@@ -49,10 +49,7 @@ class DestroyCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $image        = $digitalOcean->images()->destroy($input->getArgument('id'));
 
-        $result[] = sprintf('id:       <value>%s</value>', $image->id);
-        $result[] = sprintf('event_id: <value>%s</value>', $image->event_id);
-
         $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $output->writeln(sprintf('status: <value>%s</value>', $image->status));
     }
 }

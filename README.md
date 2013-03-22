@@ -387,7 +387,7 @@ $ php digitalocean droplets:disable-automatic-backups 12345
 // event_id: 6901
 
 $ php digitalocean droplets:destroy 12345
-// id:       12345
+// status:   OK
 // event_id: 6902
 ```
 
@@ -419,8 +419,7 @@ $ php digitalocean images:show 46964
 // distribution: Ubuntu
 
 $ php digitalocean images:destroy 12345
-// id:       12345
-// event_id: 7901
+// status: OK
 ```
 
 Commands for `Regions`:
@@ -470,8 +469,7 @@ $ php digitalocean ssh-keys:add my_new_ssh_key "ssh-dss DFDSFSDFC1.......FDSFewf
 // key:  ssh-dss DFDSFSDFC1.......FDSFewf987fdsf= dev@my_new_ssh_key
 
 $ php digitalocean ssh-keys:destroy 5556
-// status:   OK
-// event_id: 7902
+// status: OK
 ```
 
 
