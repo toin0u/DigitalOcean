@@ -1,10 +1,12 @@
 CHANGELOG
 =========
 
-1.1.2 (xxxx-xx-xx)
+1.1.2 (2013-03-22)
 ------------------
 
-n/a
+* Added: droplet create interactively test
+* Fixed: creating a new ssh key is more verbose
+* Fixed: ssh key argument name to ssh_pub_key
 
 1.1.1 (2013-03-22)
 ------------------
