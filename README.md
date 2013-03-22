@@ -338,6 +338,8 @@ $ php digitalocean droplets:create test_droplet 65 43462 1 "5555,5556"
 // status:   OK
 // event_id: 6895
 
+$ php digitalocean droplets:create-interactively // see: http://shelr.tv/records/514c2ba796608075f800005a
+
 $ php digitalocean droplets:reboot 12345
 // status:   OK
 // event_id: 6895
