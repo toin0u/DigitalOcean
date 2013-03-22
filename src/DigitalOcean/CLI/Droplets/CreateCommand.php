@@ -29,7 +29,7 @@ class CreateCommand extends Command
     {
         $this
             ->setName('droplets:create')
-            ->setDescription('Creates a new droplet')
+            ->setDescription('Create a new droplet')
             ->addArgument('name', InputArgument::REQUIRED, 'The name of the new droplet')
             ->addArgument('size_id', InputArgument::REQUIRED, 'The size id')
             ->addArgument('image_id', InputArgument::REQUIRED, 'The image id')

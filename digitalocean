@@ -73,6 +73,7 @@ $console->setVersion(DigitalOcean::VERSION);
 $console->add(new Droplets\ShowAllActiveCommand());
 $console->add(new Droplets\ShowCommand());
 $console->add(new Droplets\CreateCommand());
+$console->add(new Droplets\CreateInteractiveCommand());
 $console->add(new Droplets\RebootCommand());
 $console->add(new Droplets\PowerCycleCommand());
 $console->add(new Droplets\ShutdownCommand());
