@@ -30,8 +30,14 @@ class CreateCommandTest extends TestCase
         $this->application = new Application();
 
         $result = (object) array(
-            'status'   => 'OK',
-            'event_id' => 1234,
+            'status'  => 'OK',
+            'droplet' => (object) array (
+                'id'       => 100824,
+                'name'     => 'foo',
+                'image_id' => 9876,
+                'size_id'  => 32,
+                'event_id' => 1234,
+            ),
         );
 
         $CreateCommand = $this->getMock('\DigitalOcean\CLI\Droplets\CreateCommand', array('getDigitalOcean'));

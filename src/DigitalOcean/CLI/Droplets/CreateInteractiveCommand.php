@@ -116,7 +116,7 @@ Size:    <info>{$sizes[$sizeId]}</info>
 Region:  <info>{$regions[$regionId]}</info>
 Image:   <info>{$images[$imageId]}</info>
 SSH key: <info>{$sshKeys[$sshKeyId]}</info>
-<question>Create this droplet ? (y/N)</question> 
+<question>Are you sure to create this droplet ? (y/N)</question> 
 EOT
         ;
 
@@ -129,7 +129,6 @@ EOT
             return;
         }
 
-
         $droplet = $digitalOcean->droplets()->create(array(
             'name'        => $name,
             'size_id'     => $sizeId,
@@ -139,7 +138,7 @@ EOT
         ));
 
         $result[] = sprintf('status:   <value>%s</value>', $droplet->status);
-        $result[] = sprintf('event_id: <value>%s</value>', $droplet->event_id);
+        $result[] = sprintf('event_id: <value>%s</value>', $droplet->droplet->event_id);
 
         $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
         $output->writeln($result);

@@ -51,7 +51,7 @@ class CreateCommand extends Command
         ));
 
         $result[] = sprintf('status:   <value>%s</value>', $droplet->status);
-        $result[] = sprintf('event_id: <value>%s</value>', $droplet->event_id);
+        $result[] = sprintf('event_id: <value>%s</value>', $droplet->droplet->event_id);
 
         $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
         $output->writeln($result);
