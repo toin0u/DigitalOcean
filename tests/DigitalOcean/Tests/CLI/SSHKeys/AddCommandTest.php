@@ -67,7 +67,7 @@ class AddCommandTest extends TestCase
     {
         $this->commandTester->execute(array(
             'command'     => $this->command->getName(),
-            'ssh_key_pub' => 'bar',
+            'ssh_pub_key' => 'bar',
         ));
     }
 
@@ -88,7 +88,7 @@ class AddCommandTest extends TestCase
         $this->commandTester->execute(array(
             'command'     => $this->command->getName(),
             'name'        => 'foo',
-            'ssh_key_pub' => 'bar',
+            'ssh_pub_key' => 'bar',
         ));
 
         $expected = <<<EOT

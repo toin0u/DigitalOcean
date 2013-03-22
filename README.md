@@ -257,19 +257,19 @@ try {
     printf("%s\n", $sshKey->ssh_kay->name); // office-imac
     printf("%s\n", $sshKey->ssh_kay->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@office-imac
 
-    // Adds a new public SSH key to your account. The argument should be an array with name and ssh_key_pub keys.
+    // Adds a new public SSH key to your account. The argument should be an array with name and ssh_pub_key keys.
     $addSshKey = $sshKeys->add(array(
         'name'        => 'macbook_pro',
-        'ssh_key_pub' => 'ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro',
+        'ssh_pub_key' => 'ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro',
     ));
     printf("%s\n", $addSshKey->status); // OK
     printf("%s\n", $addSshKey->ssh_key->id); // 12
     printf("%s\n", $addSshKey->ssh_kay->name); // macbook_pro
     printf("%s\n", $addSshKey->ssh_kay->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
 
-    // Edits an existing public SSH key in your account. The argument should be an array with ssh_key_pub key.
+    // Edits an existing public SSH key in your account. The argument should be an array with ssh_pub_key key.
     $editSshKey = $sshKeys->edit(array(
-        'ssh_key_pub' => '...',
+        'ssh_pub_key' => '...',
     )); // not implemented yet.
 
     // Deletes the SSH key from your account.

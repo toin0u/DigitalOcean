@@ -68,7 +68,7 @@ class SSHKeys extends AbstractDigitalOcean
 
     /**
      * Adds a new public SSH key to your account.
-     * The array requires name and ssh_key_pub keys.
+     * The array requires name and ssh_pub_key keys.
      *
      * @param array $parameters An array of parameters.
      *
@@ -82,7 +82,7 @@ class SSHKeys extends AbstractDigitalOcean
             throw new \InvalidArgumentException('You need to provide the name of the SSH Key.');
         }
 
-        if (!array_key_exists('ssh_key_pub', $parameters) || !is_string($parameters['ssh_key_pub'])) {
+        if (!array_key_exists('ssh_pub_key', $parameters) || !is_string($parameters['ssh_pub_key'])) {
             throw new \InvalidArgumentException('You need to provide the SSH key.');
         }
 
@@ -91,7 +91,7 @@ class SSHKeys extends AbstractDigitalOcean
 
     /**
      * Edits an existing public SSH key in your account.
-     * The array requires ssh_key_pub key.
+     * The array requires ssh_pub_key key.
      *
      * @param array $parameters An array of parameters.
      *
@@ -102,7 +102,7 @@ class SSHKeys extends AbstractDigitalOcean
      */
     public function edit(array $parameters)
     {
-        if (!array_key_exists('ssh_key_pub', $parameters) || !is_string($parameters['ssh_key_pub'])) {
+        if (!array_key_exists('ssh_pub_key', $parameters) || !is_string($parameters['ssh_pub_key'])) {
             throw new \InvalidArgumentException('You need to provide the new public SSH Key.');
         }
 

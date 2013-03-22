@@ -123,7 +123,7 @@ JSON
         ;
 
         $sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapterReturns($response));
-        $sshKey  = $sshKeys->add(array('name' => 'foo', 'ssh_key_pub' => 'bar'));
+        $sshKey  = $sshKeys->add(array('name' => 'foo', 'ssh_pub_key' => 'bar'));
 
         $this->assertTrue(is_object($sshKey));
         $this->assertEquals('OK', $sshKey->status);
@@ -174,7 +174,7 @@ JSON
      */
     public function testEditThrowsRuntimeException()
     {
-        $this->sshKeys->edit(array('ssh_key_pub' => 'foo_bar_baz'));
+        $this->sshKeys->edit(array('ssh_pub_key' => 'foo_bar_baz'));
     }
 
     public function testDestroyUrl()

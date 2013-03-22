@@ -55,7 +55,7 @@ class EditCommandTest extends TestCase
     {
         $this->commandTester->execute(array(
             'command'     => $this->command->getName(),
-            'ssh_key_pub' => 'foobar',
+            'ssh_pub_key' => 'foobar',
         ));
     }
 }

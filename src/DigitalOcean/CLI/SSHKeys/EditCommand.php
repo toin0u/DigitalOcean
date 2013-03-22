@@ -29,7 +29,7 @@ class EditCommand extends Command
     {
         $this
             ->setName('ssh-keys:edit')
-            ->addArgument('ssh_key_pub', InputArgument::REQUIRED, 'The new public SSH key')
+            ->addArgument('ssh_pub_key', InputArgument::REQUIRED, 'The new public SSH key')
             ->setDescription('Edit an existing public SSH key in your accoun')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
                 'If set, the yaml file which contains your credentials', COMMAND::DIST_CREDENTIALS_FILE);
@@ -39,7 +39,7 @@ class EditCommand extends Command
     {
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $digitalOcean->sshKeys()->edit(array(
-            'ssh_key_pub' => $input->getArgument('ssh_key_pub'),
+            'ssh_pub_key' => $input->getArgument('ssh_pub_key'),
         ));
     }
 }
