@@ -38,11 +38,12 @@ class ShutdownCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (!$this->getHelperSet()->get('dialog')->askConfirmation(
-                $output,
-                sprintf('<question>Are you sure to shutdown this droplet %s ? (y/N)</question> ', $input->getArgument('id')),
-                false
-            )) {
+            $output,
+            sprintf('<question>Are you sure to shutdown this droplet %s ? (y/N)</question> ', $input->getArgument('id')),
+            false
+        )) {
             $output->writeln('Aborted!');
+
             return;
         }
 

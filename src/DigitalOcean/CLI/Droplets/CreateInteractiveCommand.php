@@ -95,6 +95,7 @@ class CreateInteractiveCommand extends Command
         );
         if (null === $name) {
             $output->writeln('Aborted!');
+
             return;
         }
 
@@ -137,11 +138,11 @@ Region:  <info>{$regions[$regionId]}</info>
 Image:   <info>{$images[$imageId]}</info>
 SSH key: <info>{$sshKeys[$sshKeyId]}</info>
 <question>Are you sure to create this droplet ? (y/N)</question> 
-EOT
-        ;
+EOT;
 
-        if (!$dialog->askConfirmation($output, $confirmation, false )) {
+        if (!$dialog->askConfirmation($output, $confirmation, false)) {
             $output->writeln('Aborted!');
+
             return;
         }
 
