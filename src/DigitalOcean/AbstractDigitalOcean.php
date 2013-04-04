@@ -18,7 +18,7 @@ use DigitalOcean\HttpAdapter\HttpAdapterInterface;
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class AbstractDigitalOcean
+abstract class AbstractDigitalOcean
 {
     /**
      * The url of the API endpoint.
