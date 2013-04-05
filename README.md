@@ -48,7 +48,7 @@ Usage
 You need an `HttpAdapter` which is responsible to get data from DigitalOcean's RESTfull API.
 You can provide your own adapter by implementing `\DigitalOcean\HttpAdapter\HttpAdapterInterface`.
 
-Currently, there are the following adapters:
+Currently, these following adapters are available:
 
 * `CurlHttpAdapter` to use [cURL](http://php.net/manual/book.curl.php) - it's the default one.
 * `BuzzHttpAdapter` to use [Buzz](https://github.com/kriswallsmith/Buzz), a lightweight PHP 5.3 library for
@@ -59,6 +59,8 @@ for building RESTful web service clients.
 * `SocketHttpAdapter` to use a [socket](http://www.php.net/manual/function.fsockopen.php).
 
 ```php
+<?php
+
 require 'vendor/autoload.php';
 
 use DigitalOcean\DigitalOcean;
