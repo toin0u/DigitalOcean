@@ -542,3 +542,5 @@ License
 
 Geotools is released under the MIT License. See the bundled
 [LICENSE](https://github.com/toin0u/DigitalOcean/blob/master/LICENSE) file for details.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/toin0u/DigitalOcean/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
