@@ -6,7 +6,6 @@ This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOcean.png)](http://travis-ci.org/toin0u/DigitalOcean)
 [![Coverage Status](https://coveralls.io/repos/toin0u/DigitalOcean/badge.png?branch=master)](https://coveralls.io/r/toin0u/DigitalOcean)
-[![project status](http://stillmaintained.com/toin0u/DigitalOcean.png)](http://stillmaintained.com/toin0u/DigitalOcean)
 
 > DigitalOcean is **built for Developers**, helps to **get things done faster** and to
 > **deploy an SSD cloud server** in less than 55 seconds with a **dedicated IP** and **root access**.
@@ -49,7 +48,7 @@ Usage
 You need an `HttpAdapter` which is responsible to get data from DigitalOcean's RESTfull API.
 You can provide your own adapter by implementing `HttpAdapter\HttpAdapterInterface`.
 
-[You can read more about HttpAdapter](https://github.com/toin0u/HttpAdapter).
+[Read more about HttpAdapter](https://github.com/toin0u/HttpAdapter)
 
 
 ```php
