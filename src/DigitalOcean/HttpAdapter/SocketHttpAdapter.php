@@ -106,7 +106,7 @@ class SocketHttpAdapter implements HttpAdapterInterface
         $r[] = "GET {$path} HTTP/1.1";
         $r[] = "Host: {$hostname}";
         $r[] = "Connection: Close";
-        $r[] = "User-Agent: Geocoder PHP-Library";
+        $r[] = "User-Agent: Geotools PHP-Library";
         $r[] = "\r\n";
 
         return implode("\r\n", $r);
