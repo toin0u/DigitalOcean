@@ -29,7 +29,7 @@ class AddCommand extends Command
     {
         $this
             ->setName('ssh-keys:add')
-            ->addArgument('name', InputArgument::REQUIRED, 'The SSH key id')
+            ->addArgument('name', InputArgument::REQUIRED, 'The name of the new SSH key')
             ->addArgument('ssh_pub_key', InputArgument::REQUIRED, 'The SSH key string')
             ->setDescription('Add a new public SSH key to your account')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
