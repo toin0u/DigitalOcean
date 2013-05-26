@@ -123,7 +123,7 @@ class SocketHttpAdapterTest extends TestCase
         $ex_body[] = "GET $ex_path HTTP/1.1";
         $ex_body[] = "Host: $ex_host";
         $ex_body[] = "Connection: Close";
-        $ex_body[] = "User-Agent: Geocoder PHP-Library";
+        $ex_body[] = "User-Agent: Geotools PHP-Library";
         $ex_body[] = "\r\n";
 
         $this->assertEquals(
