@@ -47,17 +47,10 @@ Usage
 -----
 
 You need an `HttpAdapter` which is responsible to get data from DigitalOcean's RESTfull API.
-You can provide your own adapter by implementing `\DigitalOcean\HttpAdapter\HttpAdapterInterface`.
+You can provide your own adapter by implementing `HttpAdapter\HttpAdapterInterface`.
 
-Currently, these following adapters are available:
+[You can read more about HttpAdapter](https://github.com/toin0u/HttpAdapter).
 
-* `CurlHttpAdapter` to use [cURL](http://php.net/manual/book.curl.php) - it's the default one.
-* `BuzzHttpAdapter` to use [Buzz](https://github.com/kriswallsmith/Buzz), a lightweight PHP 5.3 library for
-issuing HTTP requests.
-* `GuzzleHttpAdapter` to use [Guzzle](https://github.com/guzzle/guzzle), PHP 5.3+ HTTP client and framework
-for building RESTful web service clients.
-* `ZendHttpAdapter` to use [Zend Http Client](http://framework.zend.com/manual/2.0/en/modules/zend.http.client.html).
-* `SocketHttpAdapter` to use a [socket](http://www.php.net/manual/function.fsockopen.php).
 
 ```php
 <?php
@@ -72,7 +65,7 @@ $credentials = new Credentials('YOUR_CLIENT_ID', 'YOUR_API_KEY')
 // Use the default adapter, CurlHttpAdapter.
 $digitalOcean = new DigitalOcean($credentials);
 // Or use BuzzHttpAdatpter.
-$digitalOcean = new DigitalOcean($credentials, new DigitalOcean\HttpAdapter\BuzzHttpAdapter());
+$digitalOcean = new DigitalOcean($credentials, new HttpAdapter\BuzzHttpAdapter());
 // ...
 ```
 

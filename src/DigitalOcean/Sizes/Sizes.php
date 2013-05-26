@@ -13,7 +13,7 @@ namespace DigitalOcean\Sizes;
 
 use DigitalOcean\Credentials;
 use DigitalOcean\AbstractDigitalOcean;
-use DigitalOcean\HttpAdapter\HttpAdapterInterface;
+use HttpAdapter\HttpAdapterInterface;
 
 /**
  * Sizes class.

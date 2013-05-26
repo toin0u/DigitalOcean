@@ -11,8 +11,8 @@
 
 namespace DigitalOcean;
 
-use DigitalOcean\HttpAdapter\HttpAdapterInterface;
-use DigitalOcean\HttpAdapter\CurlHttpAdapter;
+use HttpAdapter\HttpAdapterInterface;
+use HttpAdapter\CurlHttpAdapter;
 use DigitalOcean\Droplets\Droplets;
 use DigitalOcean\Regions\Regions;
 use DigitalOcean\Images\Images;

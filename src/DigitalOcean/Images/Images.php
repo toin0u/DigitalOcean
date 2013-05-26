@@ -14,7 +14,7 @@ namespace DigitalOcean\Images;
 use DigitalOcean\Credentials;
 use DigitalOcean\Images\ImagesActions;
 use DigitalOcean\AbstractDigitalOcean;
-use DigitalOcean\HttpAdapter\HttpAdapterInterface;
+use HttpAdapter\HttpAdapterInterface;
 
 /**
  * Images class.

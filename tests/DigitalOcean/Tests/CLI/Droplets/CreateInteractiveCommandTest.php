@@ -53,7 +53,7 @@ class CreateInteractiveCommandTest extends TestCase
 
     public function testExecuteWithDropletName()
     {
-        $this->markTestIncomplete('fixme');
+        $this->markTestIncomplete('Make a test with a droplet name');
     }
 
     public function testGetSizes()

@@ -11,7 +11,7 @@
 
 namespace DigitalOcean;
 
-use DigitalOcean\HttpAdapter\HttpAdapterInterface;
+use HttpAdapter\HttpAdapterInterface;
 
 /**
  * DigitalOcean abstract class.

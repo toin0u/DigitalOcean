@@ -14,7 +14,7 @@ namespace DigitalOcean\SSHKeys;
 use DigitalOcean\Credentials;
 use DigitalOcean\SSHKeys\SSHKeysActions;
 use DigitalOcean\AbstractDigitalOcean;
-use DigitalOcean\HttpAdapter\HttpAdapterInterface;
+use HttpAdapter\HttpAdapterInterface;
 
 /**
  * SSHKeys class.

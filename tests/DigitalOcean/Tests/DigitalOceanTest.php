@@ -23,7 +23,7 @@ class DigitalOceanTest extends TestCase
         $digitalOcean = new MockDigitalOcean($this->getMockCredentials($this->never()));
 
         $this->assertTrue(is_object($digitalOcean->getAdapter()));
-        $this->assertInstanceOf('\\DigitalOcean\\HttpAdapter\\CurlHttpAdapter', $digitalOcean->getAdapter());
+        $this->assertInstanceOf('\\HttpAdapter\\CurlHttpAdapter', $digitalOcean->getAdapter());
     }
 
     public function testReturnsDropletInstance()

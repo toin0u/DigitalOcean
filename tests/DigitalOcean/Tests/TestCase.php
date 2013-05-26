@@ -25,7 +25,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             $expects = $this->once();
         }
 
-        $mock = $this->getMock('\DigitalOcean\HttpAdapter\HttpAdapterInterface');
+        $mock = $this->getMock('\HttpAdapter\HttpAdapterInterface');
         $mock
             ->expects($expects)
             ->method('getContent')
@@ -39,7 +39,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getMockAdapterReturns($returnValue)
     {
-        $mock = $this->getMock('\DigitalOcean\HttpAdapter\HttpAdapterInterface');
+        $mock = $this->getMock('\HttpAdapter\HttpAdapterInterface');
         $mock
             ->expects($this->once())
             ->method('getContent')

@@ -14,7 +14,7 @@ namespace DigitalOcean\Droplets;
 use DigitalOcean\Credentials;
 use DigitalOcean\Droplets\DropletsActions;
 use DigitalOcean\AbstractDigitalOcean;
-use DigitalOcean\HttpAdapter\HttpAdapterInterface;
+use HttpAdapter\HttpAdapterInterface;
 
 /**
  * Droplets class.

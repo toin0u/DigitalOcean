@@ -111,7 +111,7 @@ JSON
 
         $droplets = new Droplets(
             new \DigitalOcean\Credentials($_SERVER['CLIENT_ID'], $_SERVER['API_KEY']),
-            new \DigitalOcean\HttpAdapter\CurlHttpAdapter()
+            new \HttpAdapter\CurlHttpAdapter()
         );
         $droplets = $droplets->showAllActive();
 
