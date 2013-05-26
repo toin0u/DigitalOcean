@@ -507,7 +507,7 @@ Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOcean/blob/master/CON
 Credits
 -------
 
-* [Antoine Corcy](https://twitter.com/toin0u) - Owner
+* [Antoine Corcy](https://twitter.com/toin0u)
 * [All contributors](https://github.com/toin0u/DigitalOcean/contributors)
 
 
