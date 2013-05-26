@@ -1,10 +1,18 @@
 CHANGELOG
 =========
 
-1.1.3 (xxxx-xx-xx)
+1.1.3 (2013-04-26)
 ------------------
 
-n/a
+* Added: HttpAdapter library
+* Fixed: socket test
+* Updated: socket user-agent
+* Updated: add command help text in CLI
+* Fixed: travis-ci
+* Added: bitdeli.com
+* Added: coveralls.io
+* Updated: Contribution doc
+* Fixed: digitalocean abstract class
 
 1.1.2 (2013-03-22)
 ------------------
