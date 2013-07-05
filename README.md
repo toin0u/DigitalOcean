@@ -6,6 +6,9 @@ This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOcean.png)](http://travis-ci.org/toin0u/DigitalOcean)
 [![Coverage Status](https://coveralls.io/repos/toin0u/DigitalOcean/badge.png?branch=master)](https://coveralls.io/r/toin0u/DigitalOcean)
+[![Latest Stable Version](https://poser.pugx.org/toin0u/DigitalOcean/v/stable.png)](https://packagist.org/packages/toin0u/DigitalOcean)
+[![Total Downloads](https://poser.pugx.org/toin0u/DigitalOcean/downloads.png)](https://packagist.org/packages/toin0u/DigitalOcean)
+
 
 > DigitalOcean is **built for Developers**, helps to **get things done faster** and to
 > **deploy an SSD cloud server** in less than 55 seconds with a **dedicated IP** and **root access**.
