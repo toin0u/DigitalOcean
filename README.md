@@ -266,9 +266,13 @@ try {
     printf("%s\n", $addSshKey->ssh_kay->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
 
     // Edits an existing public SSH key in your account. The argument should be an array with ssh_pub_key key.
-    $editSshKey = $sshKeys->edit(array(
-        'ssh_pub_key' => '...',
-    )); // not implemented yet.
+    $editSshKey = $sshKeys->edit(12, array(
+        'ssh_pub_key' => 'ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro',
+    ));
+    printf("%s\n", $editSshKey->status); // OK
+    printf("%s\n", $editSshKey->ssh_key->id); // 12
+    printf("%s\n", $editSshKey->ssh_kay->name); // macbook_pro
+    printf("%s\n", $editSshKey->ssh_kay->ssh_pub_key); // ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro
 
     // Deletes the SSH key from your account.
     $destroySshKey = $sshKeys->destroy(12);
