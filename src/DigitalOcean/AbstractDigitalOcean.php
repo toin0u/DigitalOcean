@@ -100,7 +100,6 @@ abstract class AbstractDigitalOcean
      * @return StdClass
      *
      * @throws \RuntimeException
-     * @throws \InvalidArgumentException
      */
     protected function processQuery($query)
     {
@@ -111,11 +110,7 @@ abstract class AbstractDigitalOcean
         }
 
         if ('ERROR' === $processed->status) {
-            if (isset($processed->description)) {
-                throw new \InvalidArgumentException($processed->description);
-            }
-
-            throw new \RuntimeException($processed->error_message);
+            throw new \RuntimeException(sprintf("%s: %s", $processed->message, $query));
         }
 
         return $processed;

@@ -88,21 +88,6 @@ JSON
         $this->assertSame('127.0.0.1', $droplet1->ip_address);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unable to verify credentials. #414LB
-     */
-    public function testShowAllActiveThrowsInvalidArgumentException()
-    {
-        $response = <<<JSON
-{"status":"ERROR","description":"Unable to verify credentials. #414LB"}
-JSON
-        ;
-
-        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
-        $droplets->showAllActive();
-    }
-
     public function testShowAllActiveWithCredentials()
     {
         if (!isset($_SERVER['CLIENT_ID']) || !isset($_SERVER['API_KEY'])) {
@@ -160,12 +145,12 @@ JSON
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage No Droplets Found
+     * @expectedExceptionMessage Not Found: https://api.digitalocean.com/droplets/123/?client_id=foo&api_key=bar
      */
     public function testShowThrowsRuntimeException()
     {
         $response = <<<JSON
-{"status":"ERROR","error_message":"No Droplets Found"}
+{"status":"ERROR","message":"Not Found"}
 JSON
         ;
 
