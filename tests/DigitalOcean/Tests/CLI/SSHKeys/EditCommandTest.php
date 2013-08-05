@@ -29,7 +29,22 @@ class EditCommandTest extends TestCase
     {
         $this->application = new Application();
 
-        $this->application->add(new EditCommand());
+        $result = (object) array(
+            'status'  => 'OK',
+            'ssh_key' => (object) array(
+                'id'          => 123,
+                'name'        => 'my_ssh_key',
+                'ssh_pub_key' => 'the new ssh key string',
+            ),
+        );
+
+        $EditCommand = $this->getMock('\DigitalOcean\CLI\SSHKeys\EditCommand', array('getDigitalOcean'));
+        $EditCommand
+            ->expects($this->any())
+            ->method('getDigitalOcean')
+            ->will($this->returnValue($this->getMockDigitalOcean('sshkeys', $this->getMockSSHKeys('edit', $result))));
+
+        $this->application->add($EditCommand);
 
         $this->command = $this->application->find('ssh-keys:edit');
 
@@ -49,13 +64,55 @@ class EditCommandTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Not implemented yet. Coming soon...
+     * @expectedExceptionMessage Not enough arguments.
      */
-    public function testExecuteNotImplementedYet()
+    public function testExecuteNotEnoughArgumentsWithoutSSHKeyId()
     {
         $this->commandTester->execute(array(
             'command'     => $this->command->getName(),
-            'ssh_pub_key' => 'foobar',
+            'ssh_pub_key' => 'foo',
         ));
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Not enough arguments.
+     */
+    public function testExecuteNotEnoughArgumentsWithoutNewSSHKey()
+    {
+        $this->commandTester->execute(array(
+            'command' => $this->command->getName(),
+            'id'      => 123,
+        ));
+    }
+
+    public function testExecuteNotConfirmed()
+    {
+        $dialog = $this->getDialogAskConfirmation(false);
+        $this->command->getHelperSet()->set($dialog, 'dialog');
+
+        $this->commandTester->execute(array(
+            'command'     => $this->command->getName(),
+            'id'          => 123,
+            'ssh_pub_key' => 'foo',
+        ));
+
+        $this->assertTrue(is_string($this->commandTester->getDisplay()));
+        $this->assertRegExp('/Aborted!/', $this->commandTester->getDisplay());
+    }
+
+    public function testExecuteConfirmed()
+    {
+        $dialog = $this->getDialogAskConfirmation(true);
+        $this->command->getHelperSet()->set($dialog, 'dialog');
+
+        $this->commandTester->execute(array(
+            'command'     => $this->command->getName(),
+            'id'          => 123,
+            'ssh_pub_key' => 'foo',
+        ));
+
+        $this->assertTrue(is_string($this->commandTester->getDisplay()));
+        $this->assertRegExp('/status: OK/', $this->commandTester->getDisplay());
     }
 }

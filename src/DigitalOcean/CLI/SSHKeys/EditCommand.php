@@ -29,17 +29,37 @@ class EditCommand extends Command
     {
         $this
             ->setName('ssh-keys:edit')
+            ->addArgument('id', InputArgument::REQUIRED, 'The SSH key id to edit')
             ->addArgument('ssh_pub_key', InputArgument::REQUIRED, 'The new public SSH key')
-            ->setDescription('Edit an existing public SSH key in your accoun')
+            ->setDescription('Edit an existing public SSH key in your account')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DIST_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (!$this->getHelperSet()->get('dialog')->askConfirmation(
+            $output,
+            sprintf('<question>Are you sure to edit this SSH key %s ? (y/N)</question> ', $input->getArgument('id')),
+            false
+        )) {
+            $output->writeln('Aborted!');
+
+            return;
+        }
+
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
-        $digitalOcean->sshKeys()->edit(array(
-            'ssh_pub_key' => $input->getArgument('ssh_pub_key'),
-        ));
+        $sshKey       = $digitalOcean->sshKeys()->edit(
+            $input->getArgument('id'),
+            array('ssh_pub_key' => $input->getArgument('ssh_pub_key'))
+        );
+
+        $result[] = sprintf('status: <value>%s</value>', $sshKey->status);
+        $result[] = sprintf('id:     <value>%s</value>', $sshKey->ssh_key->id);
+        $result[] = sprintf('name:   <value>%s</value>', $sshKey->ssh_key->name);
+        $result[] = sprintf('key:    <value>%s</value>', $sshKey->ssh_key->ssh_pub_key);
+
+        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
+        $output->writeln($result);
     }
 }
