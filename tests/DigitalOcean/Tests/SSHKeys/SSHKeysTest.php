@@ -165,16 +165,7 @@ JSON
      */
     public function testEditThrowsSSHKeyPubInvalidArgumentException()
     {
-        $this->sshKeys->edit(array());
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Not implemented yet. Coming soon...
-     */
-    public function testEditThrowsRuntimeException()
-    {
-        $this->sshKeys->edit(array('ssh_pub_key' => 'foo_bar_baz'));
+        $this->sshKeys->edit($this->sshKeyId, array());
     }
 
     public function testDestroyUrl()

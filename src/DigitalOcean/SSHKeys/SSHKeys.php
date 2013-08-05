@@ -93,20 +93,20 @@ class SSHKeys extends AbstractDigitalOcean
      * Edits an existing public SSH key in your account.
      * The array requires ssh_pub_key key.
      *
-     * @param array $parameters An array of parameters.
+     * @param integer $sshKeyId   The id of the SSH key.
+     * @param array   $parameters An array of parameters.
      *
      * @return StdClass
      *
      * @throws \InvalidArgumentException
-     * @throws \RuntimeException
      */
-    public function edit(array $parameters)
+    public function edit($sshKeyId, array $parameters)
     {
         if (!array_key_exists('ssh_pub_key', $parameters) || !is_string($parameters['ssh_pub_key'])) {
             throw new \InvalidArgumentException('You need to provide the new public SSH Key.');
         }
 
-        throw new \RuntimeException('Not implemented yet. Coming soon...');
+        return $this->processQuery($this->buildQuery($sshKeyId, SSHKeysActions::ACTION_EDIT, $parameters));
     }
 
     /**
