@@ -472,6 +472,11 @@ $ php digitalocean ssh-keys:add my_new_ssh_key "ssh-dss DFDSFSDFC1.......FDSFewf
 // name: my_new_ssh_key
 // key:  ssh-dss DFDSFSDFC1.......FDSFewf987fdsf= dev@my_new_ssh_key
 
+$ php digitalocean ssh-keys:edit 5556 "ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro"
+// id:   5556
+// name: my_new_ssh_key
+// key:  ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro
+
 $ php digitalocean ssh-keys:destroy 5556
 // status: OK
 ```
