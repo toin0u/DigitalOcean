@@ -1,10 +1,22 @@
 CHANGELOG
 =========
 
-1.1.4 (xxxx-xx-xx)
+1.2.0 (2013-08-06)
 ------------------
 
-n/a
+* Updated: composer.json
+* Updated: sshkey edit test
+* Added: typehint to id variables
+* Fixed: mock call in images destroy test
+* Added: images transfert to CLI + tests
+* Added: images transfert + tests - fix #24
+* Added: droplets rename to CLI - tests
+* Added: droplets rename action + tests - fix #25
+* Added: ssh edit in CLI + test
+* Added: ssh key edit + test - fix #12
+* Fixed: query procesing
+* Added: poser.pugx.org badges
+* Removed: stillmaintained.com
 
 1.1.3 (2013-04-26)
 ------------------
