@@ -51,7 +51,7 @@ class RebuildCommand extends Command
 
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplet      = $digitalOcean->droplets()->rebuild(
-            $input->getArgument('id'), array('image_id' => $input->getArgument('image_id'))
+            $input->getArgument('id'), array('image_id' => (int) $input->getArgument('image_id'))
         );
 
         $result[] = sprintf('status:   <value>%s</value>', $droplet->status);

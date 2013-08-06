@@ -44,9 +44,9 @@ class CreateCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplet      = $digitalOcean->droplets()->create(array(
             'name'        => $input->getArgument('name'),
-            'size_id'     => $input->getArgument('size_id'),
-            'image_id'    => $input->getArgument('image_id'),
-            'region_id'   => $input->getArgument('region_id'),
+            'size_id'     => (int) $input->getArgument('size_id'),
+            'image_id'    => (int) $input->getArgument('image_id'),
+            'region_id'   => (int) $input->getArgument('region_id'),
             'ssh_key_ids' => $input->getArgument('ssh_key_ids'),
         ));
 

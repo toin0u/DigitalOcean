@@ -51,7 +51,7 @@ class ResizeCommand extends Command
 
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplet      = $digitalOcean->droplets()->resize(
-            $input->getArgument('id'), array('size_id' => $input->getArgument('size_id'))
+            $input->getArgument('id'), array('size_id' => (int) $input->getArgument('size_id'))
         );
 
         $result[] = sprintf('status:   <value>%s</value>', $droplet->status);
