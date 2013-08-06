@@ -158,6 +158,10 @@ try {
     $disableBackupsDroplet = $droplets->disableAutomaticBackups(12345);
     printf("%s, %s\n", $disableBackupsDroplet->status, $disableBackupsDroplet->event_id);
 
+    // Renames a specific droplet to a different name. The argument should be an array with name key.
+    $renameDroplet = $droplets->rename(12345, array('name' => 'new_name'));
+    printf("%s, %s\n", $renameDroplet->status, $renameDroplet->event_id);
+
     // Destroys one of your droplets - this is irreversible !
     $destroyDroplet = $droplets->destroy(12345);
     printf("%s, %s\n", $destroyDroplet->status, $destroyDroplet->event_id);
@@ -389,6 +393,10 @@ $ php digitalocean droplets:enable-automatic-backups 12345
 $ php digitalocean droplets:disable-automatic-backups 12345
 // status:   OK
 // event_id: 6901
+
+$ php digitalocean droplets:rename 12345 new_name
+// status:   OK
+// event_id: 6903
 
 $ php digitalocean droplets:destroy 12345
 // status:   OK
