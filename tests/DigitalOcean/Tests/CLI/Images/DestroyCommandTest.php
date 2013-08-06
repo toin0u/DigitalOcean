@@ -37,7 +37,7 @@ class DestroyCommandTest extends TestCase
         $DestroyCommand
             ->expects($this->any())
             ->method('getDigitalOcean')
-            ->will($this->returnValue($this->getMockDigitalOcean('images', $this->getMockDroplets('destroy', $result))));
+            ->will($this->returnValue($this->getMockDigitalOcean('images', $this->getMockImages('destroy', $result))));
 
         $this->application->add($DestroyCommand);
 
