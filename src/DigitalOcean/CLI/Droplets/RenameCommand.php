@@ -40,7 +40,7 @@ class RenameCommand extends Command
     {
         if (!$this->getHelperSet()->get('dialog')->askConfirmation(
             $output,
-            sprintf('<question>Are you sure to reanme this droplet %s to this new name %s ? (y/N)</question> ',
+            sprintf('<question>Are you sure to rename this droplet %s to this new name %s ? (y/N)</question> ',
                 $input->getArgument('id'), $input->getArgument('name')),
             false
         )) {
