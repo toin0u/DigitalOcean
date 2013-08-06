@@ -231,6 +231,10 @@ try {
     // your data is properly backed up.
     $destroyImage = $images->destroy(12345);
     printf("%s\n", $destroyImage->status); // OK
+
+    // Transferts a specific image to a specified region id. The argument should be an array with region_id key.
+    $transfertImage = $images->transfert(12345, array('region_id' => 67890));
+    printf("%s\n", $transfertImage->status); // OK
 } catch (Exception $e) {
     die($e->getMessage());
 }
@@ -432,6 +436,10 @@ $ php digitalocean images:show 46964
 
 $ php digitalocean images:destroy 12345
 // status: OK
+
+$ php digitalocean images:transfert 12345 67890
+// status:   OK
+// event_id: 32654
 ```
 
 Commands for `Regions`:
