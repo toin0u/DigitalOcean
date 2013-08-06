@@ -179,4 +179,42 @@ JSON
         $this->assertTrue(is_object($destroy));
         $this->assertEquals('OK', $destroy->status);
     }
+
+    public function testTransfertUrl()
+    {
+        $newRegion = array(
+            'region_id' => 123,
+        );
+
+        $this->assertEquals(
+            'https://api.digitalocean.com/images/123/transfert/?region_id=123&client_id=foo&api_key=bar',
+            $this->imageBuildQueryMethod->invoke(
+                $this->images, $this->imageId, ImagesActions::ACTION_TRANSFERT, $newRegion
+            )
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage You need to provide an integer "region_id".
+     */
+    public function testTransfertThrowsRegionIdInvalidArgumentException()
+    {
+        $this->images->transfert($this->imageId, array());
+    }
+
+    public function testTransfert()
+    {
+        $response = <<<JSON
+{"status":"OK","event_id":7501}
+JSON
+        ;
+
+        $images = new Images($this->getMockCredentials(), $this->getMockAdapterReturns($response));
+        $image  = $images->transfert($this->imageId, array('region_id' => 123));
+
+        $this->assertTrue(is_object($image));
+        $this->assertEquals('OK', $image->status);
+        $this->assertSame(7501, $image->event_id);
+    }
 }

@@ -26,4 +26,5 @@ class ImagesActions
     const ACTION_FILTER_MY_IMAGES = 'my_images';
     const ACTION_FILTER_GLOBAL    = 'global';
     const ACTION_DESTROY_IMAGE    = 'destroy';
+    const ACTION_TRANSFERT        = 'transfert';
 }

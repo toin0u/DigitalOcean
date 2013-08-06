@@ -104,4 +104,24 @@ class Images extends AbstractDigitalOcean
     {
         return $this->processQuery($this->buildQuery($imageId, ImagesActions::ACTION_DESTROY_IMAGE));
     }
+
+    /**
+     * Transferts a specific image to a specified region.
+     * The region_id key is required.
+     *
+     * @param integer $imageId    The id of the image.
+     * @param array   $parameters An array of parameters.
+     *
+     * @return StdClass
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function transfert($imageId, array $parameters)
+    {
+        if (!array_key_exists('region_id', $parameters) || !is_int($parameters['region_id'])) {
+            throw new \InvalidArgumentException('You need to provide an integer "region_id".');
+        }
+
+        return $this->processQuery($this->buildQuery($imageId, ImagesActions::ACTION_TRANSFERT, $parameters));
+    }
 }
