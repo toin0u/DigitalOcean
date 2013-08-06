@@ -36,5 +36,6 @@ class DropletsActions
     const ACTION_REBUILD             = 'rebuild';
     const ACTION_ENABLE_BACKUPS      = 'enable_backups';
     const ACTION_DISABLE_BACKUPS     = 'disable_backups';
+    const ACTION_RENAME              = 'rename';
     const ACTION_DESTROY             = 'destroy';
 }

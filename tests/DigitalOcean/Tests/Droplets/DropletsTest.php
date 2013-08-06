@@ -614,6 +614,44 @@ JSON
         $this->assertSame(7501, $droplet->event_id);
     }
 
+    public function testRenameUrl()
+    {
+        $newName = array(
+            'name' => 'foobar',
+        );
+
+        $this->assertEquals(
+            'https://api.digitalocean.com/droplets/123/rename/?name=foobar&client_id=foo&api_key=bar',
+            $this->dropletBuildQueryMethod->invoke(
+                $this->droplets, $this->dropletId, DropletsActions::ACTION_RENAME, $newName
+            )
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage You need to provide a string "name".
+     */
+    public function testRenameThrowsNameInvalidArgumentException()
+    {
+        $this->droplets->rename($this->dropletId, array());
+    }
+
+    public function testRename()
+    {
+        $response = <<<JSON
+{"status":"OK","event_id":4435823}
+JSON
+        ;
+
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
+        $droplet  = $droplets->rename($this->dropletId, array('name' => 'foobar'));
+
+        $this->assertTrue(is_object($droplet));
+        $this->assertEquals('OK', $droplet->status);
+        $this->assertSame(4435823, $droplet->event_id);
+    }
+
     public function testDestroyUrl()
     {
         $this->assertEquals(

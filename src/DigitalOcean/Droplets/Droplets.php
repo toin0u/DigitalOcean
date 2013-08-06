@@ -285,6 +285,26 @@ class Droplets extends AbstractDigitalOcean
     }
 
     /**
+     * Renames a specific droplet to a different name.
+     * The name key is required.
+     *
+     * @param integer $dropletId  The id of the droplet.
+     * @param array   $parameters An array of parameters.
+     *
+     * @return StdClass
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function rename($dropletId, array $parameters)
+    {
+        if (!array_key_exists('name', $parameters) || !is_string($parameters['name'])) {
+            throw new \InvalidArgumentException('You need to provide a string "name".');
+        }
+
+        return $this->processQuery($this->buildQuery($dropletId, DropletsActions::ACTION_RENAME, $parameters));
+    }
+
+    /**
      * Destroys one of your droplets - this is irreversible !
      *
      * @param integer $dropletId The id of the droplet.
