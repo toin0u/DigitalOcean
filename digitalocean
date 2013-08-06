@@ -93,6 +93,7 @@ $console->add(new Images\GetGlobalCommand());
 $console->add(new Images\GetMyImagesCommand());
 $console->add(new Images\ShowCommand());
 $console->add(new Images\DestroyCommand());
+$console->add(new Images\TransfertCommand());
 $console->add(new Regions\GetAllCommand());
 $console->add(new Sizes\GetAllCommand());
 $console->add(new SSHKeys\GetAllCommand());
