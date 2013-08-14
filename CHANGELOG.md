@@ -1,10 +1,13 @@
 CHANGELOG
 =========
 
-1.2.1 (xxxx-xx-xx)
+1.2.1 (2013-08-15)
 ------------------
 
-n/a
+* Fixed: CLI when you do not have images + test
+* Fixed: CLI where there is no droplets + test
+* Fixed: CLI when there is no ssh keys + test
+* Fixed: catch errors when the API returns an old error object response - fix #27
 
 1.2.0 (2013-08-06)
 ------------------
