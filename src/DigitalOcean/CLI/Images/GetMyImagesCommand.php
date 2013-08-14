@@ -35,6 +35,7 @@ class GetMyImagesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $images       = $digitalOcean->images()->getMyImages()->images;
 

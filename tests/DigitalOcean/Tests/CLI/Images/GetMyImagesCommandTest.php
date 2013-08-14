@@ -68,4 +68,30 @@ class GetMyImagesCommandTest extends TestCase
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
         $this->assertRegExp('/2 \| id\:2 \| name\:bar \| distribution\:barqmx dist/', $this->commandTester->getDisplay());
     }
+
+    public function testReturnsNoImages()
+    {
+        $result = (object) array(
+            'images' => array()
+        );
+
+        $GetMyImagesCommand = $this->getMock('\DigitalOcean\CLI\Images\GetMyImagesCommand', array('getDigitalOcean'));
+        $GetMyImagesCommand
+            ->expects($this->any())
+            ->method('getDigitalOcean')
+            ->will($this->returnValue($this->getMockDigitalOcean('images', $this->getMockImages('getMyImages', $result))));
+
+        $this->application->add($GetMyImagesCommand);
+
+        $this->command = $this->application->find('images:mines');
+
+        $this->commandTester = new CommandTester($this->command);
+
+        $this->commandTester->execute(array(
+            'command' => $this->command->getName(),
+        ));
+
+        $this->assertTrue(is_string($this->commandTester->getDisplay()));
+        $this->assertTrue('' === $this->commandTester->getDisplay());
+    }
 }
