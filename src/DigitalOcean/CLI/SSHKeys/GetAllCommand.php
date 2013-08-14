@@ -35,6 +35,7 @@ class GetAllCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $sshKeys      = $digitalOcean->sshKeys()->getAll()->ssh_keys;
 

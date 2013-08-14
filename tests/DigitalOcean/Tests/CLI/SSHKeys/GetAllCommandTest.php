@@ -68,4 +68,30 @@ class GetAllCommandTest extends TestCase
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
         $this->assertRegExp('/2 \| id\:456 \| name\:macbook\-pro/', $this->commandTester->getDisplay());
     }
+
+    public function testReturnsNoKeys()
+    {
+        $result = (object) array(
+            'ssh_keys' => array()
+        );
+
+        $GetAllCommand = $this->getMock('\DigitalOcean\CLI\SSHKeys\GetAllCommand', array('getDigitalOcean'));
+        $GetAllCommand
+            ->expects($this->any())
+            ->method('getDigitalOcean')
+            ->will($this->returnValue($this->getMockDigitalOcean('sshkeys', $this->getMockSSHKeys('getAll', $result))));
+
+        $this->application->add($GetAllCommand);
+
+        $this->command = $this->application->find('ssh-keys:all');
+
+        $this->commandTester = new CommandTester($this->command);
+
+        $this->commandTester->execute(array(
+            'command' => $this->command->getName(),
+        ));
+
+        $this->assertTrue(is_string($this->commandTester->getDisplay()));
+        $this->assertTrue('' === $this->commandTester->getDisplay());
+    }
 }
