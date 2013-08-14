@@ -86,4 +86,30 @@ class ShowAllActiveCommandTest extends TestCase
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
         $this->assertRegExp('/2 \| id\:456 \| name\:bar \| image_id\:34 | size_id\:56 | region_id\:78 | backups_active\:0 | ip_address\:127.0.0.1 | status\:active/', $this->commandTester->getDisplay());
     }
+
+    public function testReturnsNoDroplets()
+    {
+        $result = (object) array(
+            'droplets' => array()
+        );
+
+        $ShowAllActiveCommand = $this->getMock('\DigitalOcean\CLI\Droplets\ShowAllActiveCommand', array('getDigitalOcean'));
+        $ShowAllActiveCommand
+            ->expects($this->any())
+            ->method('getDigitalOcean')
+            ->will($this->returnValue($this->getMockDigitalOcean('droplets', $this->getMockDroplets('showAllActive', $result))));
+
+        $this->application->add($ShowAllActiveCommand);
+
+        $this->command = $this->application->find('droplets:show-all-active');
+
+        $this->commandTester = new CommandTester($this->command);
+
+        $this->commandTester->execute(array(
+            'command' => $this->command->getName(),
+        ));
+
+        $this->assertTrue(is_string($this->commandTester->getDisplay()));
+        $this->assertTrue('' === $this->commandTester->getDisplay());
+    }
 }

@@ -35,6 +35,7 @@ class ShowAllActiveCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplets     = $digitalOcean->droplets()->showAllActive()->droplets;
 
