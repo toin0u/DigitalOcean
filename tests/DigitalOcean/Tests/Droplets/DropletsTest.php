@@ -158,6 +158,21 @@ JSON
         $droplets->show($this->dropletId);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Not Droplets Found: https://api.digitalocean.com/droplets/123/?client_id=foo&api_key=bar
+     */
+    public function testShowThrowsRuntimeExceptionWithOldErrorResponse()
+    {
+        $response = <<<JSON
+{"status":"ERROR","error_message":"Not Droplets Found"}
+JSON
+        ;
+
+        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
+        $droplets->show($this->dropletId);
+    }
+
     public function testCreateUrl()
     {
         $newDroplet = array(

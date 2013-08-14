@@ -103,14 +103,21 @@ abstract class AbstractDigitalOcean
      */
     protected function processQuery($query)
     {
-        $processed = json_decode($this->adapter->getContent($query));
-
-        if (null === $processed) {
+        if (null === $processed = json_decode($this->adapter->getContent($query))) {
             throw new \RuntimeException(sprintf("Impossible to process this query: %s", $query));
         }
 
         if ('ERROR' === $processed->status) {
-            throw new \RuntimeException(sprintf("%s: %s", $processed->message, $query));
+            // it looks that the API does still have the old error object structure.
+            if (isset($processed->error_message)) {
+                $errorMessage = $processed->error_message;
+            }
+
+            if (isset($processed->message)) {
+                $errorMessage = $processed->message;
+            }
+
+            throw new \RuntimeException(sprintf("%s: %s", $errorMessage, $query));
         }
 
         return $processed;
