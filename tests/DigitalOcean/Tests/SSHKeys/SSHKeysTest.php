@@ -189,8 +189,8 @@ JSON
     public function testDestroyUrl()
     {
         $this->assertEquals(
-            'https://api.digitalocean.com/ssh_keys/123/?client_id=foo&api_key=bar',
-            $this->sshKeysBuildQueryMethod->invoke($this->sshKeys, $this->sshKeyId)
+            'https://api.digitalocean.com/ssh_keys/123/destroy/?client_id=foo&api_key=bar',
+            $this->sshKeysBuildQueryMethod->invoke($this->sshKeys, $this->sshKeyId, SSHKeysActions::ACTION_DESTROY)
         );
     }
 
