@@ -135,35 +135,32 @@ JSON
         $response = <<<'JSON'
 {
   "status": "OK",
-  "domains": [
-    {
-      "id": 100,
-      "name": "example.com",
-      "ttl": 1800,
-      "live_zone_file": "$TTL\\t600\\n@\\t\\tIN\\tSOA\\tNS1.DIGITALOCEAN.COM.\\thostmaster.example.com. (\\n\\t\\t\\t1369261882 ; last update: 2013-05-22 22:31:22 UTC\\n\\t\\t\\t3600 ; refresh\\n\\t\\t\\t900 ; retry\\n\\t\\t\\t1209600 ; expire\\n\\t\\t\\t10800 ; 3 hours ttl\\n\\t\\t\\t)\\n             IN      NS      NS1.DIGITALOCEAN.COM.\\n @\\tIN A\\t8.8.8.8\\n",
-      "error": null,
-      "zone_file_with_error": null
-    }
-  ]
+  "domain": {
+    "id": 100,
+    "name": "example.com",
+    "ttl": 1800,
+    "live_zone_file": "$TTL\\t600\\n@\\t\\tIN\\tSOA\\tNS1.DIGITALOCEAN.COM.\\thostmaster.example.com. (\\n\\t\\t\\t1369261882 ; last update: 2013-05-22 22:31:22 UTC\\n\\t\\t\\t3600 ; refresh\\n\\t\\t\\t900 ; retry\\n\\t\\t\\t1209600 ; expire\\n\\t\\t\\t10800 ; 3 hours ttl\\n\\t\\t\\t)\\n             IN      NS      NS1.DIGITALOCEAN.COM.\\n @\\tIN A\\t8.8.8.8\\n",
+    "error": null,
+    "zone_file_with_error": null
+  }
 }
 JSON
         ;
 
         $domains = new Domains($this->getMockCredentials(), $this->getMockAdapterReturns($response));
-        $domains = $domains->show($this->domainId);
+        $domain  = $domains->show($this->domainId);
 
-        $this->assertTrue(is_object($domains));
-        $this->assertEquals('OK', $domains->status);
-        $this->assertTrue(is_array($domains->domains));
+        $this->assertTrue(is_object($domain));
+        $this->assertEquals('OK', $domain->status);
 
-        $domains = $domains->domains[0];
-        $this->assertTrue(is_object($domains));
-        $this->assertSame(100, $domains->id);
-        $this->assertSame('example.com', $domains->name);
-        $this->assertSame(1800, $domains->ttl);
-        $this->assertSame('$TTL\\t600\\n@\\t\\tIN\\tSOA\\tNS1.DIGITALOCEAN.COM.\\thostmaster.example.com. (\\n\\t\\t\\t1369261882 ; last update: 2013-05-22 22:31:22 UTC\\n\\t\\t\\t3600 ; refresh\\n\\t\\t\\t900 ; retry\\n\\t\\t\\t1209600 ; expire\\n\\t\\t\\t10800 ; 3 hours ttl\\n\\t\\t\\t)\\n             IN      NS      NS1.DIGITALOCEAN.COM.\\n @\\tIN A\\t8.8.8.8\\n', $domains->live_zone_file);
-        $this->assertNull($domains->error);
-        $this->assertNull($domains->zone_file_with_error);
+        $domain = $domain->domain;
+        $this->assertTrue(is_object($domain));
+        $this->assertSame(100, $domain->id);
+        $this->assertSame('example.com', $domain->name);
+        $this->assertSame(1800, $domain->ttl);
+        $this->assertSame('$TTL\\t600\\n@\\t\\tIN\\tSOA\\tNS1.DIGITALOCEAN.COM.\\thostmaster.example.com. (\\n\\t\\t\\t1369261882 ; last update: 2013-05-22 22:31:22 UTC\\n\\t\\t\\t3600 ; refresh\\n\\t\\t\\t900 ; retry\\n\\t\\t\\t1209600 ; expire\\n\\t\\t\\t10800 ; 3 hours ttl\\n\\t\\t\\t)\\n             IN      NS      NS1.DIGITALOCEAN.COM.\\n @\\tIN A\\t8.8.8.8\\n', $domain->live_zone_file);
+        $this->assertNull($domain->error);
+        $this->assertNull($domain->zone_file_with_error);
     }
 
     public function testAddUrl()
