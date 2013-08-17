@@ -2,7 +2,7 @@ DigitalOcean
 ============
 
 This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.digitalocean.com/)
-[API](https://www.digitalocean.com/api) via PHP or [CLI](#cli).
+[API](https://api.digitalocean.com/) via PHP or [CLI](#cli).
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOcean.png)](http://travis-ci.org/toin0u/DigitalOcean)
 [![Coverage Status](https://coveralls.io/repos/toin0u/DigitalOcean/badge.png?branch=master)](https://coveralls.io/r/toin0u/DigitalOcean)
