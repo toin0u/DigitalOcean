@@ -174,7 +174,7 @@ JSON
         ;
 
         $images  = new Images($this->getMockCredentials(), $this->getMockAdapterReturns($response));
-        $destroy = $images->destroy($this->imageId, ImagesActions::ACTION_DESTROY_IMAGE);
+        $destroy = $images->destroy($this->imageId);
 
         $this->assertTrue(is_object($destroy));
         $this->assertEquals('OK', $destroy->status);

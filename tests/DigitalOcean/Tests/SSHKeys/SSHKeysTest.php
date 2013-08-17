@@ -202,7 +202,7 @@ JSON
         ;
 
         $sshKeys = new SSHKeys($this->getMockCredentials(), $this->getMockAdapterReturns($response));
-        $destroy = $sshKeys->destroy($this->sshKeyId, SSHKeysActions::ACTION_DESTROY);
+        $destroy = $sshKeys->destroy($this->sshKeyId);
 
         $this->assertTrue(is_object($destroy));
         $this->assertEquals('OK', $destroy->status);
