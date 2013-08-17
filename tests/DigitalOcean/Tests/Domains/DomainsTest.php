@@ -343,39 +343,11 @@ JSON
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage You need to provide the domain_id.
-     */
-    public function testNewRecordWithEmptyParameters()
-    {
-        $this->domains->newRecord($this->domainId, array());
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage You need to provide an integer or a string for domain_id.
-     */
-    public function testNewRecordWithWrongDomainIdValueType()
-    {
-        $this->domains->newRecord($this->domainId, array('domain_id' => null));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage You need to provide the record_type.
-     */
-    public function testNewRecordWithCorrectDomaineId()
-    {
-        $this->domains->newRecord($this->domainId, array('domain_id' => 'foo.org'));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The record_type can only be A, CNAME, NS, TXT, MX or SRV
      */
     public function testNewRecordWithWrongRecordTypeValueType()
     {
         $this->domains->newRecord($this->domainId, array(
-            'domain_id'   => 'foo.org',
             'record_type' => null,
         ));
     }
@@ -387,7 +359,6 @@ JSON
     public function testNewRecordWithCorrectRecordTypeValue()
     {
         $this->domains->newRecord($this->domainId, array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'A',
         ));
     }
@@ -399,7 +370,6 @@ JSON
     public function testNewRecordWithWrongDataAndWrongDataType()
     {
         $this->domains->newRecord($this->domainId, array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'A',
             'data'        => null
         ));
@@ -412,7 +382,6 @@ JSON
     public function testNewRecordTypeAWithoutNameString()
     {
         $this->domains->newRecord($this->domainId, array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'A',
             'data'        => 'data',
         ));
@@ -425,7 +394,6 @@ JSON
     public function testNewRecordTypeSRVWithoutPriorityNumber()
     {
         $this->domains->newRecord($this->domainId, array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'SRV',
             'data'        => 'data',
             'name'        => 'foo',
@@ -439,7 +407,6 @@ JSON
     public function testNewRecordTypeSRVWithoutPortNumber()
     {
         $this->domains->newRecord($this->domainId, array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'SRV',
             'data'        => 'data',
             'name'        => 'foo',
@@ -454,7 +421,6 @@ JSON
     public function testNewRecordTypeSRVWithoutWeightNumber()
     {
         $this->domains->newRecord($this->domainId, array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'SRV',
             'data'        => 'data',
             'name'        => 'foo',
@@ -471,7 +437,6 @@ JSON
         ;
 
         $parameters = array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'A',
             'data'        => 'data',
             'name'        => 'foo',
@@ -503,7 +468,6 @@ JSON
         ;
 
         $parameters = array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'CNAME',
             'data'        => 'data',
             'name'        => 'foo',
@@ -535,7 +499,6 @@ JSON
         ;
 
         $parameters = array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'NS',
             'data'        => 'data',
         );
@@ -566,7 +529,6 @@ JSON
         ;
 
         $parameters = array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'TXT',
             'data'        => 'data',
             'name'        => 'foo'
@@ -598,7 +560,6 @@ JSON
         ;
 
         $parameters = array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'MX',
             'data'        => 'data',
             'priority'    => 1,
@@ -630,7 +591,6 @@ JSON
         ;
 
         $parameters = array(
-            'domain_id'   => 'foo.org',
             'record_type' => 'SRV',
             'data'        => 'data',
             'name'        => 'foo',
@@ -706,7 +666,6 @@ JSON
         ;
 
         $parameters = array(
-            'domain_id'   => 100,
             'record_type' => 'CNAME',
             'data'        => '@',
             'name'        => 'www2'

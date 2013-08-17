@@ -127,7 +127,6 @@ class Domains extends AbstractDigitalOcean
      * Check submitted parameters.
      *
      * The array requires domain_id, record_type and data keys:
-     * - domain_id can be an integer or a string.
      * - record_type can be only 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'.
      * - data is a string, the value of the record.
      *
@@ -143,14 +142,6 @@ class Domains extends AbstractDigitalOcean
      */
     protected function checkParameters(array $parameters)
     {
-        if (!array_key_exists('domain_id', $parameters)) {
-            throw new \InvalidArgumentException('You need to provide the domain_id.');
-        }
-
-        if (!is_string($parameters['domain_id']) && !is_int($parameters['domain_id'])) {
-            throw new \InvalidArgumentException('You need to provide an integer or a string for domain_id.');
-        }
-
         if (!array_key_exists('record_type', $parameters)) {
             throw new \InvalidArgumentException('You need to provide the record_type.');
         }
