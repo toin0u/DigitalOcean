@@ -28,6 +28,23 @@ $ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar require toin0u/digitalocean:@stable
 ```
 
+Or edit `composer.json` and add:
+
+```json
+{
+    "require": {
+        "toin0u/digitalocean": "~1.2"
+    }
+}
+```
+
+And install dependencies:
+
+```bash
+$ curl -sS https://getcomposer.org/installer | php
+$ php composer.phar install
+```
+
 Now you can add the autoloader, and you will have access to the library:
 
 ```php
@@ -260,8 +277,8 @@ try {
     $sshKey = $sshKeys->show(10);
     printf("%s\n", $sshKey->status); // OK
     printf("%s\n", $sshKey->ssh_key->id); // 10
-    printf("%s\n", $sshKey->ssh_kay->name); // office-imac
-    printf("%s\n", $sshKey->ssh_kay->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@office-imac
+    printf("%s\n", $sshKey->ssh_key->name); // office-imac
+    printf("%s\n", $sshKey->ssh_key->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@office-imac
 
     // Adds a new public SSH key to your account. The argument should be an array with name and ssh_pub_key keys.
     $addSshKey = $sshKeys->add(array(
@@ -270,8 +287,8 @@ try {
     ));
     printf("%s\n", $addSshKey->status); // OK
     printf("%s\n", $addSshKey->ssh_key->id); // 12
-    printf("%s\n", $addSshKey->ssh_kay->name); // macbook_pro
-    printf("%s\n", $addSshKey->ssh_kay->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
+    printf("%s\n", $addSshKey->ssh_key->name); // macbook_pro
+    printf("%s\n", $addSshKey->ssh_key->ssh_pub_key); // ssh-dss AHJASDBVY6723bgB...I0Ow== me@macbook_pro
 
     // Edits an existing public SSH key in your account. The argument should be an array with ssh_pub_key key.
     $editSshKey = $sshKeys->edit(12, array(
@@ -279,8 +296,8 @@ try {
     ));
     printf("%s\n", $editSshKey->status); // OK
     printf("%s\n", $editSshKey->ssh_key->id); // 12
-    printf("%s\n", $editSshKey->ssh_kay->name); // macbook_pro
-    printf("%s\n", $editSshKey->ssh_kay->ssh_pub_key); // ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro
+    printf("%s\n", $editSshKey->ssh_key->name); // macbook_pro
+    printf("%s\n", $editSshKey->ssh_key->ssh_pub_key); // ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro
 
     // Deletes the SSH key from your account.
     $destroySshKey = $sshKeys->destroy(12);
@@ -304,6 +321,129 @@ try {
     // ...
     $size6 = $allSizes->sizes[5];
     printf("%s, %s\n", $size1->id, $size1->name); // 38, 16GB
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+```
+
+### Domains ###
+
+```php
+// ...
+$domains = $digitalOcean->domains(); // alias to Domains class.
+try {
+    // Returns all of your current domains.
+    $allDomains = $domains->getAll();
+    printf("%s\n", $allDomains->status); // OK
+    $domain1 = $allDomains->domains[0];
+    printf(
+        "%s, %s, %s, %s, %s, %s\n",
+        $domain1->id, $domain1->name, $domain1->ttl, $domain1->live_zone_file, $domain1->error, $domain1->zone_file_with_error
+    ); // 100, foo.org, 1800, $TTL\\t600\\n@\\t\\tIN\\tSOA\\tNS1.DIGITALOCEAN.COM...., null, null
+    // ...
+    $domain5 = $allDomains->domains[4];
+    // ...
+
+    // Show a specific domain id or domain name.
+    $domain = $domains->show(123);
+    printf(
+        "%s, %s, %s, %s, %s, %s\n",
+        $domain->id, $domain->name, $domain->ttl, $domain->live_zone_file, $domain->error, $domain->zone_file_with_error
+    ); // 101, bar.org, 1800, $TTL\\t600\\n@\\t\\tIN\\tSOA\\tNS1.DIGITALOCEAN.COM...., null, null
+
+    // Adds a new domain with an A record for the specified IP address.
+    // The argument should be an array with name and ip_address keys.
+    $addDomain = $domains->add(array(
+        'name'       => 'baz.org',
+        'ip_address' => '127.0.0.1',
+    ));
+    printf("%s\n", $addDomain->status); // OK
+    printf("%s\n", $addDomain->domain->id); // 12
+    printf("%s\n", $addDomain->domain->name); // macbook_pro
+
+    // Deletes the specified domain id or domaine name.
+    $deleteDomaine = $domains->destroy(123);
+    printf("%s\n", $deleteDomaine->status); // OK
+
+    // Returns all of your current domain records.
+    $records = $domains->getRecords(123);
+    printf("%s\n", $records->status); // OK
+    $record1 = $records->records[0];
+    printf("%s\n", $record1->id); // 33
+    printf("%s\n", $record1->domain_id); // 100
+    printf("%s\n", $record1->record_type); // A
+    printf("%s\n", $record1->name); // foo.org
+    printf("%s\n", $record1->data); // 8.8.8.8
+    printf("%s\n", $record1->priority); // null
+    printf("%s\n", $record1->port); // null
+    printf("%s\n", $record1->weight); // null
+    $record2 = $records->records[1];
+    // ...
+
+    // Adds a new record to a specific domain id or domain name.
+    // The argument should be an array with record_type and data keys.
+    // - record_type can be only 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'.
+    // - data is a string, the value of the record.
+    //
+    // Special cases:
+    // - name is a required string if the record_type is 'A', 'CNAME', 'TXT' or 'SRV'.
+    // - priority is an required integer if the record_type is 'SRV' or 'MX'.
+    // - port is an required integer if the record_type is 'SRV'.
+    // - weight is an required integer if the record_type is 'SRV'.
+    $Addrecord = $domains->newRecord('foo.org', array(
+        'record_type' => 'SRV',
+        'data'        => 'data',
+        'name'        => 'bar',
+        'priority'    => 1,
+        'port'        => 88,
+        'weight'      => 2,
+    ));
+    printf("%s\n", $Addrecord->status); // OK
+    printf("%s\n", $Addrecord->domain_record->id); // 34
+    printf("%s\n", $Addrecord->domain_record->domain_id); // 100
+    printf("%s\n", $Addrecord->domain_record->record_type); // SRV
+    printf("%s\n", $Addrecord->domain_record->name); // bar
+    printf("%s\n", $Addrecord->domain_record->data); // data
+    printf("%s\n", $Addrecord->domain_record->priority); // 1
+    printf("%s\n", $Addrecord->domain_record->port); // 88
+    printf("%s\n", $Addrecord->domain_record->weight); // 2
+
+    // Returns the specified domain record.
+    $record = $domains->getRecord(123, 456);
+    printf("%s\n", $record->status); // OK
+    printf("%s\n", $record->record->id); // 456
+    printf("%s\n", $record->record->domain_id); // 123
+    printf("%s\n", $record->record->record_type); // CNAME
+    printf("%s\n", $record->record->name); // bar.org
+    printf("%s\n", $record->record->data); // 8.8.8.8
+    printf("%s\n", $record->record->priority); // null
+    printf("%s\n", $record->record->port); // null
+    printf("%s\n", $record->record->weight); // null
+
+    // Edits a record to a specific domain. Look at Domains::newRecord parameters.
+    $editRecord = $domains->editRecord(123, 456, array(
+        'record_type' => 'SRV',
+        'data'        => '127.0.0.1',
+        'name'        => 'baz.org',
+        'priority'    => 1,
+        'port'        => 8888,
+        'weight'      => 20,
+    ));
+    printf("%s\n", $editRecord->status); // OK
+    printf("%s\n", $editRecord->record->id); // 456
+    printf("%s\n", $editRecord->record->domain_id); // 123
+    printf("%s\n", $editRecord->record->record_type); // SRV
+    printf("%s\n", $editRecord->record->name); // baz.org
+    printf("%s\n", $editRecord->record->data); // 127.0.0.1
+    printf("%s\n", $editRecord->record->priority); // 1
+    printf("%s\n", $editRecord->record->port); // 8888
+    printf("%s\n", $editRecord->record->weight); // 20
+
+    // Deletes the specified domain record.
+    $deleteRecord = $domains->destroyRecord(123);
+    printf("%s\n", $deleteRecord->status); // OK
+
+
 } catch (Exception $e) {
     die($e->getMessage());
 }
@@ -494,6 +634,71 @@ $ php digitalocean ssh-keys:edit 5556 "ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@n
 // key:  ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro
 
 $ php digitalocean ssh-keys:destroy 5556
+// status: OK
+```
+
+Commands for `Domains`:
+
+```bash
+$ php digitalocean list domains
+
+$ php digitalocean domains:all
+// 1 | id:678 | name:foo.org | ttl:1800 | live_zone_file:... | error: | zone_file_with_error:
+
+$ php digitalocean domains:show 678
+// id:                   1
+// name:                 foo.org
+// ttl:                  1800
+// live_zone_file:       ...
+// error:
+// zone_file_with_error:
+
+$ php digitalocean domains:add bar.org 127.0.0.1
+// status: OK
+// id:     679
+// name:   bar.org
+
+$ php digitalocean domains:destroy 679
+// status: OK
+
+$ php digitalocean domains:records:all
+// 1 | id:49 | domain_id:678 | record_type:A | name:example.com | data:8.8.8.8 | priority: | port: | weight:
+// 2 | id:50 | domain_id:678 | record_type:CNAME | name:www | data:@ | priority: | port: | weight:
+
+$ php digitalocean domains:records:add 678 SRV @ foo 1 2 3
+// status:      OK
+// id:          7
+// domain_id:   678
+// record_type: SRV
+// name:        foo
+// data:        @
+// priority:    1
+// port:        2
+// weight:      3
+
+$ php digitalocean domains:records:show 678 7
+// status:      OK
+// id:          7
+// domain_id:   678
+// record_type: SRV
+// name:        foo
+// data:        @
+// priority:    1
+// port:        2
+// weight:      3
+
+$ php digitalocean domains:records:edit 678 7 SRV new_data new_name 5 8888 10
+// status:      OK
+// id:          7
+// domain_id:   678
+// record_type: SRV
+// name:        new_name
+// data:        new_data
+// priority:    5
+// port:        8888
+// weight:      10
+
+$ php digitalocean domains:records:destroy 678 7
 // status: OK
 ```
 

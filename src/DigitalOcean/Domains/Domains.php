@@ -126,7 +126,7 @@ class Domains extends AbstractDigitalOcean
     /**
      * Check submitted parameters.
      *
-     * The array requires domain_id, record_type and data keys:
+     * The array requires record_type and data keys:
      * - record_type can be only 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'.
      * - data is a string, the value of the record.
      *
