@@ -70,6 +70,15 @@ class DigitalOceanTest extends TestCase
         $this->assertTrue(is_object($sshKeys));
         $this->assertInstanceOf('\\DigitalOcean\\SSHKeys\\SSHKeys', $sshKeys);
     }
+
+    public function testReturnsDomainsInstance()
+    {
+        $digitalOcean = new DigitalOcean($this->getMockCredentials(), $this->getMockAdapter($this->never()));
+        $domains = $digitalOcean->domains();
+
+        $this->assertTrue(is_object($domains));
+        $this->assertInstanceOf('\\DigitalOcean\\Domains\\Domains', $domains);
+    }
 }
 
 class MockDigitalOcean extends DigitalOcean

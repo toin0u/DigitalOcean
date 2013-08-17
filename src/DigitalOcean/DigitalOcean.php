@@ -18,6 +18,7 @@ use DigitalOcean\Regions\Regions;
 use DigitalOcean\Images\Images;
 use DigitalOcean\Sizes\Sizes;
 use DigitalOcean\SSHKeys\SSHKeys;
+use DigitalOcean\Domains\Domains;
 
 /**
  * DigitalOcean class.
@@ -101,5 +102,15 @@ class DigitalOcean
     public function sshKeys()
     {
         return new SSHKeys($this->credentials, $this->adapter);
+    }
+
+    /**
+     * Alias to domains object.
+     *
+     * @return Domains instance.
+     */
+    public function domains()
+    {
+        return new Domains($this->credentials, $this->adapter);
     }
 }
