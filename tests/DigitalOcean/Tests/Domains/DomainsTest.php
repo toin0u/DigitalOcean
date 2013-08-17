@@ -343,6 +343,15 @@ JSON
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage You need to provide the record_type.
+     */
+    public function testNewRecordWithEmptyArray()
+    {
+        $this->domains->newRecord($this->domainId, array());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The record_type can only be A, CNAME, NS, TXT, MX or SRV
      */
     public function testNewRecordWithWrongRecordTypeValueType()
