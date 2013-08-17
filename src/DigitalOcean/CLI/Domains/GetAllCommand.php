@@ -28,7 +28,7 @@ class GetAllCommand extends Command
     {
         $this
             ->setName('domains:all')
-            ->setDescription('Returns all of your current domains')
+            ->setDescription('Return all of your current domains')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
                 'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
     }
