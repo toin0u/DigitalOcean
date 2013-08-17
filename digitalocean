@@ -106,4 +106,5 @@ $console->add(new Domains\GetAllCommand());
 $console->add(new Domains\ShowCommand());
 $console->add(new Domains\AddCommand());
 $console->add(new Domains\DestroyCommand());
+$console->add(new Domains\GetRecordsCommand());
 $console->run();
