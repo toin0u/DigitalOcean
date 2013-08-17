@@ -171,6 +171,22 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return Domains
+     */
+    protected function getMockDomains($method, $returnValue)
+    {
+        $mock = $this->getMockBuilder('\DigitalOcean\Domains\Domains')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock
+            ->expects($this->any())
+            ->method($method)
+            ->will($this->returnValue($returnValue));
+
+        return $mock;
+    }
+
+    /**
      * @return DialogHelper
      */
     protected function getDialogAskConfirmation($returnValue)
