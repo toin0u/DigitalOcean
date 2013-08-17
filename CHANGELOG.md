@@ -1,10 +1,25 @@
 CHANGELOG
 =========
 
-1.2.2 (xxxx-xx-xx)
+1.3.0 (2013-08-18)
 ------------------
 
-n/a
+* Fixed: Domain test
+* Updated: doc
+* Added: CLI domains:records:destroy + tests
+* Added: CLI domains:records:edit + tests
+* Added: CLI domains:record:show + tests
+* Added: CLI domains:records:add + tests
+* Added: CLI domains:records:all + tests
+* Fixed: Domains new record test - domain id is already in the api url
+* Added: CLI domains:destroy + tests
+* Added: CLI domains:add + tests
+* Fixed: DigitalOcean's API url in doc
+* Fixed: Domains::show test
+* Added: CLI domains:show + tests
+* Added: CLI domains:all + tests
+* Added: domains and records + tests - fix #23
+* Fixed: SSH key destroy test
 
 1.2.1 (2013-08-15)
 ------------------
