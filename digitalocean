@@ -104,4 +104,5 @@ $console->add(new SSHKeys\DestroyCommand());
 $console->add(new SSHKeys\EditCommand());
 $console->add(new Domains\GetAllCommand());
 $console->add(new Domains\ShowCommand());
+$console->add(new Domains\AddCommand());
 $console->run();
