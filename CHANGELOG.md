@@ -1,10 +1,12 @@
 CHANGELOG
 =========
 
-1.3.1 (xxxx-xx-xx)
+1.3.1 (2013-08-18)
 ------------------
 
-n/a
+* Added: possibility to set an adapter to instantiated object
+* Fixed: droplet api changes + CLI + tests + doc
+* Updated: doc - add integration with frameworks
 
 1.3.0 (2013-08-18)
 ------------------
