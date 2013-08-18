@@ -708,6 +708,7 @@ $ php digitalocean domains:records:destroy 678 7
 Integration with Frameworks
 ---------------------------
 * [Silex](https://github.com/toin0u/DigitalOcean-silex)
+* [Laravel](https://github.com/toin0u/DigitalOcean-laravel)
 * ...
 
 Unit Tests
