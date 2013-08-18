@@ -83,9 +83,10 @@ use DigitalOcean\Credentials;
 $credentials = new Credentials('YOUR_CLIENT_ID', 'YOUR_API_KEY')
 // Use the default adapter, CurlHttpAdapter.
 $digitalOcean = new DigitalOcean($credentials);
-// Or use BuzzHttpAdatpter.
-$digitalOcean = new DigitalOcean($credentials, new HttpAdapter\BuzzHttpAdapter());
-// ...
+// Or use BuzzHttpAdapter.
+$digitalOcean = new DigitalOcean($credentials, new \HttpAdapter\BuzzHttpAdapter());
+// Or
+$digitalOcean->setAdapter(new \HttpAdapter\BuzzHttpAdapter());
 ```
 
 
