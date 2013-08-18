@@ -56,7 +56,7 @@ class DropletsTest extends TestCase
     public function testShowAllActive()
     {
         $response = <<<JSON
-{"status":"OK","droplets":[{"backups_active":null,"id":123,"image_id":420,"name":"test123","region_id":1,"size_id":33,"status":"active","ip_address":"127.0.0.1"},{"backups_active":1,"id":456,"image_id":420,"name":"test456","region_id":1,"size_id":33,"status":"active","ip_address":"127.0.0.1"}]}
+{"status":"OK","droplets":[{"backups_active":null,"id":123,"image_id":420,"name":"test123","region_id":1,"size_id":33,"status":"active","ip_address":"127.0.0.1","locked":false,"created_at":"2013-01-01T09:30:00Z"},{"backups_active":1,"id":456,"image_id":420,"name":"test456","region_id":1,"size_id":33,"status":"active","ip_address":"127.0.0.1","locked":false,"created_at":"2013-01-01T09:30:00Z"}]}
 JSON
         ;
 
@@ -76,6 +76,8 @@ JSON
         $this->assertSame(33, $droplet1->size_id);
         $this->assertSame('active', $droplet1->status);
         $this->assertSame('127.0.0.1', $droplet1->ip_address);
+        $this->assertSame(false, $droplet1->locked);
+        $this->assertSame('2013-01-01T09:30:00Z', $droplet1->created_at);
 
         $droplet1 = $droplets->droplets[1];
         $this->assertSame(1, $droplet1->backups_active);
@@ -86,6 +88,8 @@ JSON
         $this->assertSame(33, $droplet1->size_id);
         $this->assertSame('active', $droplet1->status);
         $this->assertSame('127.0.0.1', $droplet1->ip_address);
+        $this->assertSame(false, $droplet1->locked);
+        $this->assertSame('2013-01-01T09:30:00Z', $droplet1->created_at);
     }
 
     public function testShowAllActiveWithCredentials()

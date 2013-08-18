@@ -109,7 +109,9 @@ try {
     printf("%s\n", $firstDroplet->region_id); // 2
     printf("%s\n", $firstDroplet->backups_active); // 1
     printf("%s\n", $firstDroplet->ip_address); // 127.0.0.1
+    printf("%s\n", $firstDroplet->locked); // false
     printf("%s\n", $firstDroplet->status); // active
+    printf("%s\n", $firstDroplet->created_at); // 2013-01-01T09:30:00Z
 
     // Returns full information for a specific droplet.
     printf("%s\n", $droplets->show(12345)->droplet->name); // foobar

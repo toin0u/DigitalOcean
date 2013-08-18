@@ -39,6 +39,8 @@ class ShowCommandTest extends TestCase
                 'backups_active' => 1,
                 'ip_address'     => '127.0.0.1',
                 'status'         => 'active',
+                'locked'         => false,
+                'created_at'     => '2013-01-01T09:30:00Z',
             )
         );
 
@@ -82,6 +84,8 @@ region_id:      54
 backups_active: 1
 ip_address:     127.0.0.1
 status:         active
+locked:         
+created_at:     2013-01-01T09:30:00Z
 
 EOT
         ;

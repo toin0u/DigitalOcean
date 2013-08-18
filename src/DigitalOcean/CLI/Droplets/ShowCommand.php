@@ -48,6 +48,8 @@ class ShowCommand extends Command
         $result[] = sprintf('backups_active: <value>%s</value>', $droplet->backups_active);
         $result[] = sprintf('ip_address:     <value>%s</value>', $droplet->ip_address);
         $result[] = sprintf('status:         <value>%s</value>', $droplet->status);
+        $result[] = sprintf('locked:         <value>%s</value>', $droplet->locked);
+        $result[] = sprintf('created_at:     <value>%s</value>', $droplet->created_at);
 
         $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
         $output->writeln($result);

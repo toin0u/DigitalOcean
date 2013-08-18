@@ -40,6 +40,8 @@ class ShowAllActiveCommandTest extends TestCase
                     'backups_active' => 1,
                     'ip_address'     => '127.0.0.1',
                     'status'         => 'active',
+                    'locked'         => false,
+                    'created_at'     => '2013-01-01T09:30:00Z',
                 ),
                 (object) array(
                     'id'             => 456,
@@ -50,6 +52,8 @@ class ShowAllActiveCommandTest extends TestCase
                     'backups_active' => 0,
                     'ip_address'     => '127.0.0.1',
                     'status'         => 'active',
+                    'locked'         => false,
+                    'created_at'     => '2013-01-01T09:30:00Z',
                 ),
             )
         );
@@ -74,7 +78,7 @@ class ShowAllActiveCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/1 \| id\:123 | name\:foo \| image_id\:98 | size_id\:76 | region_id\:54 | backups_active\:1 | ip_address\:127.0.0.1 | status\:active/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/1 \| id\:123 | name\:foo \| image_id\:98 \| size_id\:76 \| region_id\:54 \| backups_active\:1 \| ip_address\:127\.0\.0\.1 \| status\:active \| locked\: \| created_at\:2013\-01\-01T09\:30\:00Z/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteSecondDroplet()
@@ -84,7 +88,7 @@ class ShowAllActiveCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/2 \| id\:456 \| name\:bar \| image_id\:34 | size_id\:56 | region_id\:78 | backups_active\:0 | ip_address\:127.0.0.1 | status\:active/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/2 \| id\:456 \| name\:bar \| image_id\:34 \| size_id\:56 \| region_id\:78 \| backups_active\:0 \| ip_address\:127\.0\.0\.1 \| status\:active \| locked\: | created_at\:2013\-01\-01T09\:30\:00Z/', $this->commandTester->getDisplay());
     }
 
     public function testReturnsNoDroplets()
