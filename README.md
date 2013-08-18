@@ -702,6 +702,10 @@ $ php digitalocean domains:records:destroy 678 7
 // status: OK
 ```
 
+Integration with Frameworks
+---------------------------
+* [Silex](https://github.com/toin0u/DigitalOcean-silex)
+* ...
 
 Unit Tests
 ----------
