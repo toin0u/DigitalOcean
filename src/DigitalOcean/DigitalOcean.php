@@ -41,6 +41,13 @@ class DigitalOcean
      */
     protected $credentials;
 
+    /**
+     * The adapter to use.
+     *
+     * @var HttpAdapterInterface
+     */
+    protected $adapter;
+
 
     /**
      * Constructor.
@@ -51,7 +58,18 @@ class DigitalOcean
     public function __construct(Credentials $credentials, HttpAdapterInterface $adapter = null)
     {
         $this->credentials = $credentials;
-        $this->adapter     = $adapter ?: new CurlHttpAdapter();
+        $this->setAdapter($adapter);
+    }
+
+    /**
+     * Set the adapter to use.
+     * The cURL adapter will be used by default.
+     *
+     * @param HttpAdapterInterface $adapter The HttpAdapter to use (optional).
+     */
+    public function setAdapter(HttpAdapterInterface $adapter = null)
+    {
+        $this->adapter = $adapter ?: new CurlHttpAdapter();
     }
 
     /**
