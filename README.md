@@ -709,6 +709,7 @@ Integration with Frameworks
 ---------------------------
 * [Silex](https://github.com/toin0u/DigitalOcean-silex)
 * [Laravel](https://github.com/toin0u/DigitalOcean-laravel)
+* [Symfony2](https://github.com/toin0u/Toin0uDigitalOceanBundle)
 * ...
 
 Unit Tests
