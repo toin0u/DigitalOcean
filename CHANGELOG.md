@@ -1,10 +1,14 @@
 CHANGELOG
 =========
 
-1.3.2 (xxxx-xx-xx)
+1.4.0 (2013-09-26)
 ------------------
 
-n/a
+* update doc with events examples
+* add events to CLI + tests - fix #29
+* add events + tests - fix #28
+* update doc with symfony2 integration
+* Updated: doc with laravel integration
 
 1.3.1 (2013-08-18)
 ------------------
