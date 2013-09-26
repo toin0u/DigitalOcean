@@ -19,6 +19,7 @@ use DigitalOcean\Images\Images;
 use DigitalOcean\Sizes\Sizes;
 use DigitalOcean\SSHKeys\SSHKeys;
 use DigitalOcean\Domains\Domains;
+use DigitalOcean\Events\Events;
 
 /**
  * DigitalOcean class.
@@ -130,5 +131,15 @@ class DigitalOcean
     public function domains()
     {
         return new Domains($this->credentials, $this->adapter);
+    }
+
+    /**
+     * Alias to events object.
+     *
+     * @return Events instance.
+     */
+    public function events()
+    {
+        return new Events($this->credentials, $this->adapter);
     }
 }

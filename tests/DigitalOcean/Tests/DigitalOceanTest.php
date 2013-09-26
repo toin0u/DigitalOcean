@@ -88,6 +88,15 @@ class DigitalOceanTest extends TestCase
         $this->assertTrue(is_object($domains));
         $this->assertInstanceOf('\\DigitalOcean\\Domains\\Domains', $domains);
     }
+
+    public function testReturnsEventsInstance()
+    {
+        $digitalOcean = new DigitalOcean($this->getMockCredentials(), $this->getMockAdapter($this->never()));
+        $events = $digitalOcean->events();
+
+        $this->assertTrue(is_object($events));
+        $this->assertInstanceOf('\\DigitalOcean\\Events\\Events', $events);
+    }
 }
 
 class MockDigitalOcean extends DigitalOcean
