@@ -33,10 +33,14 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean": "~1.3"
+        "toin0u/digitalocean": "@stable"
     }
 }
 ```
+
+**Protip:** you should browse the
+[`toin0u/digitalocean`](https://packagist.org/packages/toin0u/digitalocean)
+page to choose a stable version to use, avoid the `@stable` meta constraint.
 
 And install dependencies:
 
