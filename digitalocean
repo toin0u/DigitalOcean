@@ -46,6 +46,7 @@ use DigitalOcean\CLI\Regions;
 use DigitalOcean\CLI\Sizes;
 use DigitalOcean\CLI\SSHKeys;
 use DigitalOcean\CLI\Domains;
+use DigitalOcean\CLI\Events;
 
 class Application extends BaseApplication
 {
@@ -111,4 +112,5 @@ $console->add(new Domains\AddRecordCommand());
 $console->add(new Domains\ShowRecordCommand());
 $console->add(new Domains\EditRecordCommand());
 $console->add(new Domains\DestroyRecordCommand());
+$console->add(new Events\ShowCommand());
 $console->run();
