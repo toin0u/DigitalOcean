@@ -72,11 +72,11 @@ class ShowCommandTest extends TestCase
         ));
 
         $expected = <<<'EOT'
-id:                   1
-action_status:        done
-droplet_id:           100824
-event_type_id:        1
-percentage:           100
+id:            1
+action_status: done
+droplet_id:    100824
+event_type_id: 1
+percentage:    100
 
 EOT
         ;

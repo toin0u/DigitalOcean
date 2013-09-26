@@ -452,6 +452,26 @@ try {
 }
 ```
 
+### Events ###
+
+```php
+// ...
+$events = $digitalOcean->events(); // alias to Events class.
+try {
+    // Returns the event details nr. 123
+    $event = $events->show(123);
+    printf("%s\n", $event->status); // OK
+    printf("%s\n", $event->event->id); // 123
+    printf("%s\n", $event->event->action_status); // done
+    printf("%s\n", $event->event->droplet_id); // 100824
+    printf("%s\n", $event->event->event_type_id); // 1
+    printf("%s\n", $event->event->percentage); // 100
+
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+```
+
 ### CLI ###
 
 To use the [Command-Line Interface]((http://i.imgur.com/Zhvk5yr.png)), you need to copy and rename the
@@ -703,6 +723,17 @@ $ php digitalocean domains:records:edit 678 7 SRV new_data new_name 5 8888 10
 
 $ php digitalocean domains:records:destroy 678 7
 // status: OK
+```
+
+Commands for `Events`:
+
+```bash
+$ php digitalocean events:show 123
+// id:            1
+// action_status: done
+// droplet_id:    100824
+// event_type_id: 1
+// percentage:    100
 ```
 
 Integration with Frameworks
