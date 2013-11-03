@@ -30,7 +30,7 @@ class GetAllCommand extends Command
             ->setName('sizes:all')
             ->setDescription('Return all the available sizes that can be used to create a droplet')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

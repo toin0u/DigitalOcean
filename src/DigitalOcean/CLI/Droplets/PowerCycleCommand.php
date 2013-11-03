@@ -32,7 +32,7 @@ class PowerCycleCommand extends Command
             ->setDescription('Power cycle a droplet')
             ->addArgument('id', InputArgument::REQUIRED, 'The droplet id')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

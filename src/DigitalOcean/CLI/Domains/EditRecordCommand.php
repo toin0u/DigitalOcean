@@ -39,7 +39,7 @@ class EditRecordCommand extends Command
             ->addArgument('weight', InputArgument::OPTIONAL, 'The weight of the record requiret for SRV')
             ->setDescription('Add a new record to a specific domain')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
