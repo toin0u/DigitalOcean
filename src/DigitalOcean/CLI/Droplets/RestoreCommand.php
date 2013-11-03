@@ -33,7 +33,7 @@ class RestoreCommand extends Command
             ->addArgument('id', InputArgument::REQUIRED, 'The droplet id')
             ->addArgument('image_id', InputArgument::REQUIRED, 'The image id')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -3,5 +3,4 @@ composer.lock
 composer.phar
 phpunit.xml
 php-cs-fixer.phar
-.DS_Store
 credentials.yml

@@ -32,7 +32,7 @@ class DestroyCommand extends Command
             ->addArgument('id', InputArgument::REQUIRED, 'The SSH key id')
             ->setDescription('Delete the SSH key from your account - this is irreversible !')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

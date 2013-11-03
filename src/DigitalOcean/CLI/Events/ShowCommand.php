@@ -32,7 +32,7 @@ class ShowCommand extends Command
             ->addArgument('id', InputArgument::REQUIRED, 'The id of the event')
             ->setDescription('Reports on the progress of an event')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

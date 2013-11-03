@@ -32,7 +32,7 @@ class ShowCommand extends Command
             ->addArgument('id', InputArgument::REQUIRED, 'The id or the name of the domain')
             ->setDescription('Show a specific domain in your account')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

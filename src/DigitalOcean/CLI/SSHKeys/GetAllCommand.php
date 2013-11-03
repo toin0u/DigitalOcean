@@ -30,7 +30,7 @@ class GetAllCommand extends Command
             ->setName('ssh-keys:all')
             ->setDescription('Return all the available public SSH keys in your account')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

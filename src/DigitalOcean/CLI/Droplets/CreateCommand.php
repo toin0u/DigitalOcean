@@ -36,7 +36,7 @@ class CreateCommand extends Command
             ->addArgument('region_id', InputArgument::REQUIRED, 'The region id')
             ->addArgument('ssh_key_ids', InputArgument::OPTIONAL, 'The comma separated ssh keys ids')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

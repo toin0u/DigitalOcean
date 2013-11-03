@@ -32,7 +32,7 @@ class ShowCommand extends Command
             ->addArgument('id', InputArgument::REQUIRED, 'The SSH key id')
             ->setDescription('Show a specific public SSH key in your account')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
