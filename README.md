@@ -8,6 +8,7 @@ This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.
 [![Coverage Status](https://coveralls.io/repos/toin0u/DigitalOcean/badge.png?branch=master)](https://coveralls.io/r/toin0u/DigitalOcean)
 [![Latest Stable Version](https://poser.pugx.org/toin0u/DigitalOcean/v/stable.png)](https://packagist.org/packages/toin0u/DigitalOcean)
 [![Total Downloads](https://poser.pugx.org/toin0u/DigitalOcean/downloads.png)](https://packagist.org/packages/toin0u/DigitalOcean)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/1c38ce22-9430-4b47-9bc4-841226d2149f/mini.png)](https://insight.sensiolabs.com/projects/1c38ce22-9430-4b47-9bc4-841226d2149f)
 
 
 > DigitalOcean is **built for Developers**, helps to **get things done faster** and to
