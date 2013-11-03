@@ -11,12 +11,12 @@
 
 namespace DigitalOcean\CLI\Droplets;
 
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use DigitalOcean\CLI\Command;
+use DigitalOcean\DigitalOcean;
 
 /**
  * Command-line droplets:create-interactively class.
@@ -31,10 +31,10 @@ class CreateInteractiveCommand extends Command
             ->setName('droplets:create-interactively')
             ->setDescription('Create interactively a new droplet')
             ->addOption('credentials', null, InputOption::VALUE_REQUIRED,
-                'If set, the yaml file which contains your credentials', COMMAND::DEFAULT_CREDENTIALS_FILE);
+                'If set, the yaml file which contains your credentials', Command::DEFAULT_CREDENTIALS_FILE);
     }
 
-    private function getSizes($digitalOcean)
+    private function getSizes(DigitalOcean $digitalOcean)
     {
         foreach ($digitalOcean->sizes()->getAll()->sizes as $size) {
             $sizes[$size->id] = $size->name;
@@ -43,7 +43,7 @@ class CreateInteractiveCommand extends Command
         return $sizes;
     }
 
-    private function getRegions($digitalOcean)
+    private function getRegions(DigitalOcean $digitalOcean)
     {
         foreach ($digitalOcean->regions()->getAll()->regions as $region) {
             $regions[$region->id] = $region->name;
@@ -52,7 +52,7 @@ class CreateInteractiveCommand extends Command
         return $regions;
     }
 
-    private function getImages($digitalOcean, $typeImageId)
+    private function getImages(DigitalOcean $digitalOcean, $typeImageId)
     {
         switch ($typeImageId) {
             case 0:
@@ -73,7 +73,7 @@ class CreateInteractiveCommand extends Command
         return $images;
     }
 
-    private function getSshKeys($digitalOcean)
+    private function getSshKeys(DigitalOcean $digitalOcean)
     {
         $sshKeys = array(0 => 'None (default)');
         foreach ($digitalOcean->sshkeys()->getAll()->ssh_keys as $sshKey) {
