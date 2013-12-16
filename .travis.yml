@@ -11,8 +11,8 @@ matrix:
         - php: hhvm
 
 before_script:
-    - curl -sS http://getcomposer.org/installer | php
-    - php composer.phar install --dev --prefer-source --no-interaction
+    - composer self-update
+    - composer install --dev --prefer-dist --no-interaction
 
 script: phpunit --coverage-text --coverage-clover ./build/logs/clover.xml
 
