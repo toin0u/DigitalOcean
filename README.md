@@ -113,7 +113,7 @@ try {
     printf("%s\n", $firstDroplet->image_id); // 56789
     printf("%s\n", $firstDroplet->size_id); // 66
     printf("%s\n", $firstDroplet->region_id); // 2
-    printf("%s\n", $firstDroplet->backups_active); // 1
+    printf("%s\n", $firstDroplet->backups_active); // true
     printf("%s\n", $firstDroplet->ip_address); // 127.0.0.1
     printf("%s\n", $firstDroplet->private_ip_address); // null
     printf("%s\n", $firstDroplet->locked); // false
@@ -126,11 +126,13 @@ try {
     // Creates a new droplet. The argument should be an array with 4 required keys:
     // name, sized_id, image_id and region_id. ssh_key_ids key is optional but if any it should be a string.
     $createDroplet = $droplets->create(array(
-        'name'        => 'my_new_droplet',
-        'size_id'     => 123,
-        'image_id'    => 456,
-        'region_id'   => 789,
-        'ssh_key_ids' => '12,34,56', // 3 ssh keys
+        'name'               => 'my_new_droplet',
+        'size_id'            => 123,
+        'image_id'           => 456,
+        'region_id'          => 789,
+        'ssh_key_ids'        => '12,34,56', // 3 ssh keys
+        'private_networking' => true,
+        'backups_enabled'    => true,
     ));
     printf("%s\n", $createDroplet->status); // OK
     printf("%s\n", $createDroplet->droplet->event_id); // 78908
