@@ -35,7 +35,7 @@
         "psr-0": { "DigitalOcean": "src/" }
     },
 
-    "bin": ["digitalocean"],
+    "bin": ["bin/digitalocean"],
 
     "extra": {
         "branch-alias": {
