@@ -498,84 +498,129 @@ Commands for `Droplets`:
 $ php digitalocean list droplets
 
 $ php digitalocean droplets:show-all-active
-// 1 | id:12345 | name:my_drop | image_id:54321 | size_id:66 | region_id:2 | backups_active:1 | ip_address:127.0.0.1 | status:active
-// ...
++----+---------+----------+---------+-----------+----------------+------------+--------------------+--------+--------+----------------------+
+| ID | Name    | Image ID | Size ID | Region ID | Backups Active | IP Address | Private IP Address | Status | Locked | Created At           |
++----+---------+----------+---------+-----------+----------------+------------+--------------------+--------+--------+----------------------+
+| 1  | my_drop | 54321    | 66      | 2         | 1              | 127.0.0.1  |                    | active |        | 2013-01-01T09:30:00Z |
++----+---------+----------+---------+-----------+----------------+------------+--------------------+--------+--------+----------------------+
 
 $ php digitalocean droplets:show 12345
-// id:             12345
-// name:           my_drop
-// image_id:       54321
-// size_id:        66
-// region_id:      2
-// backups_active: 1
-// ip_address:     127.0.0.1
-// status:         active
++-------+---------+----------+---------+-----------+----------------+---------+-----------+------------+--------------------+--------+--------+----------------------+
+| ID    | Name    | Image ID | Size ID | Region ID | Backups Active | Backups | Snapshots | IP Address | Private IP Address | Status | Locked | Created At           |
++-------+---------+----------+---------+-----------+----------------+---------+-----------+------------+--------------------+--------+--------+----------------------+
+| 12345 | my_drop | 54321    | 66      | 2         | 1              | 7       | 1         | 127.0.0.1  | 10.10.10.10        | active |        | 2013-01-01T09:30:00Z |
++-------+---------+----------+---------+-----------+----------------+---------+-----------+------------+--------------------+--------+--------+----------------------+
 
 $ php digitalocean droplets:create my_new_droplet 66 1601 2
 // Creates a new droplet named "my_new_droplet" with 512MB and CentOS 5.8 x64 in Amsterdam without any SSH keys.
 
 $ php digitalocean droplets:create test_droplet 65 43462 1 "5555,5556"
 // Creates a new droplet named "test_droplet" with 8BG and Ubuntu 11.04x32 Desktop in New York with 2 SSH keys.
-// status:   OK
-// event_id: 6895
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6895     |
++--------+----------+
 
 $ php digitalocean droplets:create-interactively // see: http://shelr.tv/records/514c2ba796608075f800005a
 
 $ php digitalocean droplets:reboot 12345
-// status:   OK
-// event_id: 6895
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6896     |
++--------+----------+
 
 $ php digitalocean droplets:power-cycle 12345
-// status:   OK
-// event_id: 6895
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6897     |
++--------+----------+
 
 $ php digitalocean droplets:shutdown 12345
-// status:   OK
-// event_id: 6895
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6898     |
++--------+----------+
 
 $ php digitalocean droplets:power-on 12345
-// status:   OK
-// event_id: 6892
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6899     |
++--------+----------+
 
 $ php digitalocean droplets:power-off 12345
-// status:   OK
-// event_id: 6893
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6900     |
++--------+----------+
 
 $ php digitalocean droplets:reset-root-password 12345
-// status:   OK
-// event_id: 6894
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6901     |
++--------+----------+
 
 $ php digitalocean droplets:resize 12345 62 // resizes to 2GB
-// status:   OK
-// event_id: 6895
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6902     |
++--------+----------+
 
 $ php digitalocean droplets:snapshot 12345 my_new_snapshot // the name is optional
-// status:   OK
-// event_id: 6896
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6903     |
++--------+----------+
 
 $ php digitalocean droplets:restore 12345 46964 // restores to "LAMP on Ubuntu 12.04" image
-// status:   OK
-// event_id: 6897
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6904     |
++--------+----------+
 
 $ php digitalocean droplets:rebuild 12345 1601 // rebuilds to "CentOS 5.8 x64" image
-// status:   OK
-// event_id: 6898
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6905     |
++--------+----------+
 
 $ php digitalocean droplets:enable-automatic-backups 12345
-// status:   OK
-// event_id: 6899
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6906     |
++--------+----------+
 
 $ php digitalocean droplets:disable-automatic-backups 12345
-// status:   OK
-// event_id: 6901
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6907     |
++--------+----------+
 
 $ php digitalocean droplets:rename 12345 new_name
-// status:   OK
-// event_id: 6903
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6908     |
++--------+----------+
 
 $ php digitalocean droplets:destroy 12345
-// status:   OK
-// event_id: 6902
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 6909     |
++--------+----------+
 ```
 
 Commands for `Images`:
@@ -584,33 +629,49 @@ Commands for `Images`:
 $ php digitalocean list images
 
 $ php digitalocean images:all
-// 1 | id:13245 | name:my_image 2013-02-17 | distribution:Ubuntu
-// 2 | id:21345 | name:my_image 2013-02-24 | distribution:Ubuntu
-// ...
-// 45 | id:46964 | name:LAMP on Ubuntu 12.04 | distribution:Ubuntu
++--------+----------+--------------+
+| ID     | Name     | Distribution |
++--------+----------+--------------+
+| 13245  | my_image | Ubuntu       |
+| 21345  | my_image | Ubuntu       |
++--------+----------+--------------+
 
 $ php digitalocean images:mines
-// 1 | id:13245 | name:my_image 2013-02-17 | distribution:Ubuntu
-// ...
++--------+----------+--------------+
+| ID     | Name     | Distribution |
++--------+----------+--------------+
+| 13245  | my_image | Ubuntu       |
++--------+----------+--------------+
 
 $ php digitalocean images:global
-// 1 | id:1601 | name:CentOS 5.8 x64 | distribution:CentOS
-// 2 | id:1602 | name:CentOS 5.8 x32 | distribution:CentOS
-// ...
-// 27 | id:43462 | name:Ubuntu 11.04x32 Desktop | distribution:Ubuntu
-// 28 | id:46964 | name:LAMP on Ubuntu 12.04 | distribution:Ubuntu
++--------+-------------------------+--------------+
+| ID     | Name                    | Distribution |
++--------+-------------------------+--------------+
+| 1601   | CentOS 5.8 x64          | CentOS       |
+| 1602   | CentOS 5.8 x32          | CentOS       |
+| 43462  | Ubuntu 11.04x32 Desktop | Ubuntu       |
++--------+-------------------------+--------------+
 
 $ php digitalocean images:show 46964
-// id:           46964
-// name:         LAMP on Ubuntu 12.04
-// distribution: Ubuntu
++--------+----------------------+--------------+
+| ID     | Name                 | Distribution |
++--------+----------------------+--------------+
+| 46964  | LAMP on Ubuntu 12.04 | Ubuntu       |
++--------+----------------------+--------------+
 
 $ php digitalocean images:destroy 12345
-// status: OK
++--------+
+| Status |
++--------+
+| OK     |
++--------+
 
 $ php digitalocean images:transfert 12345 67890
-// status:   OK
-// event_id: 32654
++--------+----------+
+| Status | Event ID |
++--------+----------+
+| OK     | 32654     |
++--------+----------+
 ```
 
 Commands for `Regions`:
@@ -619,8 +680,12 @@ Commands for `Regions`:
 $ php digitalocean list regions
 
 $ php digitalocean regions:all
-// 1 | id:1 | name:New York 1
-// 2 | id:2 | name:Amsterdam 1
++----+-------------+
+| ID | Name        |
++----+-------------+
+| 1  | New York 1  |
+| 2  | Amsterdam 1 |
++----+-------------+
 ```
 
 Commands for `Sizes`:
@@ -629,16 +694,20 @@ Commands for `Sizes`:
 $ php digitalocean list sizes
 
 $ php digitalocean sizes:all
-// 1 | id:66 | name:512MB
-// 2 | id:63 | name:1GB
-// 3 | id:62 | name:2GB
-// 4 | id:64 | name:4GB
-// 5 | id:65 | name:8GB
-// 6 | id:61 | name:16GB
-// 7 | id:60 | name:32GB
-// 8 | id:70 | name:48GB
-// 9 | id:69 | name:64GB
-// 10 | id:68 | name:96GB
++----+-------+
+| ID | Name  |
++----+-------+
+| 1  | 512MB |
+| 2  | 1GB   |
+| 3  | 2GB   |
+| 4  | 4GB   |
+| 5  | 8GB   |
+| 6  | 16GB  |
+| 7  | 21GB  |
+| 8  | 48GB  |
+| 9  | 64GB  |
+| 10 | 96GB  |
++----+-------+
 ```
 
 Commands for `SSH Keys`:
@@ -647,25 +716,48 @@ Commands for `SSH Keys`:
 $ php digitalocean list ssh-keys
 
 $ php digitalocean ssh-keys:all
-// 1 | id:5555 | name:my_pub_ssh_key
++------+----------------+
+| ID   | Name           |
++------+----------------+
+| 5555 | my_pub_ssh_key |
++------+----------------+
 
 $ php digitalocean ssh-keys:show 5555
-// id:   5555
-// name: my_pub_ssh_key
-// key:  ssh-dss AAAAB3NzaC1.......UcviwfZspUcoDbnwk= dev@my_pub_ssh_key
++------+----------------+----------------------------------------------------+
+| ID   | Name           | Pub Key                                            |
++------+----------------+----------------------------------------------------+
+| 5555 | my_pub_ssh_key | ssh-dss                                            |
+|      |                | AHJASDBVY6723bgBVhusadkih238723kjLKFnbkjGFklaslkhf |
+|      |                | .... ZkjCTuZVy6dcH3ag6JlEfju67euWT5yMnT1I0Ow==     |
+|      |                | dev@my_pub_ssh_key                                 |
++------+----------------+----------------------------------------------------+
 
 $ php digitalocean ssh-keys:add my_new_ssh_key "ssh-dss DFDSFSDFC1.......FDSFewf987fdsf= dev@my_new_ssh_key"
-// id:   5556
-// name: my_new_ssh_key
-// key:  ssh-dss DFDSFSDFC1.......FDSFewf987fdsf= dev@my_new_ssh_key
++------+----------------+----------------------------------------------------+
+| ID   | Name           | Pub Key                                            |
++------+----------------+----------------------------------------------------+
+| 5556 | my_new_ssh_key | ssh-dss                                            |
+|      |                | DFDSFSDFC1723bgBVhusadkih238723kjLKFnbkjGFklaslkhf |
+|      |                | .... ZkjCTuZVy6dcH3ag6JlEfju67FDSFewf987fdsf==     |
+|      |                | dev@my_new_ssh_key                                 |
++------+----------------+----------------------------------------------------+
 
 $ php digitalocean ssh-keys:edit 5556 "ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro"
-// id:   5556
-// name: my_new_ssh_key
-// key:  ssh-dss fdSDlfDFdsfRF893...jidfs8Q== me@new_macbook_pro
++------+----------------+----------------------------------------------------+
+| ID   | Name           | Pub Key                                            |
++------+----------------+----------------------------------------------------+
+| 5556 | my_new_ssh_key | ssh-dss                                            |
+|      |                | fdSDlfDFdsfRF893Vhusadkih238723kjLKFnbkjGFklaslkhf |
+|      |                | .... ZkjCTuZVy6dcH3ag6JlEfju67FDSFewfjidfs8Q==     |
+|      |                | me@new_macbook_pro                                 |
++------+----------------+----------------------------------------------------+
 
 $ php digitalocean ssh-keys:destroy 5556
-// status: OK
++--------+
+| Status |
++--------+
+| OK     |
++--------+
 ```
 
 Commands for `Domains`:
@@ -674,74 +766,80 @@ Commands for `Domains`:
 $ php digitalocean list domains
 
 $ php digitalocean domains:all
-// 1 | id:678 | name:foo.org | ttl:1800 | live_zone_file:... | error: | zone_file_with_error:
++-----+---------+------+----------------+-------+----------------------+
+| ID  | Name    | TTL  | Live Zone File | Error | Zone File With Error |
++-----+---------+------+----------------+-------+----------------------+
+| 245 | foo.com | 6800 | ...            |       | ...                  |
+| 678 | foo.org | 1800 | ...            |       | ...                  |
++-----+---------+------+----------------+-------+----------------------+
 
 $ php digitalocean domains:show 678
-// id:                   1
-// name:                 foo.org
-// ttl:                  1800
-// live_zone_file:       ...
-// error:
-// zone_file_with_error:
++-----+---------+------+----------------+-------+----------------------+
+| ID  | Name    | TTL  | Live Zone File | Error | Zone File With Error |
++-----+---------+------+----------------+-------+----------------------+
+| 678 | foo.org | 1800 | ...            |       | ...                  |
++-----+---------+------+----------------+-------+----------------------+
 
 $ php digitalocean domains:add bar.org 127.0.0.1
-// status: OK
-// id:     679
-// name:   bar.org
++--------+-----+---------+
+| Status | ID  | Name    |
++--------+-----+---------+
+| OK     | 679 | bar.org |
++--------+-----+---------+
 
 $ php digitalocean domains:destroy 679
-// status: OK
++--------+
+| Status |
++--------+
+| OK     |
++--------+
 
 $ php digitalocean domains:records:all
-// 1 | id:49 | domain_id:678 | record_type:A | name:example.com | data:8.8.8.8 | priority: | port: | weight:
-// 2 | id:50 | domain_id:678 | record_type:CNAME | name:www | data:@ | priority: | port: | weight:
++----+-----------+-------+-------------+---------+----------+------+--------+
+| ID | Domain ID | Type  | Name        | Data    | Priority | Port | Weight |
++----+-----------+-------+-------------+---------+----------+------+--------+
+| 49 | 678       | A     | example.com | 8.8.8.8 |          |      |        |
+| 50 | 678       | CNAME | www         | @       |          |      |        |
++----+-----------+-------+-------------+---------+----------+------+--------+
 
 $ php digitalocean domains:records:add 678 SRV @ foo 1 2 3
-// status:      OK
-// id:          7
-// domain_id:   678
-// record_type: SRV
-// name:        foo
-// data:        @
-// priority:    1
-// port:        2
-// weight:      3
++--------+----+-----------+------+------+------+----------+------+--------+
+| Status | ID | Domain ID | Type | Name | Data | Priority | Port | Weight |
++--------+----+-----------+------+------+------+----------+------+--------+
+| OK     | 7  | 678       | SRV  | foo  | @    | 1        | 2    | 3      |
++--------+----+-----------+------+------+------+----------+------+--------+
 
 $ php digitalocean domains:records:show 678 7
-// status:      OK
-// id:          7
-// domain_id:   678
-// record_type: SRV
-// name:        foo
-// data:        @
-// priority:    1
-// port:        2
-// weight:      3
++--------+----+-----------+------+------+------+----------+------+--------+
+| Status | ID | Domain ID | Type | Name | Data | Priority | Port | Weight |
++--------+----+-----------+------+------+------+----------+------+--------+
+| OK     | 7  | 678       | SRV  | foo  | @    | 1        | 2    | 3      |
++--------+----+-----------+------+------+------+----------+------+--------+
 
 $ php digitalocean domains:records:edit 678 7 SRV new_data new_name 5 8888 10
-// status:      OK
-// id:          7
-// domain_id:   678
-// record_type: SRV
-// name:        new_name
-// data:        new_data
-// priority:    5
-// port:        8888
-// weight:      10
++--------+----+-----------+------+-----------+-------------+----------+------+--------+
+| Status | ID | Domain ID | Type | Name      | Data        | Priority | Port | Weight |
++--------+----+-----------+------+-----------+-------------+----------+------+--------+
+| OK     | 7  | 678       | SRV  | new_name  | new_data    | 5        | 8888 | 10     |
++--------+----+-----------+------+-----------+-------------+----------+------+--------+
 
 $ php digitalocean domains:records:destroy 678 7
-// status: OK
++--------+
+| Status |
++--------+
+| OK     |
++--------+
 ```
 
 Commands for `Events`:
 
 ```bash
 $ php digitalocean events:show 123
-// id:            1
-// action_status: done
-// droplet_id:    100824
-// event_type_id: 1
-// percentage:    100
++----+--------+------------+---------------+------------+
+| ID | Status | Droplet ID | Event Type ID | Percentage |
++----+--------+------------+---------------+------------+
+| 1  | done   | 100824     | 1             | 100        |
++----+--------+------------+---------------+------------+
 ```
 
 Integration with Frameworks

@@ -59,19 +59,9 @@ class ShowCommand extends Command
         $table = $this->getHelperSet()->get('table');
         $table
             ->setHeaders(array(
-                    'ID',
-                    'Name',
-                    'Image ID',
-                    'Size ID',
-                    'Region ID',
-                    'Backups Active',
-                    'Backups',
-                    'Snapshots',
-                    'IP Address',
-                    'Private IP Address',
-                    'Status',
-                    'Locked',
-                    'Created At'
+                    'ID', 'Name', 'Image ID', 'Size ID', 'Region ID', 'Backups Active',
+                    'Backups', 'Snapshots', 'IP Address', 'Private IP Address', 'Status',
+                    'Locked', 'Created At'
                 ))
             ->setRows($content);
 
