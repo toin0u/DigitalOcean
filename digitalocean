@@ -86,8 +86,6 @@ $console->add(new Droplets\ResizeCommand());
 $console->add(new Droplets\SnapshotCommand());
 $console->add(new Droplets\RestoreCommand());
 $console->add(new Droplets\RebuildCommand());
-$console->add(new Droplets\EnableAutomaticBackupsCommand());
-$console->add(new Droplets\DisableAutomaticBackupsCommand());
 $console->add(new Droplets\RenameCommand());
 $console->add(new Droplets\DestroyCommand());
 $console->add(new Images\GetAllCommand());

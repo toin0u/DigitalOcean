@@ -583,56 +583,6 @@ JSON
         $this->assertSame(7501, $droplet->event_id);
     }
 
-    public function testEnableAutomaticBackupsUrl()
-    {
-        $this->assertEquals(
-            'https://api.digitalocean.com/droplets/123/enable_backups/?client_id=foo&api_key=bar',
-            $this->dropletBuildQueryMethod->invoke(
-                $this->droplets, $this->dropletId, DropletsActions::ACTION_ENABLE_BACKUPS
-            )
-        );
-    }
-
-    public function testEnableAutomaticBackups()
-    {
-        $response = <<<JSON
-{"status":"OK","event_id":7501}
-JSON
-        ;
-
-        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
-        $droplet  = $droplets->enableAutomaticBackups($this->dropletId);
-
-        $this->assertTrue(is_object($droplet));
-        $this->assertEquals('OK', $droplet->status);
-        $this->assertSame(7501, $droplet->event_id);
-    }
-
-    public function testDisableAutomaticBackupUrl()
-    {
-        $this->assertEquals(
-            'https://api.digitalocean.com/droplets/123/disable_backups/?client_id=foo&api_key=bar',
-            $this->dropletBuildQueryMethod->invoke(
-                $this->droplets, $this->dropletId, DropletsActions::ACTION_DISABLE_BACKUPS
-            )
-        );
-    }
-
-    public function testDisableAutomaticBackup()
-    {
-        $response = <<<JSON
-{"status":"OK","event_id":7501}
-JSON
-        ;
-
-        $droplets = new Droplets($this->getMockCredentials(), $this->getMockAdapterReturns($response));
-        $droplet  = $droplets->disableAutomaticBackups($this->dropletId);
-
-        $this->assertTrue(is_object($droplet));
-        $this->assertEquals('OK', $droplet->status);
-        $this->assertSame(7501, $droplet->event_id);
-    }
-
     public function testRenameUrl()
     {
         $newName = array(

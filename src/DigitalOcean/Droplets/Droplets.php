@@ -261,30 +261,6 @@ class Droplets extends AbstractDigitalOcean
     }
 
     /**
-     * Enables automatic backups which run in the background daily to backup your droplet's data.
-     *
-     * @param integer $dropletId The id of the droplet.
-     *
-     * @return StdClass
-     */
-    public function enableAutomaticBackups($dropletId)
-    {
-        return $this->processQuery($this->buildQuery($dropletId, DropletsActions::ACTION_ENABLE_BACKUPS));
-    }
-
-    /**
-     * Disables automatic backups from running to backup your droplet's data.
-     *
-     * @param integer $dropletId The id of the droplet.
-     *
-     * @return StdClass
-     */
-    public function disableAutomaticBackups($dropletId)
-    {
-        return $this->processQuery($this->buildQuery($dropletId, DropletsActions::ACTION_DISABLE_BACKUPS));
-    }
-
-    /**
      * Renames a specific droplet to a different name.
      * The name key is required.
      *
