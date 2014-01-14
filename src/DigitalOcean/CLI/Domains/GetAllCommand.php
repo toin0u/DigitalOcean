@@ -14,7 +14,6 @@ namespace DigitalOcean\CLI\Domains;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use DigitalOcean\CLI\Command;
 
 /**
@@ -35,7 +34,6 @@ class GetAllCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $domains      = $digitalOcean->domains()->getAll()->domains;
 
