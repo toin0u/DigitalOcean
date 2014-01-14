@@ -1,10 +1,17 @@
 CHANGELOG
 =========
 
-1.4.2 (xxxx-xx-xx)
+1.4.2 (2014-01-14)
 ------------------
 
-n/a
+* Updated doc
+* Removeed enable and disable backup to droplets (removed from the API)
+* Updated CLI droplet show command shows backups and snapshots numbers
+* Added private_ip_address property to droplets
+* [BC break] Renamed 'TransfertCommand' to 'TransferCommand' (@geevcookie)
+* Updated CLI outputs with TableHelper (@geevcookie)
+* Added hhvm to travis-ci
+* Added SensioLabsInsight badge
 
 
 1.4.1 (2013-11-03)
@@ -15,11 +22,11 @@ n/a
 1.4.0 (2013-09-26)
 ------------------
 
-* update doc with events examples
-* add events to CLI + tests - fix #29
-* add events + tests - fix #28
-* update doc with symfony2 integration
-* Updated: doc with laravel integration
+* Updated doc with events examples
+* Added events to CLI + tests - fix #29
+* Added events + tests - fix #28
+* Updated doc with symfony2 integration
+* Updated doc with laravel integration
 
 1.3.1 (2013-08-18)
 ------------------
