@@ -40,12 +40,27 @@ class ShowAllActiveCommand extends Command
 
         $content = array();
         foreach ($droplets as $droplet) {
-            $content[] = array($droplet->id, $droplet->name, $droplet->image_id, $droplet->size_id, $droplet->region_id, $droplet->backups_active, $droplet->ip_address, $droplet->status, $droplet->locked, $droplet->created_at);
+            $content[] = array(
+                $droplet->id,
+                $droplet->name,
+                $droplet->image_id,
+                $droplet->size_id,
+                $droplet->region_id,
+                $droplet->backups_active,
+                $droplet->ip_address,
+                $droplet->private_ip_address,
+                $droplet->status,
+                $droplet->locked,
+                $droplet->created_at,
+            );
         }
 
         $table = $this->getHelperSet()->get('table');
         $table
-            ->setHeaders(array('ID', 'Name', 'Image ID', 'Size ID', 'Region ID', 'Backups Active', 'IP Address', 'Status', 'Locked', 'Created At'))
+            ->setHeaders(array(
+                'ID', 'Name', 'Image ID', 'Size ID', 'Region ID', 'Backups Active',
+                'IP Address', 'Private IP Address', 'Status', 'Locked', 'Created At',
+            ))
             ->setRows($content);
 
         $table->render($output);
