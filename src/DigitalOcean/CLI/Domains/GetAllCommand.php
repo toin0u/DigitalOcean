@@ -39,14 +39,23 @@ class GetAllCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $domains      = $digitalOcean->domains()->getAll()->domains;
 
+        $content = array();
         foreach ($domains as $i => $domain) {
-            $result[] = sprintf(
-                '%s | id:<value>%s</value> | name:<value>%s</value> | ttl:<value>%s</value> | live_zone_file:<value>%s</value> | error:<value>%s</value> | zone_file_with_error:<value>%s</value>',
-                ++$i, $domain->id, $domain->name, $domain->ttl, $domain->live_zone_file, $domain->error, $domain->zone_file_with_error
+            $content[] = array(
+                $domain->id,
+                $domain->name,
+                $domain->ttl,
+                preg_replace('/[ ]{2,}|[\t]/', '  ', trim($domain->live_zone_file)),
+                $domain->error,
+                preg_replace('/[ ]{2,}|[\t]/', '  ', trim($domain->zone_file_with_error)),
             );
         }
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name', 'TTL', 'Live Zone File', 'Error', 'Zone File With Error'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

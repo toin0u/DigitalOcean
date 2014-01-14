@@ -100,15 +100,11 @@ class ShowRecordCommandTest extends TestCase
         ));
 
         $expected = <<<'EOT'
-status:      OK
-id:          3
-domain_id:   123
-record_type: CNAME
-name:        www
-data:        @
-priority:    
-port:        
-weight:      
++--------+----+-----------+-------+------+------+----------+------+--------+
+| Status | ID | Domain ID | Type  | Name | Data | Priority | Port | Weight |
++--------+----+-----------+-------+------+------+----------+------+--------+
+| OK     | 3  | 123       | CNAME | www  | @    |          |      |        |
++--------+----+-----------+-------+------+------+----------+------+--------+
 
 EOT
         ;

@@ -94,9 +94,11 @@ class AddCommandTest extends TestCase
         ));
 
         $expected = <<<EOT
-status: OK
-id:     123
-name:   foo.org
++--------+-----+---------+
+| Status | ID  | Name    |
++--------+-----+---------+
+| OK     | 123 | foo.org |
++--------+-----+---------+
 
 EOT
         ;

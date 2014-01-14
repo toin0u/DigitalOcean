@@ -56,7 +56,7 @@ class GetAllCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/1 \| id\:123 \| name\:office\-imac/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 123 \| office\-imac \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteSecondSshKey()
@@ -66,7 +66,7 @@ class GetAllCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/2 \| id\:456 \| name\:macbook\-pro/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 456 \| macbook\-pro \|/', $this->commandTester->getDisplay());
     }
 
     public function testReturnsNoKeys()
@@ -91,7 +91,15 @@ class GetAllCommandTest extends TestCase
             'command' => $this->command->getName(),
         ));
 
+        $expected = <<<EOT
++----+------+
+| ID | Name |
++----+------+
+
+EOT
+        ;
+
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertTrue('' === $this->commandTester->getDisplay());
+        $this->assertTrue($expected === $this->commandTester->getDisplay());
     }
 }

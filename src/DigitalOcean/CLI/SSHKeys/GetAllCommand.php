@@ -35,15 +35,19 @@ class GetAllCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $sshKeys      = $digitalOcean->sshKeys()->getAll()->ssh_keys;
 
-        foreach ($sshKeys as $i => $sshKey) {
-            $result[] = sprintf('%s | id:<value>%s</value> | name:<value>%s</value>', ++$i, $sshKey->id, $sshKey->name);
+        $content = array();
+        foreach ($sshKeys as $sshKey) {
+            $content[] = array($sshKey->id, $sshKey->name);
         }
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

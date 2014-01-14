@@ -50,10 +50,13 @@ class DestroyCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplet      = $digitalOcean->droplets()->destroy($input->getArgument('id'));
 
-        $result[] = sprintf('status:   <value>%s</value>', $droplet->status);
-        $result[] = sprintf('event_id: <value>%s</value>', $droplet->event_id);
+        $content   = array();
+        $content[] = array($droplet->status, $droplet->event_id,);
+        $table     = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status', 'Event ID'))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

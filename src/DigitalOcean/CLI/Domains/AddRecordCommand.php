@@ -54,17 +54,23 @@ class AddRecordCommand extends Command
             'weight'      => $input->getArgument('weight'),
         ));
 
-        $result[] = sprintf('status:      <value>%s</value>', $record->status);
-        $result[] = sprintf('id:          <value>%s</value>', $record->domain_record->id);
-        $result[] = sprintf('domain_id:   <value>%s</value>', $record->domain_record->domain_id);
-        $result[] = sprintf('record_type: <value>%s</value>', $record->domain_record->record_type);
-        $result[] = sprintf('name:        <value>%s</value>', $record->domain_record->name);
-        $result[] = sprintf('data:        <value>%s</value>', $record->domain_record->data);
-        $result[] = sprintf('priority:    <value>%s</value>', $record->domain_record->priority);
-        $result[] = sprintf('port:        <value>%s</value>', $record->domain_record->port);
-        $result[] = sprintf('weight:      <value>%s</value>', $record->domain_record->weight);
+        $content   = array();
+        $content[] = array(
+            $record->status,
+            $record->domain_record->id,
+            $record->domain_record->domain_id,
+            $record->domain_record->record_type,
+            $record->domain_record->name,
+            $record->domain_record->data,
+            $record->domain_record->priority,
+            $record->domain_record->port,
+            $record->domain_record->weight,
+        );
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status', 'ID', 'Domain ID', 'Type', 'Name', 'Data', 'Priority', 'Port', 'Weight'))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

@@ -40,11 +40,18 @@ class ShowCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $sshKey       = $digitalOcean->sshKeys()->show($input->getArgument('id'))->ssh_key;
 
-        $result[] = sprintf('id:   <value>%s</value>', $sshKey->id);
-        $result[] = sprintf('name: <value>%s</value>', $sshKey->name);
-        $result[] = sprintf('key:  <value>%s</value>', $sshKey->ssh_pub_key);
+        $content   = array();
+        $content[] = array(
+            $sshKey->id,
+            $sshKey->name,
+            wordwrap($sshKey->ssh_pub_key, 50, "\n", true)
+        );
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name', 'Pub Key'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

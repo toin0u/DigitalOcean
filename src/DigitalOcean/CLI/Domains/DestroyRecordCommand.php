@@ -54,7 +54,14 @@ class DestroyRecordCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $record       = $digitalOcean->domains()->destroyRecord($input->getArgument('id'), $input->getArgument('record_id'));
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln(sprintf('status: <value>%s</value>', $record->status));
+
+        $content   = array();
+        $content[] = array($record->status);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

@@ -54,10 +54,13 @@ class RebuildCommand extends Command
             $input->getArgument('id'), array('image_id' => (int) $input->getArgument('image_id'))
         );
 
-        $result[] = sprintf('status:   <value>%s</value>', $droplet->status);
-        $result[] = sprintf('event_id: <value>%s</value>', $droplet->event_id);
+        $content   = array();
+        $content[] = array($droplet->status, $droplet->event_id,);
+        $table     = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status', 'Event ID'))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

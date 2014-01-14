@@ -87,8 +87,12 @@ class GetRecordsCommandTest extends TestCase
         ));
 
         $expected = <<<'EOT'
-1 | id:49 | domain_id:100 | record_type:A | name:example.com | data:8.8.8.8 | priority: | port: | weight:
-2 | id:50 | domain_id:100 | record_type:CNAME | name:www | data:@ | priority: | port: | weight:
++----+-----------+-------+-------------+---------+----------+------+--------+
+| ID | Domain ID | Type  | Name        | Data    | Priority | Port | Weight |
++----+-----------+-------+-------------+---------+----------+------+--------+
+| 49 | 100       | A     | example.com | 8.8.8.8 |          |      |        |
+| 50 | 100       | CNAME | www         | @       |          |      |        |
++----+-----------+-------+-------------+---------+----------+------+--------+
 
 EOT
         ;
