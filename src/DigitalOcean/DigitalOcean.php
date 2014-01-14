@@ -32,7 +32,7 @@ class DigitalOcean
      * Version.
      * @see http://semver.org/
      */
-    const VERSION = '1.4.2';
+    const VERSION = '1.4.3-dev';
 
 
     /**

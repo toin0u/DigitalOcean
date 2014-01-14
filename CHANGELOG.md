@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.4.3 (xxxx-xx-xx)
+------------------
+
+n/a
+
 1.4.2 (2014-01-14)
 ------------------
 
@@ -12,7 +17,6 @@ CHANGELOG
 * Updated CLI outputs with TableHelper (@geevcookie)
 * Added hhvm to travis-ci
 * Added SensioLabsInsight badge
-
 
 1.4.1 (2013-11-03)
 ------------------
