@@ -70,7 +70,7 @@ class DestroyCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($commandTester->getDisplay()));
-        $this->assertRegExp('/status:   OK/', $commandTester->getDisplay());
+        $this->assertRegExp('/\| OK     \|/', $commandTester->getDisplay());
     }
 
     public function testExecuteCheckEventIdConfirmed()
@@ -83,8 +83,9 @@ class DestroyCommandTest extends TestCase
             'id'      => 123,
         ));
 
+
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/event_id: 1234/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 1234     \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteCheckStatusNotConfirmed()

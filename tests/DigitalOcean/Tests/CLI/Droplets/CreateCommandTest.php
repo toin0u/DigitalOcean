@@ -75,7 +75,7 @@ class CreateCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/status:   OK/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| OK     \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteCheckEventId()
@@ -89,7 +89,7 @@ class CreateCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/event_id: 1234/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 1234     \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteWithSSHKeysCheckStatus()
@@ -104,7 +104,7 @@ class CreateCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/status:   OK/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| OK     \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteWithSSHKeysCheckEventId()
@@ -119,6 +119,6 @@ class CreateCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/event_id: 1234/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 1234     \|/', $this->commandTester->getDisplay());
     }
 }

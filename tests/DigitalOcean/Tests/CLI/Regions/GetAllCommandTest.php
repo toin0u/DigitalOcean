@@ -56,6 +56,6 @@ class GetAllCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/2 \| id\:2 \| name\:bar 2/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 2  \| bar 2 \|/', $this->commandTester->getDisplay());
     }
 }

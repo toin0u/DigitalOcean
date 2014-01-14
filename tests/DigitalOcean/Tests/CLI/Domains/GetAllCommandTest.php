@@ -70,7 +70,7 @@ class GetAllCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/1 \| id\:1 \| name\:foo\.org/', $this->commandTester->getDisplay());
-        $this->assertRegExp('/2 \| id\:2 \| name\:bar\.org/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 1  \| foo\.org \|/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 2  \| bar\.org \|/', $this->commandTester->getDisplay());
     }
 }

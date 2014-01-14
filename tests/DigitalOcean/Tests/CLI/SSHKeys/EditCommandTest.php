@@ -113,6 +113,6 @@ class EditCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/status: OK/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| OK     \|/', $this->commandTester->getDisplay());
     }
 }

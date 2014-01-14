@@ -65,9 +65,11 @@ class ShowCommandTest extends TestCase
         ));
 
         $expected = <<<EOT
-id:           1
-name:         foo
-distribution: foobar dist
++----+------+--------------+
+| ID | Name | Distribution |
++----+------+--------------+
+| 1  | foo  | foobar dist  |
++----+------+--------------+
 
 EOT
         ;

@@ -19,7 +19,7 @@ use DigitalOcean\CLI\Images\TransfertCommand;
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class TransfertCommandTest extends TestCase
+class TransferCommandTest extends TestCase
 {
     protected $application;
     protected $command;
@@ -34,15 +34,15 @@ class TransfertCommandTest extends TestCase
             'event_id' => 1234,
         );
 
-        $TransfertCommand = $this->getMock('\DigitalOcean\CLI\Images\TransfertCommand', array('getDigitalOcean'));
-        $TransfertCommand
+        $TransferCommand = $this->getMock('\DigitalOcean\CLI\Images\TransferCommand', array('getDigitalOcean'));
+        $TransferCommand
             ->expects($this->any())
             ->method('getDigitalOcean')
             ->will($this->returnValue($this->getMockDigitalOcean('images', $this->getMockImages('transfert', $result))));
 
-        $this->application->add($TransfertCommand);
+        $this->application->add($TransferCommand);
 
-        $this->command = $this->application->find('images:transfert');
+        $this->command = $this->application->find('images:transfer');
 
         $this->commandTester = new CommandTester($this->command);
     }
@@ -82,7 +82,7 @@ class TransfertCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/status:   OK/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| OK     \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteCheckEventIdConfirmed()
@@ -97,7 +97,7 @@ class TransfertCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/event_id: 1234/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 1234     \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteCheckStatusNotConfirmed()

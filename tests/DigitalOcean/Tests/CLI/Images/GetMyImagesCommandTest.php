@@ -56,7 +56,7 @@ class GetMyImagesCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/1 \| id\:1 \| name\:foo \| distribution\:foobar dist/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 1  \| foo  \| foobar dist  \|/', $this->commandTester->getDisplay());
     }
 
     public function testExecuteSecondImage()
@@ -66,7 +66,7 @@ class GetMyImagesCommandTest extends TestCase
         ));
 
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertRegExp('/2 \| id\:2 \| name\:bar \| distribution\:barqmx dist/', $this->commandTester->getDisplay());
+        $this->assertRegExp('/\| 2  \| bar  \| barqmx dist  \|/', $this->commandTester->getDisplay());
     }
 
     public function testReturnsNoImages()
@@ -91,7 +91,16 @@ class GetMyImagesCommandTest extends TestCase
             'command' => $this->command->getName(),
         ));
 
+        $expected = <<<EOT
++----+------+--------------+
+| ID | Name | Distribution |
++----+------+--------------+
+
+EOT
+        ;
+
+
         $this->assertTrue(is_string($this->commandTester->getDisplay()));
-        $this->assertTrue('' === $this->commandTester->getDisplay());
+        $this->assertTrue($expected === $this->commandTester->getDisplay());
     }
 }

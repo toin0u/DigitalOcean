@@ -104,15 +104,11 @@ class AddRecordCommandTest extends TestCase
         ));
 
         $expected = <<<EOT
-status:      OK
-id:          7
-domain_id:   123
-record_type: SRV
-name:        foo
-data:        @
-priority:    1
-port:        2
-weight:      3
++--------+----+-----------+------+------+------+----------+------+--------+
+| Status | ID | Domain ID | Type | Name | Data | Priority | Port | Weight |
++--------+----+-----------+------+------+------+----------+------+--------+
+| OK     | 7  | 123       | SRV  | foo  | @    | 1        | 2    | 3      |
++--------+----+-----------+------+------+------+----------+------+--------+
 
 EOT
         ;

@@ -57,14 +57,14 @@ class AddRecordCommand extends Command
         $content   = array();
         $content[] = array(
             $record->status,
-            $record->record->id,
-            $record->record->domain_id,
-            $record->record->record_type,
-            $record->record->name,
-            $record->record->data,
-            $record->record->priority,
-            $record->record->port,
-            $record->record->weight,
+            $record->domain_record->id,
+            $record->domain_record->domain_id,
+            $record->domain_record->record_type,
+            $record->domain_record->name,
+            $record->domain_record->data,
+            $record->domain_record->priority,
+            $record->domain_record->port,
+            $record->domain_record->weight,
         );
         $table = $this->getHelperSet()->get('table');
         $table
