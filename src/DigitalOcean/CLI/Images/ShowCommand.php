@@ -40,11 +40,18 @@ class ShowCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $image        = $digitalOcean->images()->show($input->getArgument('id'))->image;
 
-        $result[] = sprintf('id:           <value>%s</value>', $image->id);
-        $result[] = sprintf('name:         <value>%s</value>', $image->name);
-        $result[] = sprintf('distribution: <value>%s</value>', $image->distribution);
+        $content   = array();
+        $content[] = array(
+            $image->id,
+            $image->name,
+            $image->distribution
+        );
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name', 'Distribution'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

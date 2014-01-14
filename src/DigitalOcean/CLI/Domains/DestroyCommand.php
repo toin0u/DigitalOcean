@@ -50,7 +50,13 @@ class DestroyCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $domain       = $digitalOcean->domains()->destroy($input->getArgument('id'));
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln(sprintf('status: <value>%s</value>', $domain->status));
+        $content   = array();
+        $content[] = array($domain->status);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

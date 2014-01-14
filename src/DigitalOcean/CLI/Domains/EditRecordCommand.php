@@ -54,17 +54,23 @@ class EditRecordCommand extends Command
             'weight'      => $input->getArgument('weight'),
         ));
 
-        $result[] = sprintf('status:      <value>%s</value>', $record->status);
-        $result[] = sprintf('id:          <value>%s</value>', $record->record->id);
-        $result[] = sprintf('domain_id:   <value>%s</value>', $record->record->domain_id);
-        $result[] = sprintf('record_type: <value>%s</value>', $record->record->record_type);
-        $result[] = sprintf('name:        <value>%s</value>', $record->record->name);
-        $result[] = sprintf('data:        <value>%s</value>', $record->record->data);
-        $result[] = sprintf('priority:    <value>%s</value>', $record->record->priority);
-        $result[] = sprintf('port:        <value>%s</value>', $record->record->port);
-        $result[] = sprintf('weight:      <value>%s</value>', $record->record->weight);
+        $content   = array();
+        $content[] = array(
+            $record->status,
+            $record->record->id,
+            $record->record->domain_id,
+            $record->record->record_type,
+            $record->record->name,
+            $record->record->data,
+            $record->record->priority,
+            $record->record->port,
+            $record->record->weight,
+        );
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status', 'ID', 'Domain ID', 'Type', 'Name', 'Data', 'Priority', 'Port', 'Weight'))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

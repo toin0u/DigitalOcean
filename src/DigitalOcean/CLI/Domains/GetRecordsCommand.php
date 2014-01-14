@@ -37,18 +37,28 @@ class GetRecordsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $records      = $digitalOcean->domains()->getRecords($input->getArgument('id'))->records;
 
+        $content = array();
         foreach ($records as $i => $record) {
-            $result[] = sprintf(
-                '%s | id:<value>%s</value> | domain_id:<value>%s</value> | record_type:<value>%s</value> | name:<value>%s</value> | data:<value>%s</value> | priority:<value>%s</value> | port:<value>%s</value> | weight:<value>%s</value>',
-                ++$i, $record->id, $record->domain_id, $record->record_type, $record->name, $record->data, $record->priority, $record->port, $record->weight
+            $content[] = array(
+                $record->id,
+                $record->domain_id,
+                $record->record_type,
+                $record->name,
+                $record->data,
+                $record->priority,
+                $record->port,
+                $record->weight
             );
         }
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Domain ID', 'Type', 'Name', 'Data', 'Priority', 'Port', 'Weight'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

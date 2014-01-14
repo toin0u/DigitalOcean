@@ -154,10 +154,17 @@ EOT;
             'ssh_key_ids' => $sshKeyId,
         ));
 
-        $result[] = sprintf('status:   <value>%s</value>', $droplet->status);
-        $result[] = sprintf('event_id: <value>%s</value>', $droplet->droplet->event_id);
+        $content   = array();
+        $content[] = array(
+            $droplet->status,
+            $droplet->droplet->event_id,
+        );
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status', 'Event ID'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

@@ -44,11 +44,13 @@ class AddCommand extends Command
             'ip_address' => $input->getArgument('ip_address'),
         ));
 
-        $result[] = sprintf('status: <value>%s</value>', $domain->status);
-        $result[] = sprintf('id:     <value>%s</value>', $domain->domain->id);
-        $result[] = sprintf('name:   <value>%s</value>', $domain->domain->name);
+        $content   = array();
+        $content[] = array($domain->status, $domain->domain->id, $domain->domain->name);
+        $table     = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status', 'ID', 'Name'))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

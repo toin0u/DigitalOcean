@@ -35,18 +35,19 @@ class GetMyImagesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $images       = $digitalOcean->images()->getMyImages()->images;
 
-        foreach ($images as $i => $image) {
-            $result[] = sprintf(
-                '%s | id:<value>%s</value> | name:<value>%s</value> | distribution:<value>%s</value>',
-                ++$i, $image->id, $image->name, $image->distribution
-            );
+        $content = array();
+        foreach ($images as $image) {
+            $content[] = array($image->id, $image->name, $image->distribution);
         }
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name', 'Distribution'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }
