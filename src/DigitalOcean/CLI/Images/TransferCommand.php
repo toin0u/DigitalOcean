@@ -19,11 +19,11 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use DigitalOcean\CLI\Command;
 
 /**
- * Command-line images:transfert class.
+ * Command-line images:transfer class.
  *
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class TransfertCommand extends Command
+class TransferCommand extends Command
 {
     protected function configure()
     {
@@ -54,10 +54,13 @@ class TransfertCommand extends Command
             $input->getArgument('id'), array('region_id' => (int) $input->getArgument('region_id'))
         );
 
-        $result[] = sprintf('status:   <value>%s</value>', $image->status);
-        $result[] = sprintf('event_id: <value>%s</value>', $image->event_id);
+        $content   = array();
+        $content[] = array($image->status, $image->event_id);
+        $table     = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status', 'Event ID'))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

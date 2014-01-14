@@ -40,18 +40,35 @@ class ShowCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplet      = $digitalOcean->droplets()->show($input->getArgument('id'))->droplet;
 
-        $result[] = sprintf('id:             <value>%s</value>', $droplet->id);
-        $result[] = sprintf('name:           <value>%s</value>', $droplet->name);
-        $result[] = sprintf('image_id:       <value>%s</value>', $droplet->image_id);
-        $result[] = sprintf('size_id:        <value>%s</value>', $droplet->size_id);
-        $result[] = sprintf('region_id:      <value>%s</value>', $droplet->region_id);
-        $result[] = sprintf('backups_active: <value>%s</value>', $droplet->backups_active);
-        $result[] = sprintf('ip_address:     <value>%s</value>', $droplet->ip_address);
-        $result[] = sprintf('status:         <value>%s</value>', $droplet->status);
-        $result[] = sprintf('locked:         <value>%s</value>', $droplet->locked);
-        $result[] = sprintf('created_at:     <value>%s</value>', $droplet->created_at);
+        $content   = array();
+        $content[] = array(
+            $droplet->id,
+            $droplet->name,
+            $droplet->image_id,
+            $droplet->size_id,
+            $droplet->region_id,
+            $droplet->backups_active,
+            $droplet->ip_address,
+            $droplet->status,
+            $droplet->locked,
+            $droplet->created_at,
+        );
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array(
+                    'ID',
+                    'Name',
+                    'Image ID',
+                    'Size ID',
+                    'Region ID',
+                    'Backups Active',
+                    'IP Address',
+                    'Status',
+                    'Locked',
+                    'Created At'
+                ))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

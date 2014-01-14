@@ -35,18 +35,19 @@ class ShowAllActiveCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result       = array();
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $droplets     = $digitalOcean->droplets()->showAllActive()->droplets;
 
-        foreach ($droplets as $i => $droplet) {
-            $result[] = sprintf(
-                '%s | id:<value>%s</value> | name:<value>%s</value> | image_id:<value>%s</value> | size_id:<value>%s</value> | region_id:<value>%s</value> | backups_active:<value>%s</value> | ip_address:<value>%s</value> | status:<value>%s</value> | locked:<value>%s</value> | created_at:<value>%s</value>',
-                ++$i, $droplet->id, $droplet->name, $droplet->image_id, $droplet->size_id, $droplet->region_id, $droplet->backups_active, $droplet->ip_address, $droplet->status, $droplet->locked, $droplet->created_at
-            );
+        $content = array();
+        foreach ($droplets as $droplet) {
+            $content[] = array($droplet->id, $droplet->name, $droplet->image_id, $droplet->size_id, $droplet->region_id, $droplet->backups_active, $droplet->ip_address, $droplet->status, $droplet->locked, $droplet->created_at);
         }
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name', 'Image ID', 'Size ID', 'Region ID', 'Backups Active', 'IP Address', 'Status', 'Locked', 'Created At'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

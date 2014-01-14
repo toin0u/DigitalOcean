@@ -38,11 +38,16 @@ class GetAllCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $sizes        = $digitalOcean->sizes()->getAll()->sizes;
 
-        foreach ($sizes as $i => $size) {
-            $result[] = sprintf('%s | id:<value>%s</value> | name:<value>%s</value>', ++$i, $size->id, $size->name);
+        $content = array();
+        foreach ($sizes as $size) {
+            $content[] = array($size->id, $size->name);
         }
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

@@ -50,7 +50,16 @@ class DestroyCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $sshKey       = $digitalOcean->sshKeys()->destroy($input->getArgument('id'));
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln(sprintf('status: <value>%s</value>', $sshKey->status));
+        $content   = array();
+        $content[] = array(
+            $sshKey->status,
+        );
+
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('Status'))
+            ->setRows($content);
+
+        $table->render($output);
     }
 }

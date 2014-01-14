@@ -40,14 +40,20 @@ class ShowCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $domain       = $digitalOcean->domains()->show($input->getArgument('id'))->domain;
 
-        $result[] = sprintf('id:                   <value>%s</value>', $domain->id);
-        $result[] = sprintf('name:                 <value>%s</value>', $domain->name);
-        $result[] = sprintf('ttl:                  <value>%s</value>', $domain->ttl);
-        $result[] = sprintf('live_zone_file:       <value>%s</value>', $domain->live_zone_file);
-        $result[] = sprintf('error:                <value>%s</value>', $domain->error);
-        $result[] = sprintf('zone_file_with_error: <value>%s</value>', $domain->zone_file_with_error);
+        $content   = array();
+        $content[] = array(
+            $domain->id,
+            $domain->name,
+            $domain->ttl,
+            preg_replace('/[ ]{2,}|[\t]/', '  ', trim($domain->live_zone_file)),
+            $domain->error,
+            preg_replace('/[ ]{2,}|[\t]/', '  ', trim($domain->zone_file_with_error)),
+        );
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array('ID', 'Name', 'TTL', 'Live Zone File', 'Error', 'Zone File With Error'))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }

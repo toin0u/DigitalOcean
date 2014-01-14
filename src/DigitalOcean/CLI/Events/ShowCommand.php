@@ -40,13 +40,25 @@ class ShowCommand extends Command
         $digitalOcean = $this->getDigitalOcean($input->getOption('credentials'));
         $event        = $digitalOcean->events()->show($input->getArgument('id'))->event;
 
-        $result[] = sprintf('id:            <value>%s</value>', $event->id);
-        $result[] = sprintf('action_status: <value>%s</value>', $event->action_status);
-        $result[] = sprintf('droplet_id:    <value>%s</value>', $event->droplet_id);
-        $result[] = sprintf('event_type_id: <value>%s</value>', $event->event_type_id);
-        $result[] = sprintf('percentage:    <value>%s</value>', $event->percentage);
+        $content   = array();
+        $content[] = array(
+            $event->id,
+            $event->action_status,
+            $event->droplet_id,
+            $event->event_type_id,
+            $event->percentage,
+        );
+        $table = $this->getHelperSet()->get('table');
+        $table
+            ->setHeaders(array(
+                    'ID',
+                    'Status',
+                    'Droplet ID',
+                    'Event Type ID',
+                    'Percentage',
+                ))
+            ->setRows($content);
 
-        $output->getFormatter()->setStyle('value', new OutputFormatterStyle('green', 'black'));
-        $output->writeln($result);
+        $table->render($output);
     }
 }
