@@ -1,6 +1,9 @@
 DigitalOcean
 ============
 
+The *version 2* of the API will be available soon !
+Please visit [DigitalOceanV2](https://github.com/toin0u/DigitalOceanV2) and contribute :)
+
 This PHP 5.3+ library helps you to interact with the [DigitalOcean](https://www.digitalocean.com/)
 [API](https://api.digitalocean.com/) via PHP or [CLI](#cli).
 
