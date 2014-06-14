@@ -5,10 +5,13 @@ php:
     - 5.4
     - 5.5
     - hhvm
+    - hhvm-nightly
 
 matrix:
     allow_failures:
         - php: hhvm
+        - php: hhvm-nightly
+    fast_finish: true
 
 before_script:
     - composer self-update
@@ -17,3 +20,4 @@ before_script:
 script: phpunit --coverage-text --coverage-clover ./build/logs/clover.xml
 
 after_script: php vendor/bin/coveralls
+
