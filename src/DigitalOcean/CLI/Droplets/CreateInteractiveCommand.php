@@ -136,7 +136,7 @@ Size:    <info>{$sizes[$sizeId]}</info>
 Region:  <info>{$regions[$regionId]}</info>
 Image:   <info>{$images[$imageId]}</info>
 SSH key: <info>{$sshKeys[$sshKeyId]}</info>
-<question>Are you sure to create this droplet ? (y/N)</question> 
+<question>Are you sure to create this droplet ? (y/N)</question>
 EOT;
 
         if (!$dialog->askConfirmation($output, $confirmation, false)) {
