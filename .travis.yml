@@ -12,6 +12,6 @@ before_script:
     - travis_retry composer install --no-interaction --prefer-source --dev
 
 script:
-  - vendor/bin/phpunit --verbose --coverage-text --coverage-clover ./build/logs/clover.xml
+    - vendor/bin/phpunit --verbose --coverage-text --coverage-clover ./build/logs/clover.xml
 
 after_script: php vendor/bin/coveralls
